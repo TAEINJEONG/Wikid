@@ -1,19 +1,9 @@
-// import axios, { AxiosInstance } from "axios";
-
-// const api: AxiosInstance = axios.create({
-//   baseURL: "",
-  
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
-
-// export default api;// utils/axiosInstance.ts
 import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: "https://wikied-api.vercel.app/13-3", // 환경변수를 사용해 API 기본 URL 지정
   timeout: 10000,
+  // withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
