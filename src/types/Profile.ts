@@ -1,3 +1,4 @@
+// 공통되는 데이터 타입
 export interface BaseProfile {
   id: number;
   name: string;
