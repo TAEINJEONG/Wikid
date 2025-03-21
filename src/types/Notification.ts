@@ -1,3 +1,4 @@
+// 알림 상세 내용 (DELETE에는 이것 그대로 사용)
 export interface BasicNotification {
   createdAt?: string;
   content: string;

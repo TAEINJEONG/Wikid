@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -10,7 +10,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
 }
 
 @theme {
@@ -191,6 +190,8 @@
   --text-xs-r: 12px;
   --text-xs-r--line-height: 18px;
   --text-xs-r--font-weight: 400;
+
+  --breakpoint-ultra: 121rem;
 }
 
 @media (prefers-color-scheme: dark) {
