@@ -1,4 +1,5 @@
 import FirstLandingSection from './compoents/FirstLandingSection';
+import SecondLadingSection from './compoents/SecondLadingSection';
 
 const Index = () => {
   return (
@@ -7,47 +8,7 @@ const Index = () => {
 
       {/* 랜딩 페이지 첫 번째 영역 */}
       <FirstLandingSection />
-
-      <div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-        <div>테스트 입니다.</div>
-      </div>
+      <SecondLadingSection />
     </div>
   );
 };
