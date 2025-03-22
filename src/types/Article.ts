@@ -22,7 +22,7 @@ export interface CreateArticle {
 // 게시글 목록 조회
 export interface ArticleListResponse {
   totalCount: number;
-  list: [BasicArticle];
+  list: BasicArticle[];
 }
 
 // 게시글 상세 조회 (GET /{teamId}/articles/{articleId})
