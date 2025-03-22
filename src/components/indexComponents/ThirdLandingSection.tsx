@@ -9,7 +9,7 @@ const ThirdLandingSection = () => {
   const { ref: bellRef, inView: bell } = useInView({ threshold: 0.2 });
   const { ref: alramRef, inView: alram } = useInView({ threshold: 0.2 });
   return (
-    <div className="px-5 py-25 md:py-40 xl:py-50">
+    <div className="px-5 overflow-hidden py-25 md:py-40 xl:py-50">
       <div className="max-w-[335px] md:max-w-[648px] xl:max-w-[924px] w-full mx-auto mb-10 md:mb-20 mb-text-end">
         <p className="mb-[10px] md:mb-[32px] xl:mb-[20px] text-[10px] md:text-[20px] xl:text-[30px] font-[700] text-green-200">
           VIEW
