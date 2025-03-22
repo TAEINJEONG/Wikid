@@ -34,6 +34,8 @@ const FirstLandingSection = () => {
               width={498}
               height={590}
               layout="responsive"
+              priority
+              loading="eager"
             />
           </div>
         </div>
@@ -70,7 +72,7 @@ const FirstLandingSection = () => {
           <div>
             <div
               ref={thirdRef}
-              className={`transition-all duration-1400 transform
+              className={`transition-all duration-1600 transform
                 ${thirdInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
             >
               <div className="w-[192px] h-[250px] md:w-[365px] md:h-[479px] xl:w-[520px] xl:h-[681px]">

@@ -24,7 +24,7 @@ const SecondLadingSection: React.FC = () => {
     let verticalTime = 0; // 누적된 vertical 시간 (밀리초 단위로 변수에 담음)
 
     const delay = 0.5; // 0.5초 지연 (초 단위)
-    const timeScale = 3; // sin 애니메이션의 속도를 조절하는 상수
+    const timeScale = 2; // sin 애니메이션의 속도를 조절하는 상수
 
     const animate = (timestamp: number) => {
       // lastTimestamp는 이전 프레임의 시간을 저장함
@@ -62,7 +62,7 @@ const SecondLadingSection: React.FC = () => {
            3. 현재 이미지의 인덱스를 담은 imageIndex값을 더함
            4. 최종 나온 값을 6을 곱해 y값의 최대 높이를 정함
           */
-          const y = Math.sin((verticalTime / 1000 - delay) * timeScale + imageIndex) * 6;
+          const y = Math.sin((verticalTime / 1000 - delay) * timeScale + imageIndex) * 10;
 
           // 나온 y값을 반영
           el.style.transform = `translateY(${y}px)`;
@@ -78,7 +78,7 @@ const SecondLadingSection: React.FC = () => {
 
   return (
     <div className="bg-white text-end py-25 md:py-40 xl:py-50">
-      <div className="max-w-[335px] md:max-w-[648px] xl:max-w-[924px] w-full mx-auto px-5 mb-10 md:px-12 md:mb-20 mb-text-end">
+      <div className="max-w-[335px] md:max-w-[648px] xl:max-w-[924px] w-full px-5 mx-auto mb-10 md:mb-20 mb-text-end">
         <p className="mb-[10px] md:mb-[32px] xl:mb-[20px] text-[10px] md:text-[20px] xl:text-[30px] font-[700] text-green-200">
           SHARE
         </p>
@@ -88,7 +88,7 @@ const SecondLadingSection: React.FC = () => {
           친구에게 공유해요
         </p>
       </div>
-      <div className="flex items-center overflow-hidden w-full h-[100px] md:h-[160px] xl:h-[370px] relative">
+      <div className="flex items-center overflow-hidden w-full h-[100px] md:h-[170px] xl:h-[380px] relative">
         <div ref={trackRef} className="flex w-max whitespace-nowrap will-change-transform">
           {[...images, ...images, ...images, ...images].map((img, i) => (
             <div
