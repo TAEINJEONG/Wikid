@@ -1,6 +1,6 @@
-import FirstLandingSection from './compoents/FirstLandingSection';
-import SecondLadingSection from './compoents/SecondLadingSection';
-import ThirdLandingSection from './compoents/ThirdLandingSection';
+import FirstLandingSection from '@/components/indexComponents/FirstLandingSection';
+import SecondLadingSection from '@/components/indexComponents/SecondLadingSection';
+import ThirdLandingSection from '@/components/indexComponents/ThirdLandingSection';
 import { GetStaticProps } from 'next';
 
 const Index = () => {
