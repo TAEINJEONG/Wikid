@@ -1,39 +1,132 @@
 import React from 'react';
-import Image from 'next/image';
+import Alarm32 from '@/assets/icons/alarm_32.svg';
+import Alarm from '@/assets/icons/alarm.svg';
+import Align from '@/assets/icons/align.svg';
+import Arrow from '@/assets/icons/arrow.svg';
+import Bold from '@/assets/icons/bold.svg';
+import Bullet from '@/assets/icons/bullet.svg';
+import Camera from '@/assets/icons/camera.svg';
+import Check from '@/assets/icons/check.svg';
+import Close from '@/assets/icons/close.svg';
+import Delete from '@/assets/icons/delete.svg';
+import Edit from '@/assets/icons/edit.svg';
+import Error from '@/assets/icons/error.svg';
+import Expand from '@/assets/icons/expand.svg';
+import Heart from '@/assets/icons/heart.svg';
+import Img from '@/assets/icons/image.svg';
+import Info from '@/assets/icons/info.svg';
+import Italic from '@/assets/icons/italic.svg';
+import Link from '@/assets/icons/link.svg';
+import Lock from '@/assets/icons/lock.svg';
+import Menu from '@/assets/icons/menu.svg';
+import Number from '@/assets/icons/number.svg';
+import Profile from '@/assets/icons/profile.svg';
+import Search from '@/assets/icons/search.svg';
+import Underline from '@/assets/icons/underline.svg';
+import Video from '@/assets/icons/video.svg';
 
-interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
-  name: string;
+interface IconProps {
   size?: number;
-  hoverEffect?: 'scale' | 'opacity' | 'all' | 'none';
   className?: string;
+  onClick?: React.MouseEventHandler<SVGElement>;
 }
 
-const hoverVariants = {
-  scale: 'hover:scale-110 transition-transform duration-200',
-  opacity: 'hover:opacity-75 transition-opacity duration-200',
-  all: 'hover:scale-110 hover:opacity-75 transition-all duration-200',
+export const Alarm32Icon = ({ size = 24, className, onClick }: IconProps) => (
+  <Alarm32 width={size} height={size} className={className} onClick={onClick} />
+);
 
-  none: '',
-};
+export const AlarmIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Alarm width={size} height={size} className={className} onClick={onClick} />
+);
 
-const Icon = ({ name, size = 24, hoverEffect = 'none', className = '', ...props }: IconProps) => {
-  const hoverClass = hoverVariants[hoverEffect];
+export const AlignIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Align width={size} height={size} className={className} onClick={onClick} />
+);
 
-  return (
-    <span
-      className={`inline-flex items-center justify-center ${hoverClass} ${className}`}
-      style={{ width: size, height: size }}
-      {...props}
-    >
-      <Image
-        src={`/icons/${name}.svg`}
-        alt={`${name} icon`}
-        width={size}
-        height={size}
-        className="fill-current"
-      />
-    </span>
-  );
-};
+export const ArrowIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Arrow width={size} height={size} className={className} onClick={onClick} />
+);
 
-export default Icon;
+export const BoldIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Bold width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const BulletIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Bullet width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const CameraIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Camera width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const CheckIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Check width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const CloseIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Close width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const DeleteIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Delete width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const EditIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Edit width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const ErrorIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Error width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const ExpandIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Expand width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const HeartIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Heart width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const ImageIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Img width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const InfoIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Info width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const ItalicIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Italic width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const LinkIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Link width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const LockIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Lock width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const MenuIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Menu width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const NumberIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Number width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const ProfileIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Profile width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const SearchIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Search width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const UnderlineIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Underline width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const VideoIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <Video width={size} height={size} className={className} onClick={onClick} />
+);
