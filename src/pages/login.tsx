@@ -1,11 +1,11 @@
 import { useEffect, useCallback } from 'react';
-import axiosInstance from './api/hello';
+import axiosInstance from '@/lib/api/axios';
 
 const Login = () => {
-  const email = "tein990105@gmail.com";
-  const name = "정태인";
-  const password = "y12341234";
-  const passwordConfirmation = "y12341234";
+  const email = 'tein990105@gmail.com';
+  const name = '정태인';
+  const password = 'y12341234';
+  const passwordConfirmation = 'y12341234';
 
   const login = useCallback(async () => {
     try {
@@ -14,7 +14,7 @@ const Login = () => {
     } catch (error) {
       console.error('signUp 에러 (이미 가입된 사용자일 수 있음):', error);
     }
-    
+
     try {
       await axiosInstance.post('/auth/signIn', { email, password });
     } catch (error) {
