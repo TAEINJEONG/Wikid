@@ -4,19 +4,13 @@ import Image from 'next/image';
 interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   name: string;
   size?: number;
-  color?: string;
+  className?: string;
 }
 
-const Icon: React.FC<IconProps> = ({
-  name,
-  size = 24,
-  color = 'currentColor',
-  className,
-  ...props
-}) => {
+const Icon = ({ name, size = 24, className = '', ...props }: IconProps) => {
   return (
     <span
-      className={`inline-flex items-center justify-center ${color} ${className} `}
+      className={`inline-flex items-center justify-center  ${className}`}
       style={{ width: size, height: size }}
       {...props}
     >
