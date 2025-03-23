@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -10,6 +10,188 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  /* gray 계열 */
+  --color-gray-50: oklch(100% 0 0);
+  --color-gray-100: oklch(97.7% 0.004 286.33);
+  --color-gray-200: oklch(92.44% 0.0149 281.94);
+  --color-gray-300: oklch(84.08% 0.0226 274.69);
+  --color-gray-400: oklch(67.49% 0.0434 275.99);
+  --color-gray-500: oklch(42.51% 0.0423 274);
+  --color-gray-600: oklch(38.11% 0.0452 274.05);
+
+  /* green 계열 */
+  --color-green-100: oklch(97.31% 0.0122 178.03);
+  --color-green-200: oklch(73.17% 0.1115 174.86);
+  --color-green-300: oklch(65.39% 0.1104 173.1);
+
+  /* red 계열 */
+  --color-red-100: oklch(95.71% 0.0152 17.42);
+  --color-red-200: oklch(58.58% 0.1788 24.53);
+
+  /* purple 계열 */
+  --color-purple-100: oklch(62.95% 0.2168 290.89);
+
+  /* yellow 계열 */
+  --color-yellow-100: oklch(88.19% 0.1102 81.48);
+
+  /* -------------- typo -------------- */
+
+  --font-pre: pretendard;
+
+  /* 5xl */
+  --text-5xl: 48px;
+  --text-5xl--line-height: 46px;
+  --text-5xl--font-weight: 600;
+
+  /* 4xl */
+  --text-4xl: 40px;
+  --text-4xl--line-height: 42px;
+  --text-4xl--font-weight: 700;
+
+  /* 3xl-b */
+  --text-3xl-b: 32px;
+  --text-3xl-b--line-height: 42px;
+  --text-3xl-b--font-weight: 700;
+
+  /* 3xl-sb */
+  --text-3xl-sb: 32px;
+  --text-3xl-sb--line-height: 42px;
+  --text-3xl-sb--font-weight: 600;
+
+  /* 2xl-b */
+  --text-2xl-b: 24px;
+  --text-2xl-b--line-height: 32px;
+  --text-2xl-b--font-weight: 700;
+
+  /* 2xl-sb */
+  --text-2xl-sb: 24px;
+  --text-2xl-sb--line-height: 32px;
+  --text-2xl-sb--font-weight: 600;
+
+  /* 2xl-m */
+  --text-2xl-m: 24px;
+  --text-2xl-m--line-height: 32px;
+  --text-2xl-m--font-weight: 500;
+
+  /* 2xl-r */
+  --text-2xl-r: 24px;
+  --text-2xl-r--line-height: 32px;
+  --text-2xl-r--font-weight: 400;
+
+  /* xl-b */
+  --text-xl-b: 20px;
+  --text-xl-b--line-height: 32px;
+  --text-xl-b--font-weight: 700;
+
+  /* xl-sb */
+  --text-xl-sb: 20px;
+  --text-xl-sb--line-height: 32px;
+  --text-xl-sb--font-weight: 600;
+
+  /* xl-m */
+  --text-xl-m: 20px;
+  --text-xl-m--line-height: 32px;
+  --text-xl-m--font-weight: 500;
+
+  /* xl-r */
+  --text-xl-r: 20px;
+  --text-xl-r--line-height: 32px;
+  --text-xl-r--font-weight: 400;
+
+  /* 2lg-b */
+  --text-2lg-b: 18px;
+  --text-2lg-b--line-height: 26px;
+  --text-2lg-b--font-weight: 700;
+
+  /* 2lg-sb */
+  --text-2lg-sb: 18px;
+  --text-2lg-sb--line-height: 26px;
+  --text-2lg-sb--font-weight: 600;
+
+  /* 2lg-m */
+  --text-2lg-m: 18px;
+  --text-2lg-m--line-height: 26px;
+  --text-2lg-m--font-weight: 500;
+
+  /* 2lg-r */
+  --text-2lg-r: 18px;
+  --text-2lg-r--line-height: 26px;
+  --text-2lg-r--font-weight: 400;
+
+  /* 2lg-r */
+  --text-2lg-r: 18px;
+  --text-2lg-r--line-height: 26px;
+  --text-2lg-r--font-weight: 400;
+
+  /* lg-b */
+  --text-lg-b: 16px;
+  --text-lg-b--line-height: 26px;
+  --text-lg-b--font-weight: 700;
+
+  /* lg-sb */
+  --text-lg-sb: 16px;
+  --text-lg-sb--line-height: 26px;
+  --text-lg-sb--font-weight: 600;
+
+  /* lg-m */
+  --text-lg-m: 16px;
+  --text-lg-m--line-height: 26px;
+  --text-lg-m--font-weight: 500;
+
+  /* lg-r */
+  --text-lg-r: 16px;
+  --text-lg-r--line-height: 26px;
+  --text-lg-r--font-weight: 400;
+
+  /* md-b */
+  --text-md-b: 14px;
+  --text-md-b--line-height: 24px;
+  --text-md-b--font-weight: 700;
+
+  /* md-sb */
+  --text-md-sb: 14px;
+  --text-md-sb--line-height: 24px;
+  --text-md-sb--font-weight: 600;
+
+  /* md-m */
+  --text-md-m: 14px;
+  --text-md-m--line-height: 24px;
+  --text-md-m--font-weight: 500;
+
+  /* md-r */
+  --text-md-r: 14px;
+  --text-md-r--line-height: 24px;
+  --text-md-r--font-weight: 400;
+
+  /* sm-sb */
+  --text-sm-sb: 13px;
+  --text-sm-sb--line-height: 22px;
+  --text-sm-sb--font-weight: 600;
+
+  /* sm-m */
+  --text-sm-m: 13px;
+  --text-sm-m--line-height: 22px;
+  --text-sm-m--font-weight: 500;
+
+  /* xs-sb */
+  --text-xs-sb: 12px;
+  --text-xs-sb--line-height: 18px;
+  --text-xs-sb--font-weight: 600;
+
+  /* xs-m */
+  --text-xs-m: 12px;
+  --text-xs-m--line-height: 18px;
+  --text-xs-m--font-weight: 500;
+
+  /* xs-r */
+  --text-xs-r: 12px;
+  --text-xs-r--line-height: 18px;
+  --text-xs-r--font-weight: 400;
+
+  --breakpoint-ultra: 121rem;
 }
 
 @media (prefers-color-scheme: dark) {
