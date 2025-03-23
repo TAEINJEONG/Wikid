@@ -93,9 +93,9 @@ const Boards = () => {
   };
 
   return (
-    <div className="px-5 py-10 mx-auto ">
+    <div className="px-5 py-10 mx-auto">
       {/* Nav 영역 */}
-      <div className="flex justify-between mb-10">
+      <div className="flex justify-between mb-10 xl:w-[1060px] mx-auto">
         <h1 className="text-gray-500 text-2xl-sb">베스트 게시글</h1>
         <button className="text-white bg-green-200 text-md-sb">게시글 등록하기</button>
       </div>
@@ -107,7 +107,7 @@ const Boards = () => {
           grid grid-flow-col grid-rows-1 gap-4
           pb-10 px-5 w-screen overflow-x-scroll
           md:grid-cols-2 md:grid-rows-2 md:w-full md:gap-5 md:overflow-auto
-          xl:overflow-auto xl:w-[1060px] xl:gap-4 xl:pb-15"
+          xl:mx-auto xl:overflow-auto xl:grid-rows-1 xl:w-[1100px] xl:gap-4 xl:pb-15"
         >
           {articleListData?.list.map((article) => (
             <ArticleCard key={article.id} article={article} />
@@ -116,12 +116,12 @@ const Boards = () => {
       </div>
 
       {/* 검색창 영역 */}
-      <div className="flex flex-col justify-between mb-5">
-        <div className="flex justify-between mb-5">
+      <div className="flex flex-col md:flex-row justify-between mb-5 xl:w-[1060px] mx-auto">
+        <div className="flex justify-between w-full mb-5 md:mb-0">
           <input placeholder="제목을 검색해 주세요" />
           <button className="text-white bg-green-200 text-md-sb">검색</button>
         </div>
-        <div className="w-full bg-gray-100">최신순</div>
+        <div className="w-full bg-gray-100 md:max-w-30 xl:max-w-[140px]">최신순</div>
       </div>
 
       {/* articleList 영역 */}
@@ -129,7 +129,7 @@ const Boards = () => {
         {articleListData?.list.map((article) => <ArticleItem key={article.id} article={article} />)}
       </div>
 
-      <div className="hidden md:block">
+      <div className="hidden md:block xl:w-[1060px] mx-auto">
         <table className="w-full text-center mb-15">
           <colgroup>
             <col style={{ width: '20%' }} />
