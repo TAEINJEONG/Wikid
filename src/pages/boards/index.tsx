@@ -1,10 +1,11 @@
 import { ArticleListResponse } from '@/types/Article';
 import { useState } from 'react';
 import ArticleCard from '@/components/Boards/ArticleCard';
+import ArticleItem from '@/components/Boards/ArticleItem';
 
 const Boards = () => {
   const [articleListData] = useState<ArticleListResponse>({
-    totalCount: 10,
+    totalCount: 12,
     list: [
       {
         updatedAt: '2025-03-22T04:27:57.867Z',
@@ -58,9 +59,101 @@ const Boards = () => {
     ],
   });
 
+  // 페이지 그룹 시작점
+  const [currentPageGroupStart, setCurrentPageGroupStart] = useState<number>(1);
+  // 페이지 그룹 단위
+  const pageGroupSize = 5;
+  // 현재 페이지
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // 다음 페이지 그룹이 존재하는지 여부 (currentPageGroupStart + pageGroupSize한 값이 totalCount보다 작거나 같으면 true)
+  const hasNextPageGroup = currentPageGroupStart + pageGroupSize <= articleListData.totalCount;
+
+  const handlePrevPagesRange = () => {
+    if (currentPageGroupStart > 1) {
+      // 페이지 그룹 시작점을 pageGroupSize(5) 만큼 증가
+      setCurrentPageGroupStart((prev) => prev - pageGroupSize);
+      // 현재 페이지를 새 시작 번호로 설정(1 + 5 = 6) 위에서 currentPageGroupStart의 값을 바꿨지만 아직 값이 업데이트 안된 상태
+      setCurrentPage(currentPageGroupStart - pageGroupSize);
+    }
+  };
+
+  const handleNextPagesRange = () => {
+    if (hasNextPageGroup) {
+      // 페이지 그룹 시작점을 pageGroupSize(5) 만큼 증가
+      setCurrentPageGroupStart((prev) => prev + pageGroupSize);
+      // 현재 페이지를 새 시작 번호로 설정(1 + 5 = 6) 위에서 currentPageGroupStart의 값을 바꿨지만 아직 값이 업데이트 안된 상태
+      setCurrentPage(currentPageGroupStart + pageGroupSize);
+    }
+  };
+
+  // 특정 번호를 클릭하면 해당 번호를 페이지로
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <div className="mx-auto flex w-full gap-4 overflow-x-scroll md:w-[624px] md:flex-wrap md:gap-5 xl:flex-nowrap xl:overflow-auto xl:w-[1060px] xl:gap-4 xl:pb-15">
-      {articleListData?.list.map((article) => <ArticleCard key={article.id} article={article} />)}
+    <div className="px-5 py-10 mx-auto ">
+      {/* Nav 영역 */}
+      <div className="flex justify-between mb-10">
+        <h1 className="text-gray-500 text-2xl-sb">베스트 게시글</h1>
+        <button className="text-white bg-green-200 text-md-sb">게시글 등록하기</button>
+      </div>
+
+      {/* articleCard 영역 */}
+      <div className="w-full -mx-5">
+        <div className="pb-10 px-5 w-screen flex gap-4 overflow-x-scroll md:w-[624px] md:flex-wrap md:gap-5 xl:flex-nowrap xl:overflow-auto xl:w-[1060px] xl:gap-4 xl:pb-15">
+          {articleListData?.list.map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))}
+        </div>
+      </div>
+
+      {/* 검색창 영역 */}
+      <div className="flex flex-col justify-between mb-5">
+        <div className="flex justify-between mb-5">
+          <input placeholder="제목을 검색해 주세요" />
+          <button className="text-white bg-green-200 text-md-sb">검색</button>
+        </div>
+        <div className="w-full bg-gray-100">최신순</div>
+      </div>
+
+      {/* articleList 영역 */}
+      <div>
+        {articleListData?.list.map((article) => <ArticleItem key={article.id} article={article} />)}
+      </div>
+
+      {/* 페이지네이션 controller */}
+      <div className="flex gap-[10px] justify-center items-center">
+        <div
+          onClick={handlePrevPagesRange}
+          className="flex justify-center items-center w-[45px] h-[45px] shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-[10px]"
+        >
+          이전
+        </div>
+        {Array.from({ length: pageGroupSize }).map((_, index) => {
+          const pageNumber = currentPageGroupStart + index;
+          return (
+            pageNumber <= articleListData.totalCount && (
+              <div
+                key={pageNumber}
+                onClick={() => handlePageChange(pageNumber)}
+                className={`flex justify-center items-center w-[45px] h-[45px] shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-[10px]
+                  ${currentPage === pageNumber ? 'text-green-200' : 'text-gray-400'}
+                `}
+              >
+                {pageNumber}
+              </div>
+            )
+          );
+        })}
+        <div
+          onClick={handleNextPagesRange}
+          className="flex justify-center items-center w-[45px] h-[45px] shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-[10px]"
+        >
+          다음
+        </div>
+      </div>
     </div>
   );
 };
