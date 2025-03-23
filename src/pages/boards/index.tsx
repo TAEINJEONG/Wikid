@@ -71,9 +71,9 @@ const Boards = () => {
 
   const handlePrevPagesRange = () => {
     if (currentPageGroupStart > 1) {
-      // 페이지 그룹 시작점을 pageGroupSize(5) 만큼 증가
+      // 페이지 그룹 시작점을 pageGroupSize(5) 만큼 감소
       setCurrentPageGroupStart((prev) => prev - pageGroupSize);
-      // 현재 페이지를 새 시작 번호로 설정(1 + 5 = 6) 위에서 currentPageGroupStart의 값을 바꿨지만 아직 값이 업데이트 안된 상태
+      // 현재 페이지를 새 시작 번호로 설정(5 - 6 = 1) 위에서 currentPageGroupStart의 값을 바꿨지만 아직 값이 업데이트 안된 상태
       setCurrentPage(currentPageGroupStart - pageGroupSize);
     }
   };
@@ -101,8 +101,14 @@ const Boards = () => {
       </div>
 
       {/* articleCard 영역 */}
-      <div className="w-full -mx-5">
-        <div className="pb-10 px-5 w-screen flex gap-4 overflow-x-scroll md:w-[624px] md:flex-wrap md:gap-5 xl:flex-nowrap xl:overflow-auto xl:w-[1060px] xl:gap-4 xl:pb-15">
+      <div className="-mx-5">
+        <div
+          className="
+          grid grid-flow-col grid-rows-1 gap-4
+          pb-10 px-5 w-screen overflow-x-scroll
+          md:grid-cols-2 md:grid-rows-2 md:w-full md:gap-5 md:overflow-auto
+          xl:overflow-auto xl:w-[1060px] xl:gap-4 xl:pb-15"
+        >
           {articleListData?.list.map((article) => (
             <ArticleCard key={article.id} article={article} />
           ))}
@@ -119,8 +125,44 @@ const Boards = () => {
       </div>
 
       {/* articleList 영역 */}
-      <div>
+      <div className="block md:hidden">
         {articleListData?.list.map((article) => <ArticleItem key={article.id} article={article} />)}
+      </div>
+
+      <div className="hidden md:block">
+        <table className="w-full text-center mb-15">
+          <colgroup>
+            <col style={{ width: '20%' }} />
+            <col style={{ width: '40%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '20%' }} />
+          </colgroup>
+          <thead>
+            <tr className="border-gray-200 border-b-1 border-t-1">
+              <th className="py-3 text-gray-400 text-lg-r">번호</th>
+              <th className="py-3 text-gray-400 text-lg-r">제목</th>
+              <th className="py-3 text-gray-400 text-lg-r">작성자</th>
+              <th className="py-3 text-gray-400 text-lg-r">좋아요</th>
+              <th className="py-3 text-gray-400 text-lg-r">날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            {articleListData.list.map((article) => (
+              <tr key={article.id}>
+                <td className="py-3 text-gray-500 border-gray-200 text-lg-r border-b-1">134</td>
+                <td className="py-3 text-gray-500 border-gray-200 text-lg-r border-b-1">
+                  게시물 제목입니다.
+                </td>
+                <td className="py-3 text-gray-500 border-gray-200 text-lg-r border-b-1">박동우</td>
+                <td className="py-3 text-gray-500 border-gray-200 text-lg-r border-b-1">24</td>
+                <td className="py-3 text-gray-500 border-gray-200 text-lg-r border-b-1">
+                  2024.02.24.
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* 페이지네이션 controller */}

@@ -15,13 +15,13 @@ const ArticleCard = ({ article }: articleProps) => {
       })
     : '';
   return (
-    <div className="w-[250px] h-[200px] rounded-[10px] flex-shrink-0 md:w-[302px] xl:w-[250px]">
+    <div className="w-[250px] h-[200px] rounded-[10px] flex-shrink-0 md:w-full xl:w-[250px]">
       <Image
         src={article.image}
         alt="article 이미지"
         width={250}
         height={200}
-        className="w-[250px] h-[131px] md:w-[302px] object-cover rounded-t-[10px]"
+        className="w-[250px] h-[131px] md:w-full object-cover rounded-t-[10px]"
       />
       <div className="shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-b-[10px] px-5 py-3">
         <p className="text-gray-500 truncate text-lg-sb">{article.title}</p>
