@@ -93,9 +93,9 @@ const Boards = () => {
   };
 
   return (
-    <div className="px-5 py-10 mx-auto">
+    <div className="px-5 py-10 mx-auto max-w-[1060px]">
       {/* Nav 영역 */}
-      <div className="flex justify-between mb-10 xl:w-[1060px] mx-auto">
+      <div className="flex justify-between mb-10">
         <h1 className="text-gray-500 text-2xl-sb">베스트 게시글</h1>
         <button className="text-white bg-green-200 text-md-sb">게시글 등록하기</button>
       </div>
@@ -116,7 +116,7 @@ const Boards = () => {
       </div>
 
       {/* 검색창 영역 */}
-      <div className="flex flex-col md:flex-row justify-between mb-5 xl:w-[1060px] mx-auto">
+      <div className="flex flex-col justify-between mb-5 md:flex-row ">
         <div className="flex justify-between w-full mb-5 md:mb-0">
           <input placeholder="제목을 검색해 주세요" />
           <button className="text-white bg-green-200 text-md-sb">검색</button>
@@ -129,7 +129,7 @@ const Boards = () => {
         {articleListData?.list.map((article) => <ArticleItem key={article.id} article={article} />)}
       </div>
 
-      <div className="hidden md:block xl:w-[1060px] mx-auto">
+      <div className="hidden md:block">
         <table className="w-full text-center mb-15">
           <colgroup>
             <col style={{ width: '20%' }} />
