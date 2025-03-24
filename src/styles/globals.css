@@ -201,8 +201,19 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* react-quill-new 스타일 */
+.my-custom-editor .ql-container {
+  @apply rounded-lg bg-gray-50;
+}
+
+.my-custom-editor .ql-container {
+  border: none !important;
+}
+
+.my-custom-editor .ql-editor {
+  color: oklch(38.11% 0.0452 274.05) !important;
+}
+
+.my-custom-editor .ql-editor {
+  @apply p-4 min-h-[400px] text-lg-r placeholder:text-gray-300;
 }

@@ -1,7 +1,8 @@
 import { ArticleListResponse } from '@/types/Article';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ArticleCard from '@/components/Boards/ArticleCard';
 import ArticleItem from '@/components/Boards/ArticleItem';
+import axiosInstance from '@/lib/api/axios';
 
 const Boards = () => {
   const [articleListData] = useState<ArticleListResponse>({
@@ -58,6 +59,7 @@ const Boards = () => {
       },
     ],
   });
+  const [testData, setTestData] = useState();
 
   // 페이지 그룹 시작점
   const [currentPageGroupStart, setCurrentPageGroupStart] = useState<number>(1);
@@ -91,6 +93,19 @@ const Boards = () => {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  const fetchArticleList = useCallback(async () => {
+    try {
+      const res = await axiosInstance.get('/articles');
+      setTestData(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchArticleList();
+  }, [fetchArticleList]);
 
   return (
     <div className="px-5 py-10 mx-auto max-w-[1060px]">
