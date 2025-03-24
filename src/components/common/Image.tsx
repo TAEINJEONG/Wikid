@@ -20,13 +20,10 @@ const AppImage: React.FC<AppImageProps> = ({
   objectFit = 'cover',
   ...props
 }) => {
-  const isFill = !width && !height;
-  const layout = isFill ? 'fill' : 'responsive';
-
   const variantStyles: Record<Variant, string> = {
     default: '',
-    fill: 'object-cover w-full h-full',
-    responsive: 'object-contain w-full h-auto',
+    fill: 'w-full h-full',
+    responsive: 'w-full h-auto',
   };
 
   const objectFitStyle = {
@@ -43,7 +40,7 @@ const AppImage: React.FC<AppImageProps> = ({
       alt={alt}
       width={width}
       height={height}
-      layout={layout}
+      layout={variant === 'fill' ? 'fill' : width && height ? 'intrinsic' : 'responsive'}
       className={`${variantStyles[variant]} ${objectFitStyle} ${className}`.trim()}
       {...props}
     />
