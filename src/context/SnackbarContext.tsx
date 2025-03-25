@@ -1,5 +1,4 @@
-// src/context/SnackbarContext.tsx
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Snackbar from '@/components/common/Snackbar';
 
@@ -7,7 +6,7 @@ type SnackbarType = 'gray' | 'green' | 'red';
 type SnackbarPosition = 'top' | 'bottom';
 
 interface SnackbarItem {
-  id: number;
+  id: string;
   message: string;
   type: SnackbarType;
   position: SnackbarPosition;
@@ -37,6 +36,11 @@ export const useSnackbar = () => {
 
 export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [snackbars, setSnackbars] = useState<SnackbarItem[]>([]);
+  const isClient = useRef(false);
+
+  useEffect(() => {
+    isClient.current = true;
+  }, []);
 
   const showSnackbar = useCallback(
     (
@@ -44,14 +48,15 @@ export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       {
         type = 'gray',
         duration = 3000,
-        position = 'top',
+        position = 'bottom',
       }: {
         type?: SnackbarType;
         duration?: number;
         position?: SnackbarPosition;
       } = {},
     ) => {
-      const id = Date.now();
+      const id = crypto.randomUUID();
+
       setSnackbars((prev) => [...prev, { id, message, type, duration, position }]);
 
       setTimeout(() => {
@@ -64,7 +69,8 @@ export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   return (
     <SnackbarContext.Provider value={{ showSnackbar }}>
       {children}
-      {typeof window !== 'undefined' &&
+
+      {isClient.current &&
         createPortal(
           <div>
             {snackbars.map((snackbar) => (
