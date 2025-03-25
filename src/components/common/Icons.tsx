@@ -24,6 +24,9 @@ import Profile from '@/assets/icons/profile.svg';
 import Search from '@/assets/icons/search.svg';
 import Underline from '@/assets/icons/underline.svg';
 import Video from '@/assets/icons/video.svg';
+import RedError from '@/assets/icons/Rederror.svg';
+import GrayInfo from '@/assets/icons/GrayInfo.svg';
+import GreenCheck from '@/assets/icons/GreenCheck.svg';
 
 interface IconProps {
   size?: number;
@@ -129,4 +132,16 @@ export const UnderlineIcon = ({ size = 24, className, onClick }: IconProps) => (
 
 export const VideoIcon = ({ size = 24, className, onClick }: IconProps) => (
   <Video width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const RedErrorIcon = ({ size = 20, className, onClick }: IconProps) => (
+  <RedError width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const GrayInfoIcon = ({ size = 20, className, onClick }: IconProps) => (
+  <GrayInfo width={size} height={size} className={className} onClick={onClick} />
+);
+
+export const GreenCheckIcon = ({ size = 24, className, onClick }: IconProps) => (
+  <GreenCheck width={size} height={size} className={className} onClick={onClick} />
 );
