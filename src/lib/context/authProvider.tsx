@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getToken, setAccessTokenCookie, setRefreshTokenCookie } from "./pages/api/settingToken";
-import axiosInstance from "./pages/api/hello";
+import axiosInstance from "../api/axios";
 import { useRouter } from "next/router";
+import { getToken, setAccessTokenCookie } from "../config/settingToken";
 
 interface AuthContextType {
   isLoggedIn: boolean;
