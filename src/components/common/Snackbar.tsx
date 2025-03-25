@@ -24,7 +24,7 @@ const typeStyles = {
   },
   green: {
     bg: 'bg-green-100',
-    text: 'text-green-100',
+    text: 'text-green-300',
     border: 'border border-green-200',
     Icon: GreenCheckIcon,
   },
