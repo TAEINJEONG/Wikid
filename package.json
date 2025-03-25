@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@tailwindcss/vite": "^4.0.14",
     "axios": "^1.8.3",
     "next": "15.2.3",
