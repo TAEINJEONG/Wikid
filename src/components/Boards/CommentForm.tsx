@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const CommentForm = () => {
+interface CommentProps {
+  onClick: (comment: string) => void;
+  initialValue?: string;
+}
+
+const CommentForm = ({ onClick, initialValue = '' }: CommentProps) => {
   const [commentContent, setCommentContent] = useState<string>('');
+
+  useEffect(() => {
+    setCommentContent(initialValue);
+  }, [initialValue]);
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // 입력되기전 commentContent값이 갱신이 안될 수 있기때문에 변수에 담아서 확인
@@ -11,7 +20,7 @@ const CommentForm = () => {
   };
 
   return (
-    <div className="rounded-[10px] w-full py-4 px-5 bg-gray-100">
+    <div className="mb-[14px] md:mb-4 xl:mb-6 rounded-[10px] w-full py-4 px-5 bg-gray-100">
       <textarea
         className="w-full text-gray-500 outline-none text-md-r placeholder:text-md-r placeholder:gray-400 caret-green-300"
         placeholder="댓글을 입력해 주세요"
@@ -22,8 +31,14 @@ const CommentForm = () => {
         <p className="text-gray-300 text-md-r">
           {commentContent ? commentContent?.length : 0} / 500
         </p>
-        <button className="text-white bg-green-200 py-[10px] px-[34px] rounded-[10px] text-md-sb">
-          댓글 등록
+        <button
+          className="text-white bg-green-200 py-[10px] px-[34px] rounded-[10px] text-md-sb"
+          onClick={() => {
+            onClick(commentContent);
+            setCommentContent('');
+          }}
+        >
+          {initialValue ? '수정 완료' : '댓글 등록'}
         </button>
       </div>
     </div>

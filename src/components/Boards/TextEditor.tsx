@@ -11,13 +11,19 @@ import Placeholder from '@tiptap/extension-placeholder';
 import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
 
-interface Test {
-  content: string;
-  onChange: (content: string) => void;
-  openModal: () => void;
-  onEditorReady: (editor: Editor) => void;
+interface TextEditorProps {
+  content: string | undefined;
+  onChange?: (content: string) => void;
+  openModal?: () => void;
+  onEditorReady?: (editor: Editor) => void;
 }
-const TextEditor = ({ content, onChange, openModal, onEditorReady }: Test) => {
+
+const TextEditor = ({
+  content,
+  onChange = () => {},
+  openModal = () => {},
+  onEditorReady = () => {},
+}: TextEditorProps) => {
   const [lengths, setLengths] = useState({ withSpaces: 0, withoutSpaces: 0 });
   const editor = useEditor({
     extensions: [

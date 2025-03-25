@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { BasicArticle } from '@/types/Article';
-import HeartIcon from '@/assets/images/heart-icon.svg';
+import HeartIcon from '@/assets/images/heart.svg';
 
 interface articleProps {
   article: BasicArticle;

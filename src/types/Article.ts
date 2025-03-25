@@ -3,6 +3,7 @@ export interface BasicArticle {
   updatedAt?: string;
   createdAt?: string;
   likeCount: number;
+  content: string;
   writer: {
     name: string;
     id: number;
@@ -10,13 +11,14 @@ export interface BasicArticle {
   image: string;
   title: string;
   id: number;
+  isLiked: boolean;
 }
 
 // 게시글 등록 (POST /{teamId}/articles), 게시글 수정 (PATCH /{teamId}/articles/{articleId})
 export interface CreateArticle {
-  image: string;
-  content: string;
-  title: string;
+  image: string | undefined;
+  content: string | undefined;
+  title: string | undefined;
 }
 
 // 게시글 목록 조회

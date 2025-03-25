@@ -119,7 +119,7 @@ const AddBoard = () => {
         </div>
 
         <TextEditor
-          content={content}
+          content={content ?? ''}
           onChange={onEditorChange}
           openModal={() => setIsModalOpen(true)}
           onEditorReady={(editorInstance) => setEditor(editorInstance)}
