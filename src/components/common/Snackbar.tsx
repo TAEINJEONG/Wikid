@@ -17,16 +17,19 @@ const typeStyles = {
   gray: {
     bg: 'bg-gray-50',
     text: 'text-gray-500',
+    border: '',
     Icon: GrayInfoIcon,
   },
   green: {
     bg: 'bg-green-100',
-    text: 'text-green-300',
+    text: 'text-green-100',
+    border: 'border border-green-200',
     Icon: GreenCheckIcon,
   },
   red: {
-    bg: 'bg-red-200',
+    bg: 'bg-red-100',
     text: 'text-red-200',
+    border: 'border border-red-200',
     Icon: RedErrorIcon,
   },
 };
@@ -39,7 +42,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
   iconSize = 20,
   position = 'bottom',
 }) => {
-  const { bg, text, Icon } = typeStyles[type];
+  const { bg, text, border, Icon } = typeStyles[type];
 
   useEffect(() => {
     if (onClose) {
@@ -53,7 +56,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
   return (
     <div className={`fixed ${positionClasses} left-1/2 -translate-x-1/2 z-50`}>
       <div
-        className={`flex items-center gap-2 px-3 py-2 rounded-md ${bg} ${text}`}
+        className={`flex items-center gap-2 px-3 py-2 rounded-md ${bg} ${text} ${border}`}
         style={{
           fontSize: '12px',
           fontWeight: 500,
@@ -63,7 +66,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
         }}
       >
         <Icon size={iconSize} className={text} />
-        <span className="flex-1">{message}</span>
+        <span className="flex-1 cursor-default">{message}</span>
       </div>
     </div>
   );
