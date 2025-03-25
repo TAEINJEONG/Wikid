@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
-import axiosInstance from "./hello";
+import axiosInstance from "../api/axios";
 import { deleteToken, setAccessTokenCookie, setRefreshTokenCookie } from "../config/settingToken";
-
 
 
 export function useAuthService() {
