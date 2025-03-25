@@ -37,7 +37,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
   duration = 3000,
   onClose,
   iconSize = 20,
-  position = 'bottom',
+  position = 'top',
 }) => {
   const { bg, text, Icon } = typeStyles[type];
 
