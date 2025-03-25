@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import { RedErrorIcon, GrayInfoIcon, GreenCheckIcon } from './Icons/Icons';
+import { RedErrorIcon, GreenCheckIcon, GrayInfoIcon } from './Icons/Icons';
 
 type SnackbarType = 'gray' | 'green' | 'red';
+type SnackbarPosition = 'top' | 'bottom';
 
 interface SnackbarProps {
   type?: SnackbarType;
   message: string;
-  duration?: number; // ms 단위
+  duration?: number;
   onClose?: () => void;
   iconSize?: number;
+  position?: SnackbarPosition;
 }
 
 const typeStyles = {
@@ -35,6 +37,7 @@ const Snackbar: React.FC<SnackbarProps> = ({
   duration = 3000,
   onClose,
   iconSize = 20,
+  position = 'bottom',
 }) => {
   const { bg, text, Icon } = typeStyles[type];
 
@@ -45,19 +48,23 @@ const Snackbar: React.FC<SnackbarProps> = ({
     }
   }, [duration, onClose]);
 
+  const positionClasses = position === 'top' ? 'top-6' : 'bottom-6';
+
   return (
-    <div
-      className={`flex items-center gap-2 px-3 py-2 rounded-md ${bg} ${text}`}
-      style={{
-        fontSize: '12px',
-        fontWeight: 500,
-        lineHeight: '18px',
-        fontFamily: 'pretendard',
-        maxWidth: '400px',
-      }}
-    >
-      <Icon size={iconSize} className={text} />
-      <span className="flex-1">{message}</span>
+    <div className={`fixed ${positionClasses} left-1/2 -translate-x-1/2 z-50`}>
+      <div
+        className={`flex items-center gap-2 px-3 py-2 rounded-md ${bg} ${text}`}
+        style={{
+          fontSize: '12px',
+          fontWeight: 500,
+          lineHeight: '18px',
+          fontFamily: 'pretendard',
+          maxWidth: '400px',
+        }}
+      >
+        <Icon size={iconSize} className={text} />
+        <span className="flex-1">{message}</span>
+      </div>
     </div>
   );
 };
