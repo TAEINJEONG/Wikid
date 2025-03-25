@@ -4,6 +4,7 @@ import Snackbar from '@/components/common/Snackbar';
 
 type SnackbarType = 'gray' | 'green' | 'red';
 type SnackbarPosition = 'top' | 'bottom';
+type SnackbarSize = 'large' | 'small';
 
 interface SnackbarItem {
   id: string;
@@ -11,6 +12,7 @@ interface SnackbarItem {
   type: SnackbarType;
   position: SnackbarPosition;
   duration: number;
+  size: SnackbarSize;
 }
 
 interface SnackbarContextProps {
@@ -20,6 +22,7 @@ interface SnackbarContextProps {
       type?: SnackbarType;
       duration?: number;
       position?: SnackbarPosition;
+      size?: SnackbarSize;
     },
   ) => void;
 }
@@ -29,7 +32,7 @@ const SnackbarContext = createContext<SnackbarContextProps | undefined>(undefine
 export const useSnackbar = () => {
   const context = useContext(SnackbarContext);
   if (!context) {
-    throw new Error('useSnackbar must be used within a SnackbarProvider');
+    throw new Error('useSnackbar는 SnackbarProvider 안에서만 사용 가능합니다.');
   }
   return context;
 };
@@ -49,15 +52,17 @@ export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         type = 'gray',
         duration = 3000,
         position = 'bottom',
+        size = 'large',
       }: {
         type?: SnackbarType;
         duration?: number;
         position?: SnackbarPosition;
+        size?: SnackbarSize;
       } = {},
     ) => {
       const id = crypto.randomUUID();
 
-      setSnackbars((prev) => [...prev, { id, message, type, duration, position }]);
+      setSnackbars((prev) => [...prev, { id, message, type, duration, position, size }]);
 
       setTimeout(() => {
         setSnackbars((prev) => prev.filter((s) => s.id !== id));
@@ -80,6 +85,7 @@ export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                 message={snackbar.message}
                 duration={snackbar.duration}
                 position={snackbar.position}
+                size={snackbar.size}
                 onClose={() => setSnackbars((prev) => prev.filter((s) => s.id !== snackbar.id))}
               />
             ))}

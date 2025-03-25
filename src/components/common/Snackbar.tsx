@@ -3,6 +3,7 @@ import { RedErrorIcon, GreenCheckIcon, GrayInfoIcon } from './Icons/Icons';
 
 type SnackbarType = 'gray' | 'green' | 'red';
 type SnackbarPosition = 'top' | 'bottom';
+type SnackbarSize = 'large' | 'small';
 
 interface SnackbarProps {
   type?: SnackbarType;
@@ -11,6 +12,7 @@ interface SnackbarProps {
   onClose?: () => void;
   iconSize?: number;
   position?: SnackbarPosition;
+  size?: SnackbarSize;
 }
 
 const typeStyles = {
@@ -34,15 +36,31 @@ const typeStyles = {
   },
 };
 
+const sizeStyles = {
+  large: {
+    height: 'h-[50px]',
+    fontSize: 'text-[14px]',
+    lineHeight: 'leading-[24px]',
+    iconSize: 20,
+  },
+  small: {
+    height: 'h-[42px]',
+    fontSize: 'text-[12px]',
+    lineHeight: 'leading-[18px]',
+    iconSize: 18,
+  },
+};
+
 const Snackbar: React.FC<SnackbarProps> = ({
   type = 'gray',
   message,
   duration = 3000,
   onClose,
-  iconSize = 20,
-  position = 'bottom',
+  position = 'top',
+  size = 'large',
 }) => {
   const { bg, text, border, Icon } = typeStyles[type];
+  const { height, fontSize, lineHeight, iconSize } = sizeStyles[size];
 
   useEffect(() => {
     if (onClose) {
@@ -56,11 +74,8 @@ const Snackbar: React.FC<SnackbarProps> = ({
   return (
     <div className={`fixed ${positionClasses} left-1/2 -translate-x-1/2 z-50`}>
       <div
-        className={`flex items-center gap-2 px-3 py-2 rounded-md ${bg} ${text} ${border}`}
+        className={`flex items-center gap-2 px-3 py-2 rounded-md ${height} ${fontSize} ${lineHeight} ${bg} ${text} ${border}`}
         style={{
-          fontSize: '12px',
-          fontWeight: 500,
-          lineHeight: '18px',
           fontFamily: 'pretendard',
           maxWidth: '400px',
         }}
