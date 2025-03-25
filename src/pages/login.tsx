@@ -14,7 +14,8 @@ const Login = () => {
     // }
 
     try {
-      await axiosInstance.post('/auth/signIn', { email, password });
+      const res = await axiosInstance.post('/auth/signIn', { email, password });
+      localStorage.setItem('accessToken', res.data.accessToken);
     } catch (error) {
       console.error('signIn 에러:', error);
     }

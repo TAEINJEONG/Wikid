@@ -1,54 +1,81 @@
-import { useState, useRef } from 'react';
-import dynamic from 'next/dynamic';
-import 'react-quill-new/dist/quill.snow.css';
-
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import { useState } from 'react';
+import TextEditor from '@/components/Boards/TextEditor';
+import ImageUploadModal from '@/components/Boards/ImageUploadModal';
+import axiosInstance from '@/lib/api/axios';
+import { Editor } from '@tiptap/react';
+import { CreateArticle } from '@/types/Article';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const AddBoard = () => {
   const [articleTitle, setArticleTitle] = useState<string>('');
   const [content, setContent] = useState('');
-  const quillRef = useRef<any>(null);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [editor, setEditor] = useState<Editor | null>(null);
+  const [article, setArticle] = useState<CreateArticle>({
+    image: '',
+    content: '',
+    title: '',
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
-  const plainText = content.replace(/<[^>]*>/g, '').trim();
-  const textWithSpacesLength = plainText.length; // 공백 포함 문자 수
-  const textWithoutSpacesLength = plainText.replace(/\s/g, '').length; // 공백 제외 문자 수
-
-  const handleImageUpload = () => {
-    const editor = quillRef.current?.editor; // <- 여기로 수정!
-    if (!editor) return;
-
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-
-    input.onchange = async () => {
-      if (input.files && input.files[0]) {
-        const file = input.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const range = editor.getSelection();
-          editor.insertEmbed(range.index, 'image', e.target?.result);
-          editor.setSelection(range.index + 1);
-        };
-        reader.readAsDataURL(file);
-      }
-    };
+  const onEditorChange = (content: string) => {
+    setContent(content);
   };
 
-  const modules = {
-    toolbar: {
-      container: '#custom-toolbar',
-      handlers: {
-        image: handleImageUpload,
-      },
-    },
+  const onClose = () => {
+    setIsOpenModal(false);
+  };
+
+  const setIsModalOpen = (p0: boolean) => {
+    setIsOpenModal(p0);
+  };
+
+  const updateImage = async (image: FormData | null) => {
+    if (!image) return;
+    try {
+      const response = await axiosInstance.post('/images/upload', image, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      const uploadedImageUrl = response?.data?.url;
+      if (uploadedImageUrl && editor) {
+        editor.chain().focus().setImage({ src: uploadedImageUrl }).run();
+        setArticle((prev) => ({ ...prev, image: uploadedImageUrl }));
+      }
+    } catch (error) {
+      console.error('파일 업로드 실패:', error);
+      alert('이미지 업로드에 실패했습니다.');
+    }
   };
 
   const handleArticleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const titleValue = e.target.value;
     if (titleValue.length > 30) return;
     setArticleTitle(e.target.value);
+  };
+
+  const CreateArticle = async () => {
+    if (isLoading) return;
+    try {
+      setIsLoading(true);
+      const newArticle: CreateArticle = {
+        title: articleTitle,
+        content: content,
+        image: article.image,
+      };
+
+      const res = await axiosInstance.post('/articles', newArticle);
+      const id = res.data.id;
+
+      router.push(`/boards/${id}`);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -60,18 +87,26 @@ const AddBoard = () => {
       >
         <div>
           <div className="mb-[20px]">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-gray-500 text-lg-sb">게시물 등록하기</p>
-              <button className="px-3 py-2 bg-gray-300 rounded-[10px]">등록하기</button>
+            <div className="flex items-center justify-between mb-4 md:mb-6">
+              <p className="text-gray-500 text-lg-sb md:text-xl-sb xl:text-2xl-sb">
+                게시물 등록하기
+              </p>
+              <button
+                onClick={CreateArticle}
+                className="px-3 py-2 bg-gray-300 rounded-[10px]"
+                disabled={articleTitle === ''}
+              >
+                등록하기
+              </button>
             </div>
-            <div className="flex items-center text-gray-400 text-xs-r">
+            <div className="flex items-center text-gray-400 text-xs-r md:text-lg-r">
               <p className="mr-[10px]">박동욱</p>
               <p>2024.02.24.</p>
             </div>
           </div>
           <div className="flex items-center w-full py-3 mb-4 border-gray-200 border-t-1 border-b-1">
             <input
-              className="w-full outline-none placeholder:text-lg-m placeholder:gray-400 caret-green-300"
+              className="w-full outline-none placeholder:text-lg-m placeholder:gray-400 caret-green-300 md:text-xl-m article-title-input"
               placeholder="제목을 입력해주세요"
               value={articleTitle}
               onChange={handleArticleTitle}
@@ -81,44 +116,23 @@ const AddBoard = () => {
               <p className="text-green-200">30</p>
             </div>
           </div>
-          <div className="flex">
-            <p>공백포함 : 총</p>
-            <p> {textWithSpacesLength}</p>
-            <p>자 | 공백제외 : 총</p>
-            <p> {textWithoutSpacesLength}</p>
-            <p>자</p>
-          </div>
         </div>
-        <ReactQuill
-          ref={quillRef}
-          modules={modules}
-          value={content}
-          onChange={setContent}
-          theme="snow"
-          placeholder="본문을 입력해주세요"
-          className="my-custom-editor"
-        />
 
-        <div id="custom-toolbar" className="flex gap-2 mt-4 rounded-[20px] border-gray-200">
-          <div className="flex justify-between w-full">
-            <div>
-              <button className="ql-bold" />
-              <button className="ql-italic" />
-              <button className="ql-underline" />
-              <button className="ql-list" value="ordered" />
-              <button className="ql-list" value="bullet" />
-              <button className="ql-image" />
-            </div>
-            <div className="flex gap-2">
-              <button className="ql-link" />
-            </div>
-          </div>
-        </div>
+        <TextEditor
+          content={content}
+          onChange={onEditorChange}
+          openModal={() => setIsModalOpen(true)}
+          onEditorReady={(editorInstance) => setEditor(editorInstance)}
+        />
       </div>
 
       <div className="flex justify-center">
-        <button> 목록으로 </button>
+        <button>
+          <Link href="/boards">목록으로</Link>
+        </button>
       </div>
+
+      {isOpenModal && <ImageUploadModal onClick={updateImage} onClose={onClose} />}
     </div>
   );
 };

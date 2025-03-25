@@ -59,6 +59,7 @@ const Boards = () => {
       },
     ],
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [testData, setTestData] = useState();
 
   // 페이지 그룹 시작점
@@ -143,6 +144,8 @@ const Boards = () => {
       <div className="block md:hidden">
         {articleListData?.list.map((article) => <ArticleItem key={article.id} article={article} />)}
       </div>
+
+      {/* <div>{testData}</div> */}
 
       <div className="hidden md:block">
         <table className="w-full text-center mb-15">
