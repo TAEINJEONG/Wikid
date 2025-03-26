@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 
 export default function MyPage() {
@@ -188,4 +189,10 @@ export default function MyPage() {
       </div>
     </div>
   );
+=======
+const MyPage = () => {
+  return <div>mypage</div>
+>>>>>>> 84ef4568aa3d3a3a73dd71049b8ea0c3ae0a1d86
 }
+
+export default MyPage;

@@ -60,7 +60,7 @@ const SecondLadingSection: React.FC = () => {
            1. (verticalTime(애니메이션에 사용될 시간) / 1초) - delay(0.5초)
            2. 위의 값을 * 3000밀리초 (애니메이션의 속도)
            3. 현재 이미지의 인덱스를 담은 imageIndex값을 더함
-           4. 최종 나온 값을 6을 곱해 y값의 최대 높이를 정함
+           4. 최종 나온 값을 10을 곱해 y값의 최대 높이를 정함
           */
           const y = Math.sin((verticalTime / 1000 - delay) * timeScale + imageIndex) * 10;
 

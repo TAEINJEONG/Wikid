@@ -56,7 +56,11 @@ const ThirdLandingSection = () => {
             ${alram ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-30'}`}
           >
             <div className="w-[223px] h-[102px] md:w-[428px] md:h-[198px] xl:w-[604px] xl:h-[280px] rounded-[20px]">
-              <Image src={Alram} alt="알림 애니메이션 이미지" className="object-cover h-full" />
+              <Image
+                src={Alram}
+                alt="알림 애니메이션 이미지"
+                className="object-cover h-full"
+              />
             </div>
           </div>
         </div>
