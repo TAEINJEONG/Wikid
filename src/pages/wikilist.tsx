@@ -1,5 +1,5 @@
 const WikiList = () => {
-  return <div>wikilist page</div>;
-};
+  return <div>wikilist page</div>
+}
 
 export default WikiList;
