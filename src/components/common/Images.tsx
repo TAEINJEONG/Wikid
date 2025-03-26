@@ -3,8 +3,6 @@ import Alram from '@/assets/images/alram.svg';
 import Bell from '@/assets/images/bell.svg';
 import BigestLandingPageBackground from '@/assets/images/bigest-landing-page-background.svg';
 import Chat from '@/assets/images/chat.svg';
-import Group199 from '@/assets/images/Group199.svg';
-import Group1993 from '@/assets/images/Group1993.svg';
 import Keyboard from '@/assets/images/keyboard.svg';
 import LandingPageBackground from '@/assets/images/landing-page-background.svg';
 import Loudspeaker from '@/assets/images/loudSpeaker.svg';
@@ -14,13 +12,21 @@ import Speechballoon from '@/assets/images/speechBalloon.svg';
 import Type1 from '@/assets/images/type=image1.svg';
 import Wikidmark from '@/assets/images/WikidMark.svg';
 
-export const AlramImage = ({ className = '', alt = '' }: { className?: string; alt?: string }) => (
-  <Alram className={className} aria-label={alt} />
-);
+export const AlramImage = ({
+  className = '',
+  alt = '',
+}: {
+  className?: string;
+  alt?: string;
+}) => <Alram className={className} aria-label={alt} />;
 
-export const BellImage = ({ className = '', alt = '' }: { className?: string; alt?: string }) => (
-  <Bell className={className} aria-label={alt} />
-);
+export const BellImage = ({
+  className = '',
+  alt = '',
+}: {
+  className?: string;
+  alt?: string;
+}) => <Bell className={className} aria-label={alt} />;
 
 export const BigestLandingPageBackgroundImage = ({
   className = '',
@@ -30,25 +36,13 @@ export const BigestLandingPageBackgroundImage = ({
   alt?: string;
 }) => <BigestLandingPageBackground className={className} aria-label={alt} />;
 
-export const ChatImage = ({ className = '', alt = '' }: { className?: string; alt?: string }) => (
-  <Chat className={className} aria-label={alt} />
-);
-
-export const Group199Image = ({
+export const ChatImage = ({
   className = '',
   alt = '',
 }: {
   className?: string;
   alt?: string;
-}) => <Group199 className={className} aria-label={alt} />;
-
-export const Group1993Image = ({
-  className = '',
-  alt = '',
-}: {
-  className?: string;
-  alt?: string;
-}) => <Group1993 className={className} aria-label={alt} />;
+}) => <Chat className={className} aria-label={alt} />;
 
 export const KeyboardImage = ({
   className = '',
@@ -74,13 +68,21 @@ export const LoudspeakerImage = ({
   alt?: string;
 }) => <Loudspeaker className={className} aria-label={alt} />;
 
-export const PhoneImage = ({ className = '', alt = '' }: { className?: string; alt?: string }) => (
-  <Phone className={className} aria-label={alt} />
-);
+export const PhoneImage = ({
+  className = '',
+  alt = '',
+}: {
+  className?: string;
+  alt?: string;
+}) => <Phone className={className} aria-label={alt} />;
 
-export const ReviewImage = ({ className = '', alt = '' }: { className?: string; alt?: string }) => (
-  <Review className={className} aria-label={alt} />
-);
+export const ReviewImage = ({
+  className = '',
+  alt = '',
+}: {
+  className?: string;
+  alt?: string;
+}) => <Review className={className} aria-label={alt} />;
 
 export const SpeechballoonImage = ({
   className = '',
