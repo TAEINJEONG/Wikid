@@ -132,7 +132,9 @@ const AddBoard = () => {
         </button>
       </div>
 
-      {isOpenModal && <ImageUploadModal onClick={updateImage} onClose={onClose} />}
+      {isOpenModal && (
+        <ImageUploadModal onClick={updateImage} onClose={onClose} />
+      )}
     </div>
   );
 };

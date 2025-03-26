@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { EditorContent, useEditor, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import TooBar from './Toolbar';
+import TooBar from './ToolBar';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import ImageResize from 'tiptap-extension-resize-image';

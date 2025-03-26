@@ -17,7 +17,7 @@ import ImageResize from 'tiptap-extension-resize-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
-import ToolBar from '@/components/Boards/Toolbar';
+import ToolBar from '@/components/Boards/ToolBar';
 import { CreateArticle } from '@/types/Article';
 import ConfirmModal from '@/components/Boards/ConfirmModal';
 import { CommentsListResponse } from '@/types/Comment';
@@ -192,9 +192,17 @@ const Board = () => {
       <div className="shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 rounded-[10px] md:px-[30px] md:py-10">
         <div className="border-gray-200 border-b-1 mb-[15px] pb-[11px] md:mb-[30px] md:pb-2">
           <div className="flex justify-between mb-[14px] md:mb-8">
-            <p className="text-gray-500 text-2xl-sb md:text-3xl-sb">{articleData?.title}</p>
+            <p className="text-gray-500 text-2xl-sb md:text-3xl-sb">
+              {articleData?.title}
+            </p>
             <div className="flex items-center md:hidden">
-              <Image src={Pensle} width={24} height={24} className="mr-3" alt="수정 아이콘" />
+              <Image
+                src={Pensle}
+                width={24}
+                height={24}
+                className="mr-3"
+                alt="수정 아이콘"
+              />
               <Image src={TrashCan} width={24} height={24} alt="삭제 아이콘" />
             </div>
             <div className="items-start hidden md:flex">
@@ -225,7 +233,9 @@ const Board = () => {
 
           <div className="flex items-center justify-between text-gray-400 text-xs-r md:text-md-r">
             <div className="flex items-center">
-              <p className="mr-2 md:mr-[10px] truncate max-w-20">{articleData?.writer?.name}</p>
+              <p className="mr-2 md:mr-[10px] truncate max-w-20">
+                {articleData?.writer?.name}
+              </p>
               <p>{formattedDate}</p>
             </div>
             <div className="flex items-center">
@@ -294,7 +304,9 @@ const Board = () => {
           ))}
       </div>
 
-      {isOpenModal && <ConfirmModal onClick={deleteArticle} onClose={onCloseModal} />}
+      {isOpenModal && (
+        <ConfirmModal onClick={deleteArticle} onClose={onCloseModal} />
+      )}
     </div>
   );
 };

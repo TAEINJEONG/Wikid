@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
 // 응답 인터셉터: 401 에러 발생 시 토큰 갱신 시도
@@ -28,13 +28,19 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
       try {
         const refreshToken = getToken('refreshToken');
 
         if (refreshToken) {
-          const { data } = await axiosInstance.post('/auth/refresh-token', { refreshToken });
+          const { data } = await axiosInstance.post('/auth/refresh-token', {
+            refreshToken,
+          });
           const newAccessToken = data.accessToken;
           setAccessTokenCookie(newAccessToken);
 
@@ -48,7 +54,7 @@ axiosInstance.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default axiosInstance;
