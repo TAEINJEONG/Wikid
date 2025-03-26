@@ -10,7 +10,7 @@ export default function MyPage() {
   const [answer, setAnswer] = useState("");
   const [wikiMessage, setWikiMessage] = useState<string>("");
 
-  // ✅ 마이페이지 전용 스타일 변수 정의
+  // 마이페이지 전용 스타일 변수 정의
   const styles = {
     buttonBg: "bg-[#4CBFA4]",
     buttonHover: "hover:bg-[#3AA78C]",

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
+import EditButton from '@/components/EditButton'; 
 type Answer = {
   question: string
   answer: string
@@ -56,7 +56,12 @@ export default function EditModal({ initialAnswers, onClose, onSubmit }: Props) 
             저장
           </button>
         </div>
-      </div>
+      </div> 
+       <div>
+      <h1>위키 페이지</h1>
+      <EditButton />
     </div>
+    </div>
+    
   )
 }

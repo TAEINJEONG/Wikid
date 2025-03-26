@@ -1,7 +1,6 @@
-export default function EmptyState() {
-  return (
-    <div className="flex flex-col items-center justify-center h-96 text-gray-400 text-center">
-      <p className="text-lg">아직 위키에 참여하지 않았어요.</p>
-    </div>
-  )
-}
+// src/components/EmptyState.tsx
+const EmptyState = () => {
+  return <p>아직 작성된 내용이 없습니다.</p>;
+};
+
+export default EmptyState;

@@ -1,5 +1,6 @@
 type Props = {
   onClick: () => void
+  text: string; 
 }
 
 export default function EditButton({ onClick }: Props) {
