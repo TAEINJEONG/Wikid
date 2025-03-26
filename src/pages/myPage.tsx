@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from "react";
 
 export default function MyPage() {
@@ -11,7 +10,7 @@ export default function MyPage() {
   const [answer, setAnswer] = useState("");
   const [wikiMessage, setWikiMessage] = useState<string>("");
 
-  // 마이페이지 전용 스타일 변수 정의
+ 
   const styles = {
     buttonBg: "bg-[#4CBFA4]",
     buttonHover: "hover:bg-[#3AA78C]",
@@ -88,19 +87,16 @@ export default function MyPage() {
 
   return (
     <div className="w-full flex flex-col items-center p-6 bg-white rounded-lg font-pretendard">
-      {/* 계정 설정 제목 */}
-      <h2 className="text-2xl font-bold text-center text-gray-800 mt-[172px] mb-[64px]">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mt-[100px] mb-[64px]">
         계정 설정
       </h2>
 
-      {/* 성공 메시지 */}
       {success && <p className="text-green-500">{success}</p>}
 
       {/* 비밀번호 변경 섹션 */}
       <div className="flex flex-col space-y-2">
         <label className={`${styles.textColor} text-[14.5px] font-bold`}>비밀번호 변경</label>
 
-        {/* 비밀번호 변경 폼 */}
         <form onSubmit={handlePasswordChange} className="flex flex-col space-y-4 w-full items-center">
           <div className="w-[335px] md:w-[400px] flex flex-col space-y-2 relative">
             <input
@@ -133,14 +129,12 @@ export default function MyPage() {
               required
             />
 
-            {/* 오류 메시지 */}
             {error && <p className={`${styles.errorColor} text-[14px] absolute bottom-[-20px] left-1`}>{error}</p>}
           </div>
 
-          {/* 변경하기 버튼 */}
           <button
             type="submit"
-            className={`w-[89px] h-[40px] ${styles.buttonBg} ${styles.buttonHover} text-white rounded-[10px] text-[14px] self-end mt-[9px]`}
+            className={`w-[89px] h-[40px] ${styles.buttonBg} ${styles.buttonHover} text-white rounded-[10px] text-[14px] self-end mt-[2px]`}
           >
             변경하기
           </button>
@@ -153,7 +147,6 @@ export default function MyPage() {
       <div className="flex flex-col space-y-2">
         <label className={`${styles.textColor} text-[14.5px] font-bold`}>위키 생성하기</label>
 
-        {/* 위키 생성 폼 */}
         <form onSubmit={createWiki} className="flex flex-col space-y-2 w-full items-center">
           <div className="w-[335px] md:w-[400px] flex flex-col space-y-2">
             <input
@@ -175,10 +168,9 @@ export default function MyPage() {
             />
           </div>
 
-          {/* 생성하기 버튼 */}
           <button
             type="submit"
-            className={`w-[89px] h-[40px] ${styles.buttonBg} ${styles.buttonHover} text-white text-[14px] rounded-[10px] self-end mt-[9px]`}
+            className={`w-[89px] h-[40px] ${styles.buttonBg} ${styles.buttonHover} text-white text-[14px] rounded-[10px] self-end mt-[20px]`}
           >
             생성하기
           </button>
@@ -189,10 +181,4 @@ export default function MyPage() {
       </div>
     </div>
   );
-=======
-const MyPage = () => {
-  return <div>mypage</div>
->>>>>>> 84ef4568aa3d3a3a73dd71049b8ea0c3ae0a1d86
 }
-
-export default MyPage;

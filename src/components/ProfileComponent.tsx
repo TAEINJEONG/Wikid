@@ -20,10 +20,10 @@ export default function ProfileComponent({ data }: Props) {
         <div className="flex items-start gap-6">
           <div className="shrink-0 relative w-[120px] h-[120px]">
             <Image
-              src={data.image || '/images/default-profile.wepb'} // 기본 이미지 설정
+              src={data.image || '/images/default-profile.wepb'}  
               alt={data.name}
-              width={120} // 고정된 너비
-              height={120} // 고정된 높이
+              width={120}  
+              height={120} 
               className="object-cover border-2 border-gray-200 rounded-full"
             />
           </div>

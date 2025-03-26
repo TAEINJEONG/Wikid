@@ -9,6 +9,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   height?: string;
   buttonText?: string;
   showLoadingImage?: boolean;
+  size: string; 
+text: string;
 }
 
 const Button = ({

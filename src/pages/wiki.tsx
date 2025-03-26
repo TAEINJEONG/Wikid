@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import UserInfo from '@/components/UserInfo'
 import WikiAnswerList from '@/components/WikiAnswerList'
-import EditButton from '@/components/EditButton'
+import EditButton from '@/components/WikiPageButton'
 import EmptyState from '@/components/EmptyState'
-import EditModal from '@/components/EditModal'
+import EditModal from '@/components/WikiPageModal'
 import profileData from '@/pages/wiki/[id].tsx/profileData';
  
 
