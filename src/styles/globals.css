@@ -1,8 +1,4 @@
-@import "tailwindcss";
-
-@custom-variant dark (&:is(.dark *));
-
-@plugin "tailwindcss-animate";
+@import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -48,10 +44,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 184921e (feat: 자유게시판 등록하기 기능 구현)
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -86,12 +79,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-<<<<<<< HEAD
-=======
-  
->>>>>>> origin/revert-4-input
-=======
->>>>>>> 184921e (feat: 자유게시판 등록하기 기능 구현)
 }
 
 @theme {
