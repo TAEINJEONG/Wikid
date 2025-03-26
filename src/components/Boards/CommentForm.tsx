@@ -13,7 +13,6 @@ const CommentForm = ({ onClick, initialValue = '' }: CommentProps) => {
   }, [initialValue]);
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // 입력되기전 commentContent값이 갱신이 안될 수 있기때문에 변수에 담아서 확인
     const commentValue = e.target.value;
     if (commentValue.length > 500) return;
     setCommentContent(e.target.value);

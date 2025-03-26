@@ -1,9 +1,10 @@
 import { useInView } from 'react-intersection-observer';
-import keyboard from '@/assets/images/keyboard.svg';
-import chat from '@/assets/images/chat.svg';
-import test3 from '@/assets/images/img.png';
-import background from '@/assets/images/landing-page-background.svg';
-import bigestBackground from '@/assets/images/bigest-landing-page-background.svg';
+import Keyboard from '@/assets/images/keyboard.svg';
+import Chat from '@/assets/images/chat.svg';
+import LadingImage from '@/assets/images/img.png';
+import LandingBackground from '@/assets/images/lading-background.png';
+import BigestLandingImage from '@/assets/images/bigestLandingImage.png';
+// 만약 PNG나 다른 포맷은 Next/Image를 사용합니다.
 import Image from 'next/image';
 
 const FirstLandingSection = () => {
@@ -12,6 +13,7 @@ const FirstLandingSection = () => {
     threshold: 0.1,
   });
   const { ref: thirdRef, inView: thirdInView } = useInView({ threshold: 0.3 });
+
   return (
     <>
       <div className="h-[502px] md:h-[784px] xl:h-[713px] relative z-9">
@@ -30,8 +32,9 @@ const FirstLandingSection = () => {
             `}
         >
           <div className="w-full h-full">
+            {/* 만약 애니메이션용 이미지가 PNG 등이라면 Next/Image로 사용 */}
             <Image
-              src={test3}
+              src={LadingImage}
               alt="애니메이션 이미지"
               width={498}
               height={590}
@@ -62,11 +65,8 @@ const FirstLandingSection = () => {
                 ${secondInView ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-12'}`}
             >
               <div className="w-[133px] h-[162px] md:w-[262px] md:h-[322px] xl:w-[364px] xl:h-[450px] bg-green-200 rounded-[20px] overflow-hidden">
-                <Image
-                  src={keyboard}
-                  alt="애니메이션 이미지"
-                  className="object-cover h-full overflow-hidden bg-green-200"
-                />
+                {/* keyboard.svg를 React 컴포넌트로 사용 */}
+                <Keyboard className="object-cover w-full h-full" />
               </div>
             </div>
           </div>
@@ -78,20 +78,18 @@ const FirstLandingSection = () => {
                 ${thirdInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
             >
               <div className="w-[192px] h-[250px] md:w-[365px] md:h-[479px] xl:w-[520px] xl:h-[681px]">
-                <Image
-                  src={chat}
-                  alt="애니메이션 이미지"
-                  className="w-full h-full rounded-lg"
-                />
+                {/* chat.svg를 React 컴포넌트로 사용 */}
+                <Chat className="w-full h-full rounded-lg" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* 해상도에 따른 배경 이미지: SVG인 경우 React 컴포넌트로 처리 */}
       <div className="hidden ultra:block w-full h-[1412px] relative">
         <Image
-          src={bigestBackground}
+          src={BigestLandingImage}
           alt="1920이상 랜딩 페이지 배경 이미지"
           fill
           className="object-cover"
@@ -100,7 +98,7 @@ const FirstLandingSection = () => {
 
       <div className="block ultra:hidden w-full h-[714px] md:h-[1059px] xl:h-[1412px] relative">
         <Image
-          src={background}
+          src={LandingBackground}
           alt="1920미만 랜딩 페이지 배경 이미지"
           fill
           className="object-cover"

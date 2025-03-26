@@ -1,58 +1,59 @@
-<<<<<<< HEAD
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function MyPage() {
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [wikiMessage, setWikiMessage] = useState<string>("");
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [wikiMessage, setWikiMessage] = useState<string>('');
 
   // 마이페이지 전용 스타일 변수 정의
   const styles = {
-    buttonBg: "bg-[#4CBFA4]",
-    buttonHover: "hover:bg-[#3AA78C]",
-    inputBg: "bg-[#F7F7FA]",
-    textColor: "text-[#474D66]",
-    dividerColor: "bg-[#E4E5F0]",
-    errorColor: "text-[#FF4D4D] border-[#FF4D4D] focus:ring-[#FF4D4D]",
+    buttonBg: 'bg-[#4CBFA4]',
+    buttonHover: 'hover:bg-[#3AA78C]',
+    inputBg: 'bg-[#F7F7FA]',
+    textColor: 'text-[#474D66]',
+    dividerColor: 'bg-[#E4E5F0]',
+    errorColor: 'text-[#FF4D4D] border-[#FF4D4D] focus:ring-[#FF4D4D]',
   };
 
   // 비밀번호 확인 체크
   const handleConfirmBlur = () => {
-    setError(newPassword !== confirmPassword ? "비밀번호가 일치하지 않습니다." : "");
+    setError(
+      newPassword !== confirmPassword ? '비밀번호가 일치하지 않습니다.' : ''
+    );
   };
 
   // 비밀번호 변경 API 요청
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setError("비밀번호가 일치하지 않습니다.");
+      setError('비밀번호가 일치하지 않습니다.');
       return;
     }
 
     try {
-      const res = await fetch("/api/mypage/change-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/mypage/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentPassword, newPassword }),
       });
 
       const data = await res.json();
       if (res.ok) {
-        setSuccess("비밀번호가 변경되었습니다!");
-        setCurrentPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-        setError("");
+        setSuccess('비밀번호가 변경되었습니다!');
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+        setError('');
       } else {
-        setError(data.message || "비밀번호 변경 실패");
+        setError(data.message || '비밀번호 변경 실패');
       }
     } catch {
-      setError("서버 오류 발생");
+      setError('서버 오류 발생');
     }
   };
 
@@ -61,33 +62,33 @@ export default function MyPage() {
     e.preventDefault();
 
     if (!question || !answer) {
-      setWikiMessage("질문과 답을 입력해주세요.");
+      setWikiMessage('질문과 답을 입력해주세요.');
       return;
     }
 
     try {
-      const res = await fetch("/api/mypage/create-wiki", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/mypage/create-wiki', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question, answer }),
       });
 
       const data = await res.json();
       if (res.ok) {
-        setWikiMessage("위키가 생성되었습니다!");
-        setQuestion("");
-        setAnswer("");
-        setSuccess("");
+        setWikiMessage('위키가 생성되었습니다!');
+        setQuestion('');
+        setAnswer('');
+        setSuccess('');
       } else {
-        setWikiMessage(data.message || "위키 생성 실패");
+        setWikiMessage(data.message || '위키 생성 실패');
       }
     } catch {
-      setWikiMessage("서버 오류 발생");
+      setWikiMessage('서버 오류 발생');
     }
   };
 
   return (
-    <div className="w-full flex flex-col items-center p-6 bg-white rounded-lg font-pretendard">
+    <div className="flex flex-col items-center w-full p-6 bg-white rounded-lg font-pretendard">
       {/* 계정 설정 제목 */}
       <h2 className="text-2xl font-bold text-center text-gray-800 mt-[172px] mb-[64px]">
         계정 설정
@@ -98,10 +99,15 @@ export default function MyPage() {
 
       {/* 비밀번호 변경 섹션 */}
       <div className="flex flex-col space-y-2">
-        <label className={`${styles.textColor} text-[14.5px] font-bold`}>비밀번호 변경</label>
+        <label className={`${styles.textColor} text-[14.5px] font-bold`}>
+          비밀번호 변경
+        </label>
 
         {/* 비밀번호 변경 폼 */}
-        <form onSubmit={handlePasswordChange} className="flex flex-col space-y-4 w-full items-center">
+        <form
+          onSubmit={handlePasswordChange}
+          className="flex flex-col items-center w-full space-y-4"
+        >
           <div className="w-[335px] md:w-[400px] flex flex-col space-y-2 relative">
             <input
               type="password"
@@ -125,7 +131,7 @@ export default function MyPage() {
               type="password"
               placeholder="새 비밀번호 확인"
               className={`w-full h-[45px] ${styles.inputBg} text-[14px] rounded-[10px] px-5 text-gray-700 placeholder-gray-400 focus:ring-2 ${
-                error ? styles.errorColor : "focus:ring-blue-400"
+                error ? styles.errorColor : 'focus:ring-blue-400'
               } outline-none`}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -134,7 +140,13 @@ export default function MyPage() {
             />
 
             {/* 오류 메시지 */}
-            {error && <p className={`${styles.errorColor} text-[14px] absolute bottom-[-20px] left-1`}>{error}</p>}
+            {error && (
+              <p
+                className={`${styles.errorColor} text-[14px] absolute bottom-[-20px] left-1`}
+              >
+                {error}
+              </p>
+            )}
           </div>
 
           {/* 변경하기 버튼 */}
@@ -147,14 +159,21 @@ export default function MyPage() {
         </form>
       </div>
 
-      <div className={`w-[335px] md:w-[400px] h-[1px] ${styles.dividerColor} my-[32px]`} />
+      <div
+        className={`w-[335px] md:w-[400px] h-[1px] ${styles.dividerColor} my-[32px]`}
+      />
 
       {/* 위키 생성하기 섹션 */}
       <div className="flex flex-col space-y-2">
-        <label className={`${styles.textColor} text-[14.5px] font-bold`}>위키 생성하기</label>
+        <label className={`${styles.textColor} text-[14.5px] font-bold`}>
+          위키 생성하기
+        </label>
 
         {/* 위키 생성 폼 */}
-        <form onSubmit={createWiki} className="flex flex-col space-y-2 w-full items-center">
+        <form
+          onSubmit={createWiki}
+          className="flex flex-col items-center w-full space-y-2"
+        >
           <div className="w-[335px] md:w-[400px] flex flex-col space-y-2">
             <input
               type="text"
@@ -189,10 +208,4 @@ export default function MyPage() {
       </div>
     </div>
   );
-=======
-const MyPage = () => {
-  return <div>mypage</div>
->>>>>>> 84ef4568aa3d3a3a73dd71049b8ea0c3ae0a1d86
 }
-
-export default MyPage;

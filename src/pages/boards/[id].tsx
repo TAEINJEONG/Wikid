@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Pensle from '@/assets/images/pensle.svg';
 import TrashCan from '@/assets/images/trashcan.svg';
 import Heart from '@/assets/images/Heart.svg';
@@ -196,14 +195,8 @@ const Board = () => {
               {articleData?.title}
             </p>
             <div className="flex items-center md:hidden">
-              <Image
-                src={Pensle}
-                width={24}
-                height={24}
-                className="mr-3"
-                alt="수정 아이콘"
-              />
-              <Image src={TrashCan} width={24} height={24} alt="삭제 아이콘" />
+              <Pensle className="w-6 h-6 mr-3" />
+              <TrashCan className="w-6 h-6 mr-3" />
             </div>
             <div className="items-start hidden md:flex">
               {editMode ? (
@@ -240,22 +233,14 @@ const Board = () => {
             </div>
             <div className="flex items-center">
               {articleData?.isLiked ? (
-                <Image
-                  src={HeartFilled}
-                  width={16}
-                  height={16}
-                  className="mr-1 cursor-pointer"
+                <HeartFilled
+                  className="w-4 h-4 mr-1 cursor-pointer"
                   onClick={() => toggleLike(false)}
-                  alt="채워진 좋아요 아이콘"
                 />
               ) : (
-                <Image
-                  src={Heart}
-                  width={16}
-                  height={16}
-                  className="mr-1 cursor-pointer"
+                <Heart
+                  className="w-4 h-4 mr-1 cursor-pointer"
                   onClick={() => toggleLike(true)}
-                  alt="빈 좋아요 아이콘"
                 />
               )}
               <p>{articleData?.likeCount}</p>
