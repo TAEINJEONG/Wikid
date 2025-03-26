@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import dot from '@/assets/images/Group 219.svg';
+import dot from '@/assets/images/dot.svg';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
@@ -44,7 +44,13 @@ const Button = ({
         <>
           {buttonText}
           {showLoadingImage && (
-            <Image src={dot} alt="loading" width={20} height={4} className="ml-2" />
+            <Image
+              src={dot}
+              alt="loading"
+              width={20}
+              height={4}
+              className="ml-2"
+            />
           )}
         </>
       ) : (

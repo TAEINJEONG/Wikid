@@ -1,10 +1,9 @@
-import { useAuthService } from "@/lib/hook/useAuthService";
-import { useState } from "react";
-
+import { useAuthService } from '@/lib/hook/useAuthService';
+import { useState } from 'react';
 
 function Login() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const { login } = useAuthService();
 
   function changeEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -15,7 +14,7 @@ function Login() {
     setPassword(e.target.value);
   }
 
-  function btnClick(){
+  function btnClick() {
     login(email, password);
   }
 
@@ -35,6 +34,6 @@ function Login() {
       </div>
     </>
   );
-};
+}
 
 export default Login;
