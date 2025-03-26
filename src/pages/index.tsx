@@ -1,47 +1,98 @@
-import FirstLandingSection from '@/components/indexComponents/FirstLandingSection';
-import SecondLadingSection from '@/components/indexComponents/SecondLadingSection';
-import ThirdLandingSection from '@/components/indexComponents/ThirdLandingSection';
-import { GetStaticProps } from 'next';
-
 const Index = () => {
   return (
-    <div className="bg-[#F1F4FD] mx-auto">
-      <div className="h-20">Header Nav</div>
+    <>
+    <h1>메인 페이지</h1>
+    <div className="flex gap-24">
+      <div className="flex">
+        <div>
+          <div className="w-40 h-40 bg-gray-50">bg-gray-50</div>
+          <div className="w-40 h-40 bg-gray-100">bg-gray-100</div>
+          <div className="w-40 h-40 bg-gray-200">bg-gray-200</div>
+          <div className="w-40 h-40 bg-gray-300">bg-gray-300</div>
+          <div className="w-40 h-40 bg-gray-400">bg-gray-400</div>
+          <div className="w-40 h-40 bg-gray-500">bg-gray-500</div>
+          <div className="w-40 h-40 bg-gray-600">bg-gray-600</div>
+        </div>
 
-      <FirstLandingSection />
-      <SecondLadingSection />
-      <ThirdLandingSection />
+        <div>
+          <div className="w-40 h-40 bg-green-100">bg-green-100</div>
+          <div className="w-40 h-40 bg-green-200">bg-green-200</div>
+          <div className="w-40 h-40 bg-green-300">bg-green-300</div>
+        </div>
 
-      <div className="flex flex-col items-center mx-auto bg-gray-500 py-25 md:py-40 xl:py-50">
-        <h1 className="text-[30px] md:text-[60px] font-[700] text-white mb-[30px] md:mb-10">
-          나만의 위키 만들어 보기
-        </h1>
-        <button>지금 시작하기</button>
+        <div>
+          <div className="w-40 h-40 bg-red-100">bg-red-100</div>
+          <div className="w-40 h-40 bg-red-200">bg-red-200</div>
+        </div>
+
+        <div>
+          <div className="w-40 h-40 bg-purple-100">bg-purple-100</div>
+        </div>
+
+        <div>
+          <div className="w-40 h-40 bg-yellow-100">bg-yellow-100</div>
+        </div>
       </div>
 
-      <footer className="px-5 py-10 text-white bg-gray-600 md:px-12 md:py-15 xl:px-20 xl:py-20">
-        <p className="mb-[10px] text-[10px] md:text-[16px] font-[700]">
-          Copyright ⓒ Wikied. All Rights Reserved
-        </p>
-        <p className="mb-5 md:mb-[30px] text-[10px] md:text-[14px] font-[400]">
-          사업자등록번호 000-00-00000 | 통신판매신고 제2020-서울-00000호 | 대표 : 이지은 서울특별시
-          중구 청계천로 123, 위키드빌딩
-        </p>
-
-        <div className="flex items-center justify-start gap-[15px]">
-          <p className="text-[8px] md:text-[14px] font-[500]">서비스 이용약관</p>
-          <p className="text-[8px] md:text-[14px] font-[500]">개인정보 취급방침</p>
-          <p className="text-[8px] md:text-[14px] font-[500]">전자금융거래 기본약관</p>
+      <div>
+        <div className="m-4">
+          <p className="text-5xl">text-5xl</p>
+          <p className="text-4xl">text-4xl</p>
+          <p className="text-3xl-b">text-3xl-b</p>
+          <p className="text-3xl-sb">text-3xl-sb</p>
+          <p className="text-3xl-sb">text-3xl-sb</p>
         </div>
-      </footer>
-    </div>
-  );
-};
 
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {},
-  };
-};
+        <div className="m-4">
+          <p className="text-2xl-b">text-2xl-b</p>
+          <p className="text-2xl-sb">text-2xl-sb</p>
+          <p className="text-2xl-m">text-2xl-m</p>
+          <p className="text-2xl-r">text-2xl-r</p>
+        </div>
+
+        <div className="m-4">
+          <p className="text-xl-b">text-xl-b</p>
+          <p className="text-xl-sb">text-xl-sb</p>
+          <p className="text-xl-m">text-xl-m</p>
+          <p className="text-xl-r">text-xl-r</p>
+        </div>
+
+        <div className="m-4">
+          <p className="text-2lg-b">text-2lg-b</p>
+          <p className="text-2lg-sb">text-2lg-sb</p>
+          <p className="text-2lg-m">text-2lg-m</p>
+          <p className="text-2lg-r">text-2lg-r</p>
+        </div>
+
+        <div className="m-4">
+          <p className="text-lg-b">text-lg-b</p>
+          <p className="text-lg-sb">text-lg-sb</p>
+          <p className="text-lg-m">text-lg-m</p>
+          <p className="text-lg-r">text-lg-r</p>
+        </div>
+
+        <div className="m-4">
+          <p className="text-md-b">text-md-b</p>
+          <p className="text-md-sb">text-md-sb</p>
+          <p className="text-md-m">text-md-m</p>
+          <p className="text-md-r">text-md-r</p>
+        </div>
+
+        <div className="m-4">
+          <p className="text-sm-sb">text-sm-sb</p>
+          <p className="text-sm-m">text-sm-m</p>
+          <p className="text-sm-r">text-sm-r</p>
+        </div>
+
+        <div className="m-4">
+          <p className="text-xs-sb">text-xs-sb</p>
+          <p className="text-xs-m">text-xs-m</p>
+          <p className="text-xs-r">text-xs-r</p>
+        </div>
+      </div>
+    </div>
+    </>
+  )
+}
 
 export default Index;
