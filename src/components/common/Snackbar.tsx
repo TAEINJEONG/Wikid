@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { RedErrorIcon, GreenCheckIcon, GrayInfoIcon } from './Icons/Icons';
+import { RedErrorIcon, GreenCheckIcon, GrayInfoIcon } from './Icons';
 
 type SnackbarType = 'gray' | 'green' | 'red';
 type SnackbarPosition = 'top' | 'bottom';
