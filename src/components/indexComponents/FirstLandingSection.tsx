@@ -8,7 +8,9 @@ import Image from 'next/image';
 
 const FirstLandingSection = () => {
   const { ref: firstRef, inView: firstInView } = useInView({ threshold: 0.3 });
-  const { ref: secondRef, inView: secondInView } = useInView({ threshold: 0.1 });
+  const { ref: secondRef, inView: secondInView } = useInView({
+    threshold: 0.1,
+  });
   const { ref: thirdRef, inView: thirdInView } = useInView({ threshold: 0.3 });
   return (
     <>
@@ -76,7 +78,11 @@ const FirstLandingSection = () => {
                 ${thirdInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
             >
               <div className="w-[192px] h-[250px] md:w-[365px] md:h-[479px] xl:w-[520px] xl:h-[681px]">
-                <Image src={chat} alt="애니메이션 이미지" className="w-full h-full rounded-lg" />
+                <Image
+                  src={chat}
+                  alt="애니메이션 이미지"
+                  className="w-full h-full rounded-lg"
+                />
               </div>
             </div>
           </div>

@@ -21,6 +21,20 @@ export interface CommentsListResponse {
   ];
 }
 
+export interface CommentListData {
+  comment: {
+    writer: {
+      image: string;
+      name: string;
+      id: number;
+    };
+    updatedAt?: string;
+    createdAt?: string;
+    content: string;
+    id: number;
+  };
+}
+
 // 댓글 삭제 (DELETE /{teamId}/comments/{commentId})
 export interface DeleteCommentId {
   id: number;
