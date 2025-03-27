@@ -9,8 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   height?: string;
   buttonText?: string;
   showLoadingImage?: boolean;
-  size: string; 
-text: string;
+  onClick?: () => void;
 }
 
 const Button = ({
@@ -20,6 +19,7 @@ const Button = ({
   height = '40px',
   buttonText,
   showLoadingImage = false,
+  onClick,
   ...props
 }: ButtonProps) => {
   const baseStyles =
@@ -37,6 +37,7 @@ const Button = ({
 
   return (
     <button
+    onClick={onClick}
       disabled={loading}
       className={`${baseStyles} ${variantStyles[variant]}`}
       style={{ width, height }}

@@ -1,63 +1,72 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import UserInfo from '@/components/UserInfo'
-import WikiAnswerList from '@/components/WikiAnswerList'
-import EditButton from '@/components/WikiPageButton'
-import EmptyState from '@/components/EmptyState'
-import EditModal from '@/components/WikiPageModal'
-import profileData from '@/pages/wiki/[id].tsx/profileData';
- 
+import { useRouter } from 'next/router';
+import { useState, useEffect, useCallback } from 'react';
+import UserInfo from '@/components/UserInfo';
+import WikiAnswerList from '@/components/WikiAnswerList';
+import EditButton from '@/components/wikipageButton';
+import EmptyState from '@/components/EmptyState';
+import EditModal from '@/components/WikipageModal';
 
-type WikiData = {
-  name: string
-  mbti: string
-  profileImage: string
-  answers: Answer[]
-}
 type ProfileData = {
   name: string;
   city: string;
   mbti: string;
   job: string;
 };
-export default function WikiPage() {
-  const router = useRouter()
-  
-  const [loading, setLoading] = useState(true)
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
+type Answer = {
+  question: string;
+  answer: string;
+};
 
- 
-  if (loading) return <div className="text-center mt-10">불러오는 중...</div>
+const WikiPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [wikiData, setWikiData] = useState<Answer[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const isEmpty =
-    !wikiData ||
-    !wikiData.answers ||
-    wikiData.answers.length === 0 ||
-    wikiData.answers.every((a) => a.answer.trim() === '')
+  const fetchData = useCallback(async () => {
+    if (id) {
+      try {
+        const res = await fetch(`/api/profiles/${id}`);
+        const data = await res.json();
+        setProfileData(data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [id]);
 
-  if (isEmpty) return <EmptyState />
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  if (loading) return <div>불러오는 중...</div>;
 
   return (
     <div className="max-w-2xl mx-auto mt-10 px-4">
-      {/* 프로필 데이터 표시 */}
-      {profileData && (
+      {profileData ? (
         <UserInfo
           name={profileData.name}
           mbti={profileData.mbti}
           profileImage={profileData.profileImage}
         />
+      ) : (
+        <EmptyState />
       )}
-
-      <WikiAnswerList answers={wikiData.answers} />
+      <WikiAnswerList answers={wikiData || []} />
       <EditButton onClick={() => setIsModalOpen(true)} />
       {isModalOpen && (
         <EditModal
-          initialAnswers={wikiData.answers}
+          initialAnswers={wikiData || []}
           onClose={() => setIsModalOpen(false)}
-          onSubmit={handleSubmit}
+          onSubmit={(updatedAnswers) => setWikiData(updatedAnswers)}
         />
       )}
     </div>
-  )
-}
+  );
+};
+
+export default WikiPage;

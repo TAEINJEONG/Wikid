@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Image from 'next/image';  // next/image 임포트
-
 import locked from '@/assets/images/locked.jpg';  // src/images 폴더에서 이미지 임포트
 import Button from './common/Button';
 
@@ -76,12 +75,15 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
 
       {/* 버튼 */}
 <div className={`flex justify-center w-[355px] h-[40px] gap-2 rounded-[10px] ${styles.buttonHover} ${styles.buttonBg} mt-10`}>
-  <Button 
-    text="확인"
-   className="text-white !important"
-    onClick={handleClick}
-    size={''} 
-  />
+ <div>
+  <div>
+    <Button 
+      buttonText="확인"
+      onClick={handleClick}
+      width ='100%'
+      height ='40px'
+    />
+</div>
 </div>
 
  
@@ -95,6 +97,7 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
 </div>
 
         </div>
+      </div>
       </div>
   )
 }

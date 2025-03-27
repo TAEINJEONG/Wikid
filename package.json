@@ -30,7 +30,7 @@
     "clsx": "^2.1.1",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.483.0",
-    "next": "15.2.3",
+    "next": "^15.2.4",
     "next-remove-imports": "^1.0.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
