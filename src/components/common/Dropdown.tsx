@@ -7,6 +7,7 @@ interface DropdownProps {
   selected?: string;
   onSelect: (option: string) => void;
   placeholder?: string;
+  dropdownPlaceholder?: string;
   width?: string;
 }
 
@@ -14,7 +15,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   selected,
   onSelect,
-  placeholder = '선택하세요',
+  placeholder = '질문 없음',
+  dropdownPlaceholder = '질문 선택하기',
   width = '400px',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +52,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         )}
         style={{ width, height: '45px' }}
       >
-        <span>{selected || placeholder}</span>
+        <span>{selected || (isOpen ? dropdownPlaceholder : placeholder)}</span>
         <ArrowIcon
           className={clsx(
             'transition-transform duration-200',
