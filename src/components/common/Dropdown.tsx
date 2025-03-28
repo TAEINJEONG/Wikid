@@ -15,7 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   selected,
   onSelect,
   placeholder = '선택하세요',
-  width = '200px',
+  width = '400px',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -45,10 +45,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       <button
         onClick={toggleDropdown}
         className={clsx(
-          'flex justify-between items-center px-3 py-2 rounded-md border bg-gray-100 text-gray-500 text-xs font-medium leading-[18px]',
+          'flex justify-between items-center px-3 py-2 rounded-md border bg-gray-50 text-gray-400 text-xs font-medium leading-[18px]',
           'hover:cursor-pointer'
         )}
-        style={{ height: '45px' }}
+        style={{ width, height: '45px' }}
       >
         <span>{selected || placeholder}</span>
         <ArrowIcon
@@ -61,12 +61,12 @@ const Dropdown: React.FC<DropdownProps> = ({
       </button>
 
       {isOpen && (
-        <ul className="absolute left-0 right-0 mt-2 bg-white border rounded-md shadow z-10 max-h-60 overflow-y-auto">
+        <ul className="absolute left-0 right-0 mt-2 bg-gray-50 border rounded-md  z-10 max-h-60 overflow-y-auto">
           {options.map((option) => (
             <li
               key={option}
               onClick={() => handleSelect(option)}
-              className="px-3 py-2 text-xs text-gray-500 hover:bg-gray-100 cursor-pointer"
+              className="px-4 py-3 text-xs text-gray-500 hover:bg-green-100 cursor-pointer"
             >
               {option}
             </li>
