@@ -1,60 +1,55 @@
 import React from 'react';
-import Image from 'next/image';
-import dot from '@/assets/images/dot.svg';
+import { DotIcon } from '@/components/common/Icons';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
-  loading?: boolean;
+  isloading?: boolean;
+  isDisabled?: boolean;
   width?: string;
   height?: string;
   buttonText?: string;
-  showLoadingImage?: boolean;
+  textClassName?: string;
 }
 
 const Button = ({
   variant = 'primary',
-  loading = false,
-  width = '120px',
+  isloading = false,
+  isDisabled = false,
+  width = '200px',
   height = '40px',
   buttonText,
-  showLoadingImage = false,
+  textClassName,
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    'inline-flex items-center justify-center rounded-md font-semibold transition duration-150 ease-in-out whitespace-nowrap';
+    'inline-flex items-center justify-center rounded-md transition duration-150 ease-in-out whitespace-nowrap';
 
   const variantStyles = {
-    primary: loading
-      ? 'bg-gray-300 text-gray-50 cursor-not-allowed'
-      : 'bg-green-200 text-gray-50 hover:bg-green-300',
+    primary:
+      isDisabled || isloading
+        ? 'bg-gray-300 text-gray-50 cursor-not-allowed'
+        : 'bg-green-200 text-gray-50 hover:bg-green-300 cursor-pointer',
 
-    secondary: loading
-      ? 'border border-gray-300 text-gray-300 cursor-not-allowed bg-transparent'
-      : 'border border-green-200 text-green-200 hover:bg-green-100',
+    secondary:
+      isDisabled || isloading
+        ? 'border border-gray-300 text-gray-300 cursor-not-allowed bg-transparent'
+        : 'border border-green-200 text-green-200 hover:bg-green-100 cursor-pointer',
   };
 
   return (
     <button
-      disabled={loading}
-      className={`${baseStyles} ${variantStyles[variant]}`}
+      disabled={isDisabled || isloading}
+      className={`${baseStyles} ${variantStyles[variant]} gap-2.5`}
       style={{ width, height }}
       {...props}
     >
-      {loading ? (
+      {isloading ? (
         <>
-          {buttonText}
-          {showLoadingImage && (
-            <Image
-              src={dot}
-              alt="loading"
-              width={20}
-              height={4}
-              className="ml-2"
-            />
-          )}
+          <span className={textClassName}>{buttonText}</span>
+          <DotIcon />
         </>
       ) : (
-        buttonText
+        <span className={textClassName}>{buttonText}</span>
       )}
     </button>
   );

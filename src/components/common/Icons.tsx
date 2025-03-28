@@ -27,6 +27,7 @@ import Video from '@/assets/icons/video.svg';
 import RedError from '@/assets/icons/Rederror.svg';
 import GrayInfo from '@/assets/icons/GrayInfo.svg';
 import GreenCheck from '@/assets/icons/GreenCheck.svg';
+import Dot from '@/assets/icons/dot.svg';
 
 interface IconProps {
   size?: number;
@@ -127,7 +128,12 @@ export const SearchIcon = ({ size = 24, className, onClick }: IconProps) => (
 );
 
 export const UnderlineIcon = ({ size = 24, className, onClick }: IconProps) => (
-  <Underline width={size} height={size} className={className} onClick={onClick} />
+  <Underline
+    width={size}
+    height={size}
+    className={className}
+    onClick={onClick}
+  />
 );
 
 export const VideoIcon = ({ size = 24, className, onClick }: IconProps) => (
@@ -135,13 +141,36 @@ export const VideoIcon = ({ size = 24, className, onClick }: IconProps) => (
 );
 
 export const RedErrorIcon = ({ size = 20, className, onClick }: IconProps) => (
-  <RedError width={size} height={size} className={className} onClick={onClick} />
+  <RedError
+    width={size}
+    height={size}
+    className={className}
+    onClick={onClick}
+  />
 );
 
 export const GrayInfoIcon = ({ size = 20, className, onClick }: IconProps) => (
-  <GrayInfo width={size} height={size} className={className} onClick={onClick} />
+  <GrayInfo
+    width={size}
+    height={size}
+    className={className}
+    onClick={onClick}
+  />
 );
 
-export const GreenCheckIcon = ({ size = 24, className, onClick }: IconProps) => (
-  <GreenCheck width={size} height={size} className={className} onClick={onClick} />
+export const GreenCheckIcon = ({
+  size = 24,
+  className,
+  onClick,
+}: IconProps) => (
+  <GreenCheck
+    width={size}
+    height={size}
+    className={className}
+    onClick={onClick}
+  />
+);
+
+export const DotIcon = ({ className, onClick }: IconProps) => (
+  <Dot width={20} height={4} className={className} onClick={onClick} />
 );
