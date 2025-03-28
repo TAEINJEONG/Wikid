@@ -12,16 +12,17 @@ const styles = {
   textColor: "text-[#8F95B2]",
 };
 
-type Answer = {
-  question: string
-  answer: string
-}
-
+ 
 type Props = {
   initialAnswers: Answer[]
   onClose: () => void
   onSubmit: (updatedAnswers: Answer[]) => void
-}
+} 
+export type Answer = {
+  id: number;
+  value: string;
+  question: string;
+};
 
 export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Props) {
   const [formAnswers] = useState<Answer[]>(initialAnswers)
@@ -43,7 +44,7 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
   }
 
   return (
-    <div>
+     <div>
     <div className="fixed inset-0  bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white w-[395px] h-[435px] p-6 rounded-lg shadow-lg">
         <div className="flex justify-center mt-4">
@@ -70,13 +71,9 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
             value={inputAnswer}
             onChange={handleInputChange}
             className={`w-[355px] h-[40px]  ${styles.inputBg} text-[12px] rounded-[10px] mt-5.5 `}
-            placeholder="   답안을 입력해 주세요" 
+            ml-2 placeholder="   답안을 입력해 주세요" 
           />
-        </div>
-
-      {/* 버튼 */}
-      
-<div className={`flex justify-center w-[355px] h-[40px] gap-2 rounded-[10px] ${styles.buttonHover} ${styles.buttonBg} mt-10`}>
+          <div className={`flex justify-center w-[355px] h-[40px] gap-2 rounded-[10px] ${styles.buttonHover} ${styles.buttonBg} mt-10`}>
  <div>
   <div>
     <Button 
@@ -84,11 +81,8 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
       onClick={handleClick}
       width ='100%'
       height ='40px'
-    />
-</div>
-</div>
-
- 
+    /> 
+ </div>
 <div className="text-center mt-9.5">
   <p className="text-[9px] text-gray-500">
     위키드는 지인들과 함께하는 즐거운 공간입니다.
@@ -97,11 +91,15 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
     지인에게 상처를 주지 않도록 작성해 주세요.
   </p>
 </div>
-
+ </div>
+</div>
         </div>
-      </div>
-      </div>
-  )
+        
+      {/* 버튼 */}
+    </div>
+    </div> 
+     
 
- 
-}
+</div>
+  )
+};

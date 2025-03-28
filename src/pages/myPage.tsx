@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from "react";
 
 export default function MyPage() {
@@ -11,7 +10,6 @@ export default function MyPage() {
   const [answer, setAnswer] = useState('');
   const [wikiMessage, setWikiMessage] = useState<string>('');
 
- 
   const styles = {
     buttonBg: 'bg-[#4CBFA4]',
     buttonHover: 'hover:bg-[#3AA78C]',
@@ -103,7 +101,6 @@ export default function MyPage() {
           비밀번호 변경
         </label>
 
-        {/* 비밀번호 변경 폼 */}
         <form onSubmit={handlePasswordChange} className="flex flex-col space-y-4 w-full items-center">
           <div className="w-[335px] md:w-[400px] flex flex-col space-y-2 relative">
             <input
@@ -136,7 +133,6 @@ export default function MyPage() {
               required
             />
 
-            {/* 오류 메시지 */}
             {error && <p className={`${styles.errorColor} text-[14px] absolute bottom-[-20px] left-1`}>{error}</p>}
           </div>
 
@@ -149,9 +145,7 @@ export default function MyPage() {
         </form>
       </div>
 
-      <div
-        className={`w-[335px] md:w-[400px] h-[1px] ${styles.dividerColor} my-[32px]`}
-      />
+      <div className={`w-[335px] md:w-[400px] h-[1px] ${styles.dividerColor} my-[32px]`} />
 
       {/* 위키 생성하기 섹션 */}
       <div className="flex flex-col space-y-2">
@@ -159,7 +153,6 @@ export default function MyPage() {
           위키 생성하기
         </label>
 
-        {/* 위키 생성 폼 */}
         <form onSubmit={createWiki} className="flex flex-col space-y-2 w-full items-center">
           <div className="w-[335px] md:w-[400px] flex flex-col space-y-2">
             <input
@@ -189,13 +182,8 @@ export default function MyPage() {
           </button>
         </form>
 
-        {/* 위키 생성 메시지 출력 */}
         {wikiMessage && <p className={`${styles.errorColor}`}>{wikiMessage}</p>}
       </div>
     </div>
   );
-=======
-const MyPage = () => {
-  return <div>mypage</div>
->>>>>>> 84ef4568aa3d3a3a73dd71049b8ea0c3ae0a1d86
 }

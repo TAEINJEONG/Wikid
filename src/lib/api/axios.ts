@@ -21,8 +21,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
-// 응답 인터셉터: 401 에러 발생 시 토큰 갱신 시도
+ 
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -47,8 +46,7 @@ axiosInstance.interceptors.response.use(
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
         }
-      } catch (refreshError) {
-        //refresh 토큰 만료시 에러
+      } catch (refreshError) { 
         console.error('토큰 갱신 실패:', refreshError);
         return Promise.reject(refreshError);
       }
