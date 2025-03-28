@@ -6,6 +6,13 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['cdn.pixabay.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'sprint-fe-project.s3.ap-northeast-2.amazonaws.com',
+        pathname: '**', // 모든 경로 허용
+      },
+    ],
   },
   webpack(config: Configuration) {
     config.module?.rules?.push({

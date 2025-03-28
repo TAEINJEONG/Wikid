@@ -1,6 +1,6 @@
 import Pensle from '@/assets/images/pensle.svg';
 import TrashCan from '@/assets/images/trashcan.svg';
-import Heart from '@/assets/images/Heart.svg';
+import Heart from '@/assets/images/heart.svg';
 import HeartFilled from '@/assets/images/heart-filled-icon.svg';
 import CommentForm from '@/components/Boards/CommentForm';
 import CommentItem from '@/components/Boards/CommentItem';
