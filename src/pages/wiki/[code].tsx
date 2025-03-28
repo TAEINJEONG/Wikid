@@ -19,7 +19,7 @@ const WikiPage = () => {
     if (code) {
       try {
          
-        const response = await axiosInstance.get(`/13-3/profiles/${code}`);
+        const response = await axiosInstance.get(`/profiles/${code}`);
         setData(response.data);  
         setLoading(false);   
       } catch (err) {

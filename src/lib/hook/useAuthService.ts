@@ -15,9 +15,9 @@ export function useAuthService() {
         router.push('/');
     } catch (error: any) {
         if (error.response) {
-        console.log(error.response.data);
+          return error.response.data;
         } else {
-        console.log(error.message);
+          return error.message;
         }
     }
   }

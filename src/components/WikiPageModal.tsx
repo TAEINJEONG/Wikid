@@ -43,6 +43,7 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
   }
 
   return (
+    <div>
     <div className="fixed inset-0  bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white w-[395px] h-[435px] p-6 rounded-lg shadow-lg">
         <div className="flex justify-center mt-4">
@@ -74,6 +75,7 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
         </div>
 
       {/* 버튼 */}
+      
 <div className={`flex justify-center w-[355px] h-[40px] gap-2 rounded-[10px] ${styles.buttonHover} ${styles.buttonBg} mt-10`}>
  <div>
   <div>
@@ -100,4 +102,6 @@ export default function WikiPageModal({ initialAnswers, onClose, onSubmit }: Pro
       </div>
       </div>
   )
+
+ 
 }

@@ -30,8 +30,8 @@ const ArticleCard = ({ article }: articleProps) => {
             <p className="mr-2 truncate max-w-20">{article.writer.name}</p>
             <p>{formattedDate}</p>
           </div>
-          <div className="flex">
-            <Image src={HeartIcon} width={16} height={16} alt="좋아요 아이콘" className="mr-1" />
+          <div className="flex items-center">
+            <HeartIcon alt="좋아요 아이콘" className="w-4 h-4 mr-1" />
             <p>{article.likeCount}</p>
           </div>
         </div>

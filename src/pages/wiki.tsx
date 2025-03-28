@@ -47,6 +47,15 @@ const WikiPage = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 px-4">
+      <div
+      className={
+        "text-grayscale-grayscale-500 text-left font-pretendard-3xl-32px-semibold-font-family text-pretendard-3xl-32px-semibold-font-size leading-pretendard-3xl-32px-semibold-line-height font-pretendard-3xl-32px-semibold-font-weight relative " +
+        className
+      }
+    >
+      이지동{" "}
+    </div>
+  );
       {profileData ? (
         <UserInfo
           name={profileData.name}
