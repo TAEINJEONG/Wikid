@@ -27,16 +27,15 @@ const Boards = () => {
     like: '좋아요순',
   };
 
-  const articlesPerPage = 10;
   const totalArticles = articleListData?.totalCount ?? 0;
-  const totalPages = Math.ceil(totalArticles / articlesPerPage);
+  const totalPages = Math.ceil(totalArticles / 10);
 
   const fetchArticlesData = useCallback(async () => {
     try {
       const res = await axiosInstance.get('/articles', {
         params: {
           page: currentPage,
-          pageSize: articlesPerPage,
+          pageSize: 10,
           orderBy,
           keyword,
         },
@@ -76,6 +75,19 @@ const Boards = () => {
     fetchArticlesByLikeData();
     fetchArticlesData();
   }, [fetchArticlesByLikeData, fetchArticlesData]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (keyword) {
+      params.set('keyword', keyword);
+    }
+    if (orderBy) {
+      params.set('orderBy', orderBy);
+    }
+    params.set('page', String(currentPage));
+    // shallow routing을 사용하면 페이지 리로드 없이 URL만 변경됨
+    router.push(`?${params.toString()}`, undefined, { shallow: true });
+  }, [keyword, orderBy, currentPage]);
 
   return (
     <div className="px-5 py-10 mx-auto max-w-[1060px]">

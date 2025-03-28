@@ -20,6 +20,9 @@ import ToolBar from '@/components/Boards/ToolBar';
 import { CreateArticle } from '@/types/Article';
 import ConfirmModal from '@/components/Boards/ConfirmModal';
 import { CommentsListResponse } from '@/types/Comment';
+import ImageUploadModal from '@/components/Boards/ImageUploadModal';
+import Button from '@/components/common/Button';
+import Link from 'next/link';
 
 const Board = () => {
   const router = useRouter();
@@ -33,12 +36,14 @@ const Board = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [lengths, setLengths] = useState({ withSpaces: 0, withoutSpaces: 0 });
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isOpenImageModal, setIsOpenImageModal] = useState<boolean>(false);
   const [commentList, setCommentList] = useState<CommentsListResponse>();
 
   const fetchArticleData = useCallback(async () => {
     try {
       const res = await axiosInstance.get(`/articles/${id}`);
       setArticleData(res.data);
+      setEditArticle((prev) => ({ ...prev, title: res.data.title }));
     } catch (e) {
       console.log(e);
     }
@@ -101,10 +106,12 @@ const Board = () => {
 
   const saveEditArticle = async () => {
     try {
+      const imageUrl =
+        editArticle.image === '' ? 'https://none.none' : editArticle.image;
       const EditArticle: CreateArticle = {
-        title: articleData?.title,
+        title: editArticle?.title,
         content: editArticle?.content,
-        image: articleData?.image,
+        image: imageUrl,
       };
       const res = await axiosInstance.patch(`/articles/${id}`, EditArticle);
       setArticleData(res.data);
@@ -159,6 +166,25 @@ const Board = () => {
     }
   };
 
+  const updateImage = async (image: FormData | null) => {
+    if (!image) return;
+    try {
+      const response = await axiosInstance.post('/images/upload', image, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      const uploadedImageUrl = response?.data?.url;
+      if (uploadedImageUrl && editor) {
+        editor.chain().focus().setImage({ src: uploadedImageUrl }).run();
+        setEditArticle((prev) => ({ ...prev, image: uploadedImageUrl }));
+      }
+    } catch (error) {
+      console.error('파일 업로드 실패:', error);
+      alert('이미지 업로드에 실패했습니다.');
+    }
+  };
+
   useEffect(() => {
     if (editor) {
       editor.setEditable(editMode);
@@ -170,12 +196,6 @@ const Board = () => {
       editor.commands.setContent(articleData.content);
     }
   }, [editor, articleData]);
-
-  useEffect(() => {
-    if (editor) {
-      // onEditorReady prop 예시, 별도 로직이 필요하면 추가
-    }
-  }, [editor]);
 
   const formattedDate = articleData?.createdAt
     ? new Date(articleData.createdAt).toLocaleDateString('ko-KR', {
@@ -191,36 +211,47 @@ const Board = () => {
       <div className="shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-5 rounded-[10px] md:px-[30px] md:py-10">
         <div className="border-gray-200 border-b-1 mb-[15px] pb-[11px] md:mb-[30px] md:pb-2">
           <div className="flex justify-between mb-[14px] md:mb-8">
-            <p className="text-gray-500 text-2xl-sb md:text-3xl-sb">
-              {articleData?.title}
-            </p>
+            {editMode ? (
+              <input
+                value={editArticle.title}
+                onChange={(e) =>
+                  setEditArticle((prev) => ({ ...prev, title: e.target.value }))
+                }
+                className="text-gray-500 text-2xl-sb md:text-3xl-sb outline-none flex-1"
+              />
+            ) : (
+              <p className="text-gray-500 text-2xl-sb md:text-3xl-sb">
+                {articleData?.title}
+              </p>
+            )}
+
             <div className="flex items-center md:hidden">
               <Pensle className="w-6 h-6 mr-3" />
               <TrashCan className="w-6 h-6 mr-3" />
             </div>
             <div className="items-start hidden md:flex">
               {editMode ? (
-                <button
-                  className="text-white bg-green-200 py-[10px] px-[35px] rounded-[10px] text-md-sb mr-3"
+                <Button
+                  buttonText="저장하기"
+                  className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer"
+                  width="120px"
                   onClick={saveEditArticle}
-                >
-                  저장하기
-                </button>
+                />
               ) : (
-                <button
-                  className="text-white bg-green-200 py-[10px] px-[35px] rounded-[10px] text-md-sb mr-3"
+                <Button
+                  buttonText="수정하기"
+                  className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer"
+                  width="120px"
                   onClick={() => setEditMode(true)}
-                >
-                  수정하기
-                </button>
+                />
               )}
 
-              <button
-                className="text-white bg-green-200 py-[10px] px-[35px] rounded-[10px] text-md-sb"
+              <Button
+                buttonText="삭제하기"
+                className="text-white bg-green-200 rounded-[10px] text-md-sb cursor-pointer"
+                width="120px"
                 onClick={() => setIsOpenModal(true)}
-              >
-                삭제하기
-              </button>
+              />
             </div>
           </div>
 
@@ -259,12 +290,19 @@ const Board = () => {
             </div>
           )}
           <EditorContent editor={editor} />
-          {editMode && <ToolBar editor={editor} openModal={() => {}} />}
+          {editMode && (
+            <ToolBar
+              editor={editor}
+              openModal={() => setIsOpenImageModal(true)}
+            />
+          )}
         </div>
       </div>
 
       <div className="flex justify-center my-10 xl:my-15">
-        <button>목록으로</button>
+        <Link href="/boards">
+          <Button buttonText="목록으로" variant="secondary" width="120px" />
+        </Link>
       </div>
 
       <div className="mb-6 xl:mb-[42px]">
@@ -291,6 +329,13 @@ const Board = () => {
 
       {isOpenModal && (
         <ConfirmModal onClick={deleteArticle} onClose={onCloseModal} />
+      )}
+
+      {isOpenImageModal && (
+        <ImageUploadModal
+          onClick={updateImage}
+          onClose={() => setIsOpenImageModal(false)}
+        />
       )}
     </div>
   );
