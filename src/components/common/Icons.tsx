@@ -27,7 +27,9 @@ import Video from '@/assets/icons/video.svg';
 import RedError from '@/assets/icons/Rederror.svg';
 import GrayInfo from '@/assets/icons/GrayInfo.svg';
 import GreenCheck from '@/assets/icons/GreenCheck.svg';
+import GreenLink from '@/assets/icons/GreenLink.svg';
 import Dot from '@/assets/icons/dot.svg';
+
 
 interface IconProps {
   size?: number;
@@ -170,6 +172,14 @@ export const GreenCheckIcon = ({
     onClick={onClick}
   />
 );
+
+export const GreenLinkIcon = ({ size = 20, className, onClick }: IconProps) => (
+  <GreenLink
+    width={size}
+    height={size}
+    className={className}
+    onClick={onClick}
+  />
 
 export const DotIcon = ({ className, onClick }: IconProps) => (
   <Dot width={20} height={4} className={className} onClick={onClick} />
