@@ -1,6 +1,6 @@
-// components/SearchBar.tsx
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import Input from '@/components/common/Input';
+import { SearchIcon } from '@/components/common/Icons';
 
 export interface SearchBarRef {
   search: () => void;
@@ -11,10 +11,19 @@ interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
   placeholder?: string;
   width?: string;
+  height?: string;
 }
 
 const SearchBar = forwardRef<SearchBarRef, SearchBarProps>(
-  ({ onSearch, placeholder = '검색어를 입력하세요', width = '100%' }, ref) => {
+  (
+    {
+      onSearch,
+      placeholder = 'props에서 placeholder,width,height 설정',
+      width = '100%',
+      height = '45px',
+    },
+    ref
+  ) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = () => {
@@ -32,13 +41,18 @@ const SearchBar = forwardRef<SearchBarRef, SearchBarProps>(
     }));
 
     return (
-      <div className="flex items-center gap-2" style={{ width }}>
+      <div className="relative" style={{ width }}>
+        <div className="absolute top-1/2 left-3 -translate-y-1/2 pointer-events-none z-10">
+          <SearchIcon size={22} />
+        </div>
+
         <Input
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          height="45px"
+          height={height}
+          className="pl-10"
         />
       </div>
     );
