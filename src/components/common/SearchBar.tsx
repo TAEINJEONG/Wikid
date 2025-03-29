@@ -1,6 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import Input from '@/components/common/Input';
 import { SearchIcon } from '@/components/common/Icons';
+import clsx from 'clsx';
 
 export interface SearchBarRef {
   search: () => void;
@@ -10,17 +11,17 @@ export interface SearchBarRef {
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
   placeholder?: string;
-  width?: string;
   height?: string;
+  className?: string;
 }
 
 const SearchBar = forwardRef<SearchBarRef, SearchBarProps>(
   (
     {
       onSearch,
-      placeholder = 'props에서 placeholder,width,height 설정',
-      width = '100%',
+      placeholder = 'props에서 placeholder,height 설정',
       height = '45px',
+      className = '',
     },
     ref
   ) => {
@@ -41,8 +42,11 @@ const SearchBar = forwardRef<SearchBarRef, SearchBarProps>(
     }));
 
     return (
-      <div className="relative" style={{ width }}>
-        <div className="absolute top-1/2 left-3 -translate-y-1/2 pointer-events-none z-10">
+      <div
+        className={clsx('relative bg-gray-100 rounded-md', className)}
+        style={{ height }}
+      >
+        <div className="absolute top-1/2 left-3 -translate-y-1/2 pointer-events-none z-10 ">
           <SearchIcon size={22} />
         </div>
 
