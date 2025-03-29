@@ -1,30 +1,23 @@
+import clsx from 'clsx';
 import React, { useState } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  width?: string;
   height?: string;
   isPassword?: boolean;
+  className?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    {
-      label,
-      error,
-      width = '335px',
-      height = '45px',
-      isPassword = false,
-      className,
-      ...props
-    },
+    { label, error, height = '45px', isPassword = false, className, ...props },
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-      <div className="flex flex-col gap-[10px]" style={{ width }}>
+      <div className={clsx('flex flex-col gap-[10px]', className)}>
         {label && (
           <label
             className="text-[12px] leading-[18px] font-[500] text-gray-500"
@@ -42,7 +35,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               bg-gray-100 text-gray-500 text-[12px] leading-[18px] font-[500]
               placeholder:text-gray-400
               ${error ? 'border border-red-200 bg-red-50' : 'border border-transparent'}
-              ${className}
             `}
             style={{ height, fontFamily: 'pretendard' }}
             {...props}
