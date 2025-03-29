@@ -65,21 +65,20 @@ export default function WikiPage() {
   if (loading) return <div>불러오는 중...</div>;
 
   return (
-    <div className="w-full flex justify-center px-4 md:px-6 lg:px-0">
-      <div className="w-full max-w-[1200px] flex flex-col gap-6 py-10">
-        {/* 이름 , 버튼 */}
-        <div className="w-full flex justify-between items-center">
+    <div className="w-full flex justify-center px-4">
+      <div className="w-[335px] flex flex-col gap-6 py-10">
+        
+        {/* 이름 + 버튼 한 줄 */}
+        <div className="flex justify-between items-center w-full">
           <h1 className="text-2xl font-bold text-[#4A4A6A]">
             {data?.name || '위키 사용자'}
           </h1>
-          <div className="w-[160px]">
-            <button
-              className="bg-[#41C9A7] text-white rounded-[10px] text-sm font-semibold w-full h-[43px] md:h-[45px]"
-              onClick={() => setShowModal(true)}
-            >
-              위키 참여하기
-            </button>
-          </div>
+          <button
+            className="bg-[#41C9A7] text-white rounded-[10px] text-sm font-semibold w-[120px] h-[43px] md:w-[160px] md:h-[45px]"
+            onClick={() => setShowModal(true)}
+          >
+            위키 참여하기
+          </button>
         </div>
 
         {/* 링크 */}
@@ -98,7 +97,10 @@ export default function WikiPage() {
         </div>
 
         {/* 프로필 카드 */}
-        <div className="bg-white rounded-[10px] w-[335px] px-4 py-4 flex flex-col items-center gap-4" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
+        <div
+          className="bg-white rounded-[10px] px-4 py-4 flex flex-col items-center gap-4 w-full"
+          style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}
+        >
           <div className="grid grid-cols-[62px_80px_1fr] gap-x-4 gap-y-1 w-full">
             <Image
               src={data?.imageUrl || defaultProfile}
@@ -138,7 +140,7 @@ export default function WikiPage() {
             initialAnswers={[]}
             onClose={() => setShowModal(false)}
             onSubmit={(answers: Answer[]) => {
-              console.log('제출된 답변:', answers.map(a => a.value));
+              console.log('제출된 답변:', answers.map((a) => a.value));
               setShowModal(false);
             }}
           />
