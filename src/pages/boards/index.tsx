@@ -97,7 +97,6 @@ const Boards = () => {
         <Link href="/addboard">
           <Button
             buttonText="게시글 등록하기"
-            width="130px"
             className="text-white bg-green-200 text-md-sb rounded-[10px] w-40 cursor-pointer"
           />
         </Link>
@@ -124,7 +123,6 @@ const Boards = () => {
           />
           <Button
             buttonText="검색"
-            width="80px"
             className="text-white bg-green-200 text-md-sb rounded-[10px] cursor-pointer"
             onClick={handleSearch}
           />
@@ -133,7 +131,6 @@ const Boards = () => {
           options={OPTION}
           selected={ORDER_BY_LABELS[orderBy]}
           onSelect={handleOrderBy}
-          width="140px"
         />
       </div>
 

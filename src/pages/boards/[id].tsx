@@ -234,14 +234,12 @@ const Board = () => {
                 <Button
                   buttonText="저장하기"
                   className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer"
-                  width="120px"
                   onClick={saveEditArticle}
                 />
               ) : (
                 <Button
                   buttonText="수정하기"
                   className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer"
-                  width="120px"
                   onClick={() => setEditMode(true)}
                 />
               )}
@@ -249,7 +247,6 @@ const Board = () => {
               <Button
                 buttonText="삭제하기"
                 className="text-white bg-green-200 rounded-[10px] text-md-sb cursor-pointer"
-                width="120px"
                 onClick={() => setIsOpenModal(true)}
               />
             </div>
@@ -301,7 +298,7 @@ const Board = () => {
 
       <div className="flex justify-center my-10 xl:my-15">
         <Link href="/boards">
-          <Button buttonText="목록으로" variant="secondary" width="120px" />
+          <Button buttonText="목록으로" variant="secondary" />
         </Link>
       </div>
 
