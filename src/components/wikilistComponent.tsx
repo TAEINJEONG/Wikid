@@ -1,4 +1,5 @@
 import { ProfileIcon } from "./common/Icons";
+import Link from "./common/Link";
 
 interface cardProps {
     width?: string;
@@ -31,7 +32,9 @@ export const Card = ({
                     </div>
                 </div>
                 <div className="w-[70%] h-[100%] relative">
-                    <div className="absolute bottom-0 right-0">링크 컴포넌트/{code}</div>
+                    <div className="absolute bottom-0 right-0">
+                        <Link url={`https://www.wikied.kr/(배포사이트)/${code}`} text={`https://www.wikied.kr/(배포사이트)/${code}`} />
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import { SearchIcon } from "@/components/common/Icons";
+import SearchBar from "@/components/common/SearchBar";
 import { Card } from "@/components/wikilistComponent";
 import axiosInstance from "@/lib/api/axios";
 import { useEffect, useRef, useState } from "react";
@@ -116,6 +117,10 @@ const WikiList = () => {
     }
   }
 
+  function handleSearchBar(keyWord: string) {
+    console.log(keyWord);
+  }
+
   function searchProfile() {
     currentSearchWord.current = searchWord;
 
@@ -141,7 +146,7 @@ const WikiList = () => {
 
     return(
       <>
-        <div className="mr-[15px] w-[45px] h-[45px] flex items-center justify-center border border-black-500 text-center cursor-pointer">&lt;</div>
+        <div className="mr-[15px] w-[45px] h-[45px] flex items-center justify-center border border-black-500 cursor-pointer">&lt;</div>
           <div className="flex gap-[10px]">
             {pageNumbers.map((index) => 
             <div key={index} 
@@ -150,7 +155,7 @@ const WikiList = () => {
               { index }
             </div>)}
           </div>
-        <div className="ml-[15px] w-[45px] h-[45px] flex items-center justify-center border border-black-500 text-center cursor-pointer">&gt;</div>
+        <div className="ml-[15px] w-[45px] h-[45px] flex items-center justify-center border border-black-500 cursor-pointer">&gt;</div>
       </>
     );
   }
@@ -202,8 +207,10 @@ const WikiList = () => {
   return (
     <>
       <div>헤더</div>
-      <div className="flex flex-col items-center">
-        <div>검색창</div>
+      <div className="mx-auto w-[859px] flex flex-col items-center border border-red-500">
+        <div>
+          <SearchBar onSearch={handleSearchBar} />
+        </div>
         <input className="border border-green-500" placeholder="검색어 입력" onChange={(e) => setSearchWord(e.target.value)}></input>
         <button className="border border-yellow-500 cursor-pointer" onClick={searchProfile}>검색</button>
         { showCardList() }
