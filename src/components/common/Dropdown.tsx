@@ -8,7 +8,7 @@ interface DropdownProps {
   onSelect: (option: string) => void;
   placeholder?: string;
   dropdownPlaceholder?: string;
-  width?: string;
+  className?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -17,7 +17,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   onSelect,
   placeholder = '질문 없음',
   dropdownPlaceholder = '질문 선택하기',
-  width = '400px',
+  className = '',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -43,14 +43,15 @@ const Dropdown: React.FC<DropdownProps> = ({
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative" style={{ width }}>
+    <div ref={dropdownRef} className={clsx('relative')}>
       <button
         onClick={toggleDropdown}
         className={clsx(
           'flex justify-between items-center px-3 py-2 rounded-md border bg-gray-50 text-gray-400 text-xs font-medium leading-[18px]',
-          'hover:cursor-pointer'
+          'hover:cursor-pointer',
+          className
         )}
-        style={{ width, height: '45px' }}
+        style={{ height: '45px' }}
       >
         <span>{selected || (isOpen ? dropdownPlaceholder : placeholder)}</span>
         <ArrowIcon
@@ -63,7 +64,12 @@ const Dropdown: React.FC<DropdownProps> = ({
       </button>
 
       {isOpen && (
-        <ul className="absolute left-0 right-0 mt-2 bg-gray-50 border rounded-md  z-10 max-h-60 overflow-y-auto">
+        <ul
+          className={clsx(
+            'absolute left-0 right-0 mt-2 bg-gray-50 border rounded-md  z-10 max-h-60 overflow-y-auto',
+            className
+          )}
+        >
           {options.map((option) => (
             <li
               key={option}
