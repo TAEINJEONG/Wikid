@@ -35,9 +35,11 @@ export function useAuthService() {
       console.log(data);
     } catch (error: any) {
       if (error.response) {
-        console.log(error.response.data);
+        //console.log(error.response.data);
+        console.log("에러1");
       } else {
         console.log(error.message);
+        console.log("에러2");
       }
     }
   }

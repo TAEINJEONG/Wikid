@@ -2,6 +2,7 @@ import { SearchIcon } from "@/components/common/Icons";
 import SearchBar from "@/components/common/SearchBar";
 import { Card } from "@/components/wikilistComponent";
 import axiosInstance from "@/lib/api/axios";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 interface cardProps {
@@ -18,9 +19,12 @@ const WikiList = () => {
   const [cardList, setCardList] = useState<cardProps[]>([]);
   const [searchWord, setSearchWord] = useState<string>("");
   const currentSearchWord = useRef<string>("");
+  const [InitialData, setInitialData] = useState<cardProps[]>([]);
 
   let page: number = 0;
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const router = useRouter();
 
   const mockdata = [
     {
@@ -109,8 +113,8 @@ const WikiList = () => {
   async function fetchGetProfiles() {
     try{
       const { data } = await axiosInstance.get('/profiles');
-      console.log(data);
-      setCardList(mockdata);
+      setCardList(data.list);
+      setInitialData(data.list);
       page = Math.ceil(cardList.length/3);
     } catch {
       console.log("데이터 불러오기 실패");
@@ -118,20 +122,20 @@ const WikiList = () => {
   }
 
   function handleSearchBar(keyWord: string) {
-    console.log(keyWord);
+    router.push(`wikilist/search?keyword=${keyWord}`);
   }
 
   function searchProfile() {
     currentSearchWord.current = searchWord;
 
     if(searchWord.length !== 0){
-      const searchedProfiles = mockdata.filter(
+      const searchedProfiles = cardList.filter(
         (profile) => profile.name.includes(searchWord)
       );
 
       setCardList(searchedProfiles);
     } else {
-      setCardList(mockdata);
+      setCardList(InitialData);
     }
   }
 
@@ -162,7 +166,7 @@ const WikiList = () => {
 
   function showCardList() {
     page = Math.ceil(cardList.length/3);
-
+  
     const currentCardList = cardList.slice(currentPage*3 - 3, currentPage*3);
 
     if(cardList.length > 0)
