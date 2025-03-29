@@ -1,3 +1,4 @@
+import Header from '@/components/common/Header';
 import { SnackbarProvider } from '@/lib/context/SnackbarContext';
 import { AuthProvider } from '@/lib/context/authProvider';
 import '@/styles/globals.css';
@@ -7,6 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <SnackbarProvider>
+        <Header />
         <Component {...pageProps} />
       </SnackbarProvider>
     </AuthProvider>
