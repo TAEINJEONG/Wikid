@@ -61,10 +61,12 @@ const AddBoard = () => {
     if (isLoading) return;
     try {
       setIsLoading(true);
+      const imageUrl =
+        article.image === '' ? 'https://none.none' : article.image;
       const newArticle: CreateArticle = {
         title: articleTitle,
         content: content,
-        image: article.image,
+        image: imageUrl,
       };
 
       const res = await axiosInstance.post('/articles', newArticle);

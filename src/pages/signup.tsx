@@ -99,7 +99,7 @@ const SignUp = () => {
           <Input label="비밀번호 확인" width="100%" error={passwordConfirmationInputError.text} placeholder="비밀번호를 입력해 주세요" onChange={changePasswordConfirmation} onBlur={handlePasswordConfirmationFocusOut} />
         </div>
         <div className="mt-[32px] w-[100%]">
-          <Button variant="primary" width="100%" height="45px" buttonText="가입하기" loading={!isSignInfoInvalid} onClick={btnClick}/>
+          <Button variant="primary" width="100%" height="45px" buttonText="가입하기" isDisabled={!isSignInfoInvalid} onClick={btnClick}/>
         </div>
         <div className="mt-[40px] flex gap-[10px]">
           <span className="font-pre text-md-r text-gray-400">이미 회원이신가요?</span>

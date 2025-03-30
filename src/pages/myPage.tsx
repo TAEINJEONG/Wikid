@@ -19,14 +19,13 @@ export default function MyPage() {
     errorColor: 'text-[#FF4D4D] border-[#FF4D4D] focus:ring-[#FF4D4D]',
   };
 
-  // 비밀번호 확인 체크
   const handleConfirmBlur = () => {
     setError(
       newPassword !== confirmPassword ? '비밀번호가 일치하지 않습니다.' : ''
     );
   };
 
-  // 비밀번호 변경 API 요청
+
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
@@ -56,7 +55,7 @@ export default function MyPage() {
     }
   };
 
-  // 위키 생성 API 요청
+
   const createWiki = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -88,14 +87,14 @@ export default function MyPage() {
 
   return (
     <div className="w-full flex flex-col items-center p-6 bg-white rounded-lg font-pretendard">
-      {/* 계정 설정 제목 */}
-      <h2 className="text-2xl font-bold text-center text-gray-800 mt-[172px] mb-[64px]">
+      
+      <h2 className="text-2xl font-bold text-center text-gray-800 mt-[100px] mb-[64px]">
         계정 설정
       </h2>
 
       {success && <p className="text-green-500">{success}</p>}
 
-      {/* 비밀번호 변경 섹션 */}
+      
       <div className="flex flex-col space-y-2">
         <label className={`${styles.textColor} text-[14.5px] font-bold`}>
           비밀번호 변경

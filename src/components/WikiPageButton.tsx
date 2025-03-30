@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react';
 
 type Props = {
@@ -16,7 +14,7 @@ export default function WikiPageButton({ text, onClick }: Props) {
     setIsClicked(true);  
     onClick(); 
     
-    setIsClicked(true); // 클릭 효과 리셋
+    setIsClicked(true); 
       };
 
   return (
