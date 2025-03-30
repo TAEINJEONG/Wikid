@@ -5,8 +5,7 @@ type UserInfoProps = {
   mbti: string;
   profileImage: string;
 };
-
-// 모달 컴포넌트
+ 
 const UserInfoModal = ({ 
   name, 
   mbti, 
@@ -38,14 +37,12 @@ const UserInfoModal = ({
     </div>
   </div>
 );
-
-// 메인 컴포넌트
+ 
 const UserInfo: React.FC<UserInfoProps> = ({ name, mbti, profileImage }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <>
-      {/* 사용자 정보 카드 */}
+    <> 
       <div 
         className="flex items-center gap-4 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer"
         onClick={() => setIsModalOpen(true)}
@@ -62,8 +59,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ name, mbti, profileImage }) => {
           </p>
         </div>
       </div>
-
-      {/* 모달 표시 조건 */}
+ 
       {isModalOpen && (
         <UserInfoModal
           name={name}
