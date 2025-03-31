@@ -24,7 +24,6 @@ import { CommentsListResponse } from '@/types/Comment';
 import ImageUploadModal from '@/components/Boards/ImageUploadModal';
 import Button from '@/components/common/Button';
 import Link from 'next/link';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface User {
   id: number;
@@ -52,8 +51,6 @@ const Board = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenImageModal, setIsOpenImageModal] = useState<boolean>(false);
   const [commentList, setCommentList] = useState<CommentsListResponse>();
-  const [cursor, setCursor] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
   const [user, setUser] = useState<User | null>(null);
 
   const fetchUserInfo = useCallback(async () => {
@@ -80,45 +77,15 @@ const Board = () => {
     try {
       const res = await axiosInstance.get(`/articles/${id}/comments`, {
         params: {
-          limit: 10,
+          limit: 9999,
         },
       });
 
       setCommentList(res.data);
-      setCursor(res.data.nextCursor);
     } catch (e) {
       console.log('댓글 불러오기 실패', e);
     }
   }, [id]);
-
-  const loadMoreCommentList = async () => {
-    if (!cursor) return;
-    try {
-      const res = await axiosInstance.get(`/articles/${id}/comments`, {
-        params: {
-          limit: 10,
-          cursor: cursor,
-        },
-      });
-      if (res.data.list.length > 0) {
-        setCommentList((prev) => ({
-          ...res.data,
-          list: prev ? [...prev.list, ...res.data.list] : [...res.data.list],
-        }));
-        if (res.data.nextCursor) {
-          setHasMore(true);
-          setCursor(res.data.nextCursor);
-        } else {
-          setHasMore(false);
-        }
-      } else {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error('추가 데이터 로드 중 오류:', error);
-      setHasMore(false);
-    }
-  };
 
   useEffect(() => {
     if (!id) return;
@@ -410,27 +377,17 @@ const Board = () => {
       </div>
 
       {commentList && (
-        <InfiniteScroll
-          dataLength={commentList.list.length} // 현재까지 불러온 댓글 수
-          next={loadMoreCommentList} // 더 불러오기 함수
-          hasMore={hasMore} // 더 불러올 데이터가 있는지 여부
-          loader={<p className="text-center my-4">불러오는 중...</p>}
-          endMessage={
-            <p className="text-center my-4">댓글이 더 이상 없습니다.</p>
-          }
-        >
-          <div>
-            {commentList.list.map((comment) => (
-              <CommentItem
-                key={comment.id}
-                user={user}
-                comment={comment}
-                onClick={deleteComment}
-                onUpdate={fetchCommentData}
-              />
-            ))}
-          </div>
-        </InfiniteScroll>
+        <div>
+          {commentList.list.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              user={user}
+              comment={comment}
+              onClick={deleteComment}
+              onUpdate={fetchCommentData}
+            />
+          ))}
+        </div>
       )}
 
       {isOpenModal && (
