@@ -5,7 +5,7 @@ import type { Configuration } from 'webpack';
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['cdn.pixabay.com'],
+    domains: ['cdn.pixabay.com', 'example.com'],
     remotePatterns: [
       {
         protocol: 'https',
