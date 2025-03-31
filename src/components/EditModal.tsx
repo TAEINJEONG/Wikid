@@ -1,30 +1,34 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import EditButton from '@/components/EditButton'; 
+import { useState } from 'react';
+// import EditButton from '@/components/EditButton';
 type Answer = {
-  question: string
-  answer: string
-}
+  question: string;
+  answer: string;
+};
 
 type Props = {
-  initialAnswers: Answer[]
-  onClose: () => void
-  onSubmit: (updatedAnswers: Answer[]) => void
-}
+  initialAnswers: Answer[];
+  onClose?: () => void;
+  onSubmit?: (updatedAnswers: Answer[]) => void;
+};
 
-export default function EditModal({ initialAnswers, onClose, onSubmit }: Props) {
-  const [formAnswers, setFormAnswers] = useState<Answer[]>(initialAnswers)
+export default function EditModal({
+  initialAnswers,
+  onClose,
+  onSubmit,
+}: Props) {
+  const [formAnswers, setFormAnswers] = useState<Answer[]>(initialAnswers);
 
   const handleChange = (index: number, value: string) => {
-    const newAnswers = [...formAnswers]
-    newAnswers[index].answer = value
-    setFormAnswers(newAnswers)
-  }
+    const newAnswers = [...formAnswers];
+    newAnswers[index].answer = value;
+    setFormAnswers(newAnswers);
+  };
 
   const handleSave = () => {
-    onSubmit(formAnswers)
-  }
+    onSubmit(formAnswers);
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
@@ -33,7 +37,9 @@ export default function EditModal({ initialAnswers, onClose, onSubmit }: Props) 
         <div className="space-y-4 max-h-[60vh] overflow-y-auto">
           {formAnswers.map((item, idx) => (
             <div key={idx}>
-              <p className="font-medium text-gray-700 mb-1">Q. {item.question}</p>
+              <p className="font-medium text-gray-700 mb-1">
+                Q. {item.question}
+              </p>
               <textarea
                 className="w-full border border-gray-300 rounded p-2"
                 value={item.answer}
@@ -56,12 +62,11 @@ export default function EditModal({ initialAnswers, onClose, onSubmit }: Props) 
             저장
           </button>
         </div>
-      </div> 
-       <div>
-      <h1>위키 페이지</h1>
-      <EditButton />
+      </div>
+      <div>
+        <h1>위키 페이지</h1>
+        {/* <EditButton /> */}
+      </div>
     </div>
-    </div>
-    
-  )
+  );
 }
