@@ -5,6 +5,7 @@ const PageError = () => {
   return (
     <>
     <div>헤더</div>
+      <div className="animate-slideRight">abc</div>
       <div className="px-[10px] py-[80px] flex flex-col items-center">
         <div className="relative w-[800px] h-[360px] mb-[20px] overflow-hidden">
           <Image src="/images/notFoundImg.jpg" alt="404 Not Found" layout="fill" objectFit="cover"/>
