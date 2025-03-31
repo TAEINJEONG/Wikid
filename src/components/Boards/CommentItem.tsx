@@ -7,12 +7,30 @@ import { useState } from 'react';
 import CommentForm from './CommentForm';
 import axiosInstance from '@/lib/api/axios';
 
+interface User {
+  id: number;
+  name: string;
+  teamId: string;
+  profile: {
+    id: number;
+    code: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface CommentItemProps extends CommentListData {
   onClick: (id: number) => void;
   onUpdate: () => void;
+  user: User | null;
 }
 
-const CommentItem = ({ comment, onClick, onUpdate }: CommentItemProps) => {
+const CommentItem = ({
+  comment,
+  onClick,
+  onUpdate,
+  user,
+}: CommentItemProps) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -51,14 +69,18 @@ const CommentItem = ({ comment, onClick, onUpdate }: CommentItemProps) => {
                 {comment.writer.name}
               </p>
               <div className="flex items-center">
-                <Pensle
-                  className="mr-[15px] md:w-6 md:h-6 w-[20px] h-[20px]"
-                  onClick={() => setIsEditMode(true)}
-                />
-                <TrashCan
-                  className="w-5 h-5 md:w-6 md:h-6"
-                  onClick={() => setIsOpenModal(true)}
-                />
+                {user?.id === comment?.writer.id && (
+                  <>
+                    <Pensle
+                      className="mr-[15px] md:w-6 md:h-6 w-[20px] h-[20px] cursor-pointer"
+                      onClick={() => setIsEditMode(true)}
+                    />
+                    <TrashCan
+                      className="w-5 h-5 md:w-6 md:h-6 cursor-pointer"
+                      onClick={() => setIsOpenModal(true)}
+                    />
+                  </>
+                )}
               </div>
             </div>
             <p className="mb-1 md:mb-[10px] text-gray-500 text-md-r md:text-lg-r">

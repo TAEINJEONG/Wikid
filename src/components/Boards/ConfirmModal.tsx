@@ -1,4 +1,5 @@
 import CloseIcon from '@/assets/images/close-icon.svg';
+import Button from '../common/Button';
 
 interface ModalProps {
   onClick: () => void;
@@ -26,18 +27,16 @@ const ConfirmModal = ({ onClose, onClick }: ModalProps) => {
         </p>
 
         <div className="flex justify-end gap-2">
-          <button
-            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2"
+          <Button
+            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2 text-md-sb"
+            buttonText="확인"
             onClick={onClick}
-          >
-            확인
-          </button>
-          <button
-            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2"
+          />
+          <Button
+            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2 text-md-sb"
+            buttonText="취소"
             onClick={onClose}
-          >
-            취소
-          </button>
+          />
         </div>
       </div>
     </div>
