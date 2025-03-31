@@ -1,3 +1,4 @@
+import Check from '@/assets/icons/check.svg';
 import Pensle from '@/assets/images/pensle.svg';
 import TrashCan from '@/assets/images/trashcan.svg';
 import Heart from '@/assets/images/heart.svg';
@@ -24,6 +25,18 @@ import ImageUploadModal from '@/components/Boards/ImageUploadModal';
 import Button from '@/components/common/Button';
 import Link from 'next/link';
 
+interface User {
+  id: number;
+  name: string;
+  teamId: string;
+  profile: {
+    id: number;
+    code: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 const Board = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -38,6 +51,17 @@ const Board = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenImageModal, setIsOpenImageModal] = useState<boolean>(false);
   const [commentList, setCommentList] = useState<CommentsListResponse>();
+  const [user, setUser] = useState<User | null>(null);
+
+  const fetchUserInfo = useCallback(async () => {
+    try {
+      const { data } = await axiosInstance.get('/users/me');
+      setUser(data);
+    } catch (e) {
+      console.log('유저 정보 가져오기 실패', e);
+      setUser(null);
+    }
+  }, []);
 
   const fetchArticleData = useCallback(async () => {
     try {
@@ -52,19 +76,23 @@ const Board = () => {
   const fetchCommentData = useCallback(async () => {
     try {
       const res = await axiosInstance.get(`/articles/${id}/comments`, {
-        params: { limit: 10 },
+        params: {
+          limit: 9999,
+        },
       });
+
       setCommentList(res.data);
     } catch (e) {
-      console.log(e);
+      console.log('댓글 불러오기 실패', e);
     }
   }, [id]);
 
   useEffect(() => {
     if (!id) return;
+    fetchUserInfo();
     fetchArticleData();
     fetchCommentData();
-  }, [fetchArticleData, fetchCommentData, id]);
+  }, [fetchArticleData, fetchCommentData, fetchUserInfo, id]);
 
   const editor = useEditor({
     extensions: [
@@ -104,15 +132,25 @@ const Board = () => {
     },
   });
 
+  const hasImageInContent = (html: string) => {
+    return /<img\s+[^>]*src=/.test(html);
+  };
+
   const saveEditArticle = async () => {
     try {
-      const imageUrl =
-        editArticle.image === '' ? 'https://none.none' : editArticle.image;
+      const content = editArticle?.content || '';
+      const hasImage = hasImageInContent(content);
+
+      const imageUrl = hasImage
+        ? editArticle.image || articleData?.image
+        : 'https://none.none';
+
       const EditArticle: CreateArticle = {
         title: editArticle?.title,
-        content: editArticle?.content,
+        content,
         image: imageUrl,
       };
+
       const res = await axiosInstance.patch(`/articles/${id}`, EditArticle);
       setArticleData(res.data);
       setEditMode(false);
@@ -135,6 +173,7 @@ const Board = () => {
   };
 
   const createComment = async (comment: string) => {
+    if (!comment) return;
     try {
       const newComment = { content: comment };
       await axiosInstance.post(`/articles/${id}/comments`, newComment);
@@ -226,32 +265,50 @@ const Board = () => {
             )}
 
             <div className="flex items-center md:hidden">
-              <Pensle className="w-6 h-6 mr-3" />
-              <TrashCan className="w-6 h-6 mr-3" />
+              {user?.id === articleData?.writer.id && (
+                <>
+                  {editMode ? (
+                    <Check
+                      className="w-6 h-6 mr-3 cursor-pointer"
+                      onClick={saveEditArticle}
+                    />
+                  ) : (
+                    <Pensle
+                      className="w-6 h-6 mr-3 cursor-pointer"
+                      onClick={() => setEditMode(true)}
+                    />
+                  )}
+                  <TrashCan
+                    className="w-6 h-6 cursor-pointer"
+                    onClick={() => setIsOpenModal(true)}
+                  />
+                </>
+              )}
             </div>
             <div className="items-start hidden md:flex">
-              {editMode ? (
-                <Button
-                  buttonText="저장하기"
-                  className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer"
-                  width="120px"
-                  onClick={saveEditArticle}
-                />
-              ) : (
-                <Button
-                  buttonText="수정하기"
-                  className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer"
-                  width="120px"
-                  onClick={() => setEditMode(true)}
-                />
-              )}
+              {user?.id === articleData?.writer.id && (
+                <>
+                  {editMode ? (
+                    <Button
+                      buttonText="저장하기"
+                      className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer py-[10px] px-[35px]"
+                      onClick={saveEditArticle}
+                    />
+                  ) : (
+                    <Button
+                      buttonText="수정하기"
+                      className="text-white bg-green-200 rounded-[10px] text-md-sb mr-3 cursor-pointer py-[10px] px-[35px]"
+                      onClick={() => setEditMode(true)}
+                    />
+                  )}
 
-              <Button
-                buttonText="삭제하기"
-                className="text-white bg-green-200 rounded-[10px] text-md-sb cursor-pointer"
-                width="120px"
-                onClick={() => setIsOpenModal(true)}
-              />
+                  <Button
+                    buttonText="삭제하기"
+                    className="text-white bg-green-200 rounded-[10px] text-md-sb cursor-pointer py-[10px] px-[35px]"
+                    onClick={() => setIsOpenModal(true)}
+                  />
+                </>
+              )}
             </div>
           </div>
 
@@ -301,7 +358,11 @@ const Board = () => {
 
       <div className="flex justify-center my-10 xl:my-15">
         <Link href="/boards">
-          <Button buttonText="목록으로" variant="secondary" width="120px" />
+          <Button
+            buttonText="목록으로"
+            variant="secondary"
+            className="py-[10px] px-[45px] text-md-sb"
+          />
         </Link>
       </div>
 
@@ -315,17 +376,19 @@ const Board = () => {
         </div>
       </div>
 
-      <div>
-        {commentList &&
-          commentList.list.map((comment) => (
+      {commentList && (
+        <div>
+          {commentList.list.map((comment) => (
             <CommentItem
               key={comment.id}
+              user={user}
               comment={comment}
               onClick={deleteComment}
               onUpdate={fetchCommentData}
             />
           ))}
-      </div>
+        </div>
+      )}
 
       {isOpenModal && (
         <ConfirmModal onClick={deleteArticle} onClose={onCloseModal} />

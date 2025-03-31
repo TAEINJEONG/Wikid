@@ -2,6 +2,7 @@ import Image from 'next/image';
 import CloseIcon from '@/assets/images/close-icon.svg';
 import Camra from '@/assets/images/camra.svg';
 import { useRef, useState } from 'react';
+import Button from '../common/Button';
 
 interface ModalProps {
   onClick: (image: FormData | null) => void;
@@ -71,18 +72,17 @@ const ImageUploadModal = ({ onClose, onClick }: ModalProps) => {
           </>
         )}
         <div className="flex justify-end">
-          <button
-            disabled={!imageData}
+          <Button
+            buttonText="삽입하기"
+            isDisabled={!imageData}
             onClick={() => {
               onClick(imageData ?? null);
               if (onClose) {
                 onClose();
               }
             }}
-            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer"
-          >
-            삽입하기
-          </button>
+            className="px-5 py-2 rounded-[10px]"
+          />
         </div>
       </div>
 

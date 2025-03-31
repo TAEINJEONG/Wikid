@@ -7,7 +7,8 @@ import Link from 'next/link';
 import router from 'next/router';
 import Button from '@/components/common/Button';
 import Dropdown from '@/components/common/Dropdown';
-import Pagination from '@/components/common/PageNation';
+import Pagination from '@/components/common/Pagenation';
+import SearchBar from '@/components/common/SearchBar';
 
 const Boards = () => {
   const [articleListData, setArticleListData] = useState<ArticleListResponse>();
@@ -57,8 +58,8 @@ const Boards = () => {
     }
   }, []);
 
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPreKeyword(e.target.value);
+  const handleKeywordChange = (keyWord: string) => {
+    setPreKeyword(keyWord);
   };
 
   const handleSearch = () => {
@@ -76,36 +77,22 @@ const Boards = () => {
     fetchArticlesData();
   }, [fetchArticlesByLikeData, fetchArticlesData]);
 
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (keyword) {
-      params.set('keyword', keyword);
-    }
-    if (orderBy) {
-      params.set('orderBy', orderBy);
-    }
-    params.set('page', String(currentPage));
-    // shallow routing을 사용하면 페이지 리로드 없이 URL만 변경됨
-    router.push(`?${params.toString()}`, undefined, { shallow: true });
-  }, [keyword, orderBy, currentPage]);
-
   return (
-    <div className="px-5 py-10 mx-auto max-w-[1060px]">
+    <div className="px-5 py-10 mx-auto max-w-[1100px]">
       {/* Nav 영역 */}
       <div className="flex justify-between mb-10">
         <h1 className="text-gray-500 text-2xl-sb">베스트 게시글</h1>
         <Link href="/addboard">
           <Button
             buttonText="게시글 등록하기"
-            width="130px"
-            className="text-white bg-green-200 text-md-sb rounded-[10px] w-40 cursor-pointer"
+            className="text-white bg-green-200 text-md-sb rounded-[10px] w-40 py-[10px] px-[20px] md:px-[35px] cursor-pointer"
           />
         </Link>
       </div>
 
       {/* articleCard 영역 */}
       <div className="-mx-5">
-        <div className="grid grid-flow-col grid-rows-1 gap-4 pb-10 px-5 w-screen overflow-x-scroll md:grid-cols-2 md:grid-rows-2 md:w-full md:gap-5 md:overflow-auto xl:mx-auto xl:overflow-auto xl:grid-rows-1 xl:w-[1100px] xl:gap-4 xl:pb-15">
+        <div className="grid grid-flow-col grid-rows-1 gap-4 pb-10 px-5 w-screen overflow-x-scroll md:grid-cols-2 md:grid-rows-2 md:w-full md:gap-5 md:overflow-auto xl:mx-auto xl:overflow-auto xl:grid-rows-1 xl:w-[1060px] xl:gap-4 xl:pb-15 xl:px-0">
           {articlesByLike?.list.slice(0, 4).map((article) => (
             <Link href={`/boards/${article.id}`} key={article.id}>
               <ArticleCard article={article} />
@@ -117,24 +104,25 @@ const Boards = () => {
       {/* 검색창 영역 */}
       <div className="flex flex-col justify-between mb-5 md:flex-row ">
         <div className="flex justify-between w-full mb-5 md:mb-0 md:mr-5 items-center">
-          <input
+          <SearchBar
             placeholder="제목을 검색해 주세요"
-            value={preKeyword}
-            onChange={handleKeywordChange}
+            className="w-full mr-5"
+            onSearch={handleKeywordChange}
           />
           <Button
             buttonText="검색"
-            width="80px"
-            className="text-white bg-green-200 text-md-sb rounded-[10px] cursor-pointer"
+            className="text-white bg-green-200 text-md-sb rounded-[10px] cursor-pointer py-[10px] px-[27px]"
             onClick={handleSearch}
           />
         </div>
-        <Dropdown
-          options={OPTION}
-          selected={ORDER_BY_LABELS[orderBy]}
-          onSelect={handleOrderBy}
-          width="140px"
-        />
+        <div className="w-full md:w-30 xl:w-[140px]">
+          <Dropdown
+            options={OPTION}
+            selected={ORDER_BY_LABELS[orderBy]}
+            className="w-full"
+            onSelect={handleOrderBy}
+          />
+        </div>
       </div>
 
       {/* articleList 영역 */}
