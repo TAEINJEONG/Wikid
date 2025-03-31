@@ -19,14 +19,18 @@ const FirstLandingSection = () => {
       <div className="h-[502px] md:h-[784px] xl:h-[713px] relative z-9">
         <div className="max-w-md mx-auto text-center text-gray-500 pt-25 md:pt-30">
           <p className="text-[40px] md:text-[60px] font-[300]">남들이 만드는</p>
-          <h1 className="text-[60px] md:text-[90px] font-[700]">나만의 위키</h1>
-          <button>위키 만들기</button>
+          <h1 className="text-[60px] md:text-[90px] font-[700] mb-10">
+            나만의 위키
+          </h1>
+          <button className="bg-gray-500 text-xl-b text-white py-[15px] px-[30px] cursor-pointer rounded-[15px]">
+            위키 만들기
+          </button>
         </div>
 
         <div
           ref={firstRef}
           className={`
-              mx-auto max-w-md transition-all duration-400 transform absolute top-[368px] md:bottom-[-264px]
+              mx-auto max-w-md transition-all duration-400 transform absolute top-[368px] md:top-[460px]
               xl:bottom-[-338px] left-1/2 -translate-x-1/2 w-[336px] h-[398px] md:w-[498px] md:h-[590px]
               ${firstInView ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
             `}
