@@ -10,6 +10,7 @@ import Review from '@/assets/images/review.svg';
 import Speechballoon from '@/assets/images/speechBalloon.svg';
 import Type1 from '@/assets/images/type=image1.svg';
 import Wikidmark from '@/assets/images/WikidMark.svg';
+import Search from '@/assets/images/search.svg';
 
 export const AlramImage = ({
   className = '',
@@ -98,3 +99,11 @@ export const WikidmarkImage = ({
   className?: string;
   alt?: string;
 }) => <Wikidmark className={className} aria-label={alt} />;
+
+export const SearchImage = ({
+  className = '',
+  alt = '',
+}: {
+  className?: string;
+  alt?: string;
+}) => <Search className={className} aria-label={alt} />;

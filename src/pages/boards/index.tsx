@@ -77,19 +77,6 @@ const Boards = () => {
     fetchArticlesData();
   }, [fetchArticlesByLikeData, fetchArticlesData]);
 
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (keyword) {
-      params.set('keyword', keyword);
-    }
-    if (orderBy) {
-      params.set('orderBy', orderBy);
-    }
-    params.set('page', String(currentPage));
-    // shallow routing을 사용하면 페이지 리로드 없이 URL만 변경됨
-    router.push(`?${params.toString()}`, undefined, { shallow: true });
-  }, [keyword, orderBy, currentPage]);
-
   return (
     <div className="px-5 py-10 mx-auto max-w-[1100px]">
       {/* Nav 영역 */}
