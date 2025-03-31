@@ -22,6 +22,8 @@ const SignUp = () => {
   const [passwordConfirmationInputError, setPasswordConfirmationInputError] = useState<InputError>({ text:"", error: true });
   const [isSignInfoInvalid, setIsSignInfoInvalid] = useState<boolean>(false);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { signUp } = useAuthService();
   const router = useRouter();
 
@@ -71,13 +73,17 @@ const SignUp = () => {
     else setPasswordConfirmationInputError(prev => ({...prev, text:""}));
   }
 
-  async function btnClick(){
-    try{
-      await signUp(email, name, password, passwordConfirmation);
+  async function btnClick(){  
+    setIsLoading(true);
+    const error = await signUp(email, name, password, passwordConfirmation);
+    setIsLoading(false);
+
+    if(error) {
+      alert(error.message);
+      return;
+    } else {
       alert("가입이 완료되었습니다.");
       router.push('/login');
-    } catch {
-      alert("회원가입 실패");
     }
   }
 
@@ -99,7 +105,7 @@ const SignUp = () => {
           <Input label="비밀번호 확인" width="100%" error={passwordConfirmationInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePasswordConfirmation} onBlur={handlePasswordConfirmationFocusOut} />
         </div>
         <div className="mt-[32px] w-[100%]">
-          <Button variant="primary" className={"w-[100%] h-[45px]"} buttonText="가입하기" isDisabled={!isSignInfoInvalid} onClick={btnClick}/>
+          <Button variant="primary" className={"w-[100%] h-[45px]"} buttonText="가입하기" isDisabled={!isSignInfoInvalid} isloading={isLoading} onClick={btnClick}/>
         </div>
         <div className="mt-[40px] flex gap-[10px]">
           <span className="font-pre text-md-r text-gray-400">이미 회원이신가요?</span>

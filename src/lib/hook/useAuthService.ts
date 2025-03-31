@@ -30,16 +30,12 @@ export function useAuthService() {
 
   async function signUp( email: string, name: string, password: string, passwordConfirmation: string ) {
     try{
-      const res = await axiosInstance.post('/auth/signUp', { email, name, password, passwordConfirmation });
-      const data = res.data;
-      console.log(data);
+      await axiosInstance.post('/auth/signUp', { email, name, password, passwordConfirmation });
     } catch (error: any) {
       if (error.response) {
-        //console.log(error.response.data);
-        console.log("에러1");
+        return error.response.data;
       } else {
-        console.log(error.message);
-        console.log("에러2");
+        return error.message
       }
     }
   }

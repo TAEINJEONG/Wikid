@@ -2,6 +2,7 @@ import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import { useAuthService } from '@/lib/hook/useAuthService';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 interface InputError {
@@ -17,7 +18,10 @@ function Login() {
   const [passwordInputError, setPasswordInputError] = useState<InputError>({ text:"", error: true });
   const [isLoginFormValid, setIsLoginFormValid] = useState<boolean>(false);
 
+  const [isloading, setisloading] = useState<boolean>(false);
+
   const { login } = useAuthService();
+  const router = useRouter();
 
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 
@@ -44,8 +48,16 @@ function Login() {
   }
 
   async function btnClick() {
+    setisloading(true);
     const error = await login(email, password);
-    if(error) alert(error.message);
+    setisloading(false);
+
+    if(error) {
+      alert(error.message);
+      return;
+    }
+
+    router.push('/');
   }
 
   useEffect(() => {
@@ -63,7 +75,7 @@ function Login() {
           <Input label='비밀번호' width='100%' error={passwordInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePassward} onBlur={handlePasswordFocusOut} />
         </div>
         <div className="mt-[32px] w-[100%]">
-          <Button className={"w-[100%] h-[45px]"} buttonText='로그인' isDisabled={!isLoginFormValid} isloading={true} onClick={btnClick} />
+          <Button className={"w-[100%] h-[45px]"} buttonText='로그인' isDisabled={!isLoginFormValid} isloading={isloading} onClick={btnClick} />
         </div>
         <div className='mt-[40px]'>
           <Link href='/signup' className="font-pre text-md-r text-green-200">회원가입</Link>
