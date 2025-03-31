@@ -9,7 +9,6 @@ import {
 import { useState, useEffect } from 'react';
 import axiosInstance from '@/lib/api/axios';
 import { deleteToken } from '@/lib/config/settingToken';
-import { Router } from 'next/router';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
