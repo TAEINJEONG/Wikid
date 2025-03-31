@@ -8,9 +8,10 @@ import {
 } from '@/components/common/Icons';
 import { useState, useEffect } from 'react';
 import axiosInstance from '@/lib/api/axios';
-import { deleteToken } from '@/lib/config/settingToken';
+import { useAuthService } from '@/lib/hook/useAuthService';
 
 const Header = () => {
+  const { logout } = useAuthService();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -87,8 +88,7 @@ const Header = () => {
 
                   <button
                     onClick={() => {
-                      deleteToken('accessToken');
-                      deleteToken('refreshToken');
+                      logout();
                       setIsLoggedIn(false);
                       setProfileMenuOpen(false);
                     }}
