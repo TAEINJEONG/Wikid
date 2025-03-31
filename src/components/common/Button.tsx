@@ -5,8 +5,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
   isloading?: boolean;
   isDisabled?: boolean;
-  width?: string;
-  height?: string;
   buttonText?: string;
   textClassName?: string;
 }
@@ -15,10 +13,9 @@ const Button = ({
   variant = 'primary',
   isloading = false,
   isDisabled = false,
-  width = '200px',
-  height = '40px',
   buttonText,
   textClassName,
+  className = '',
   ...props
 }: ButtonProps) => {
   const baseStyles =
@@ -39,8 +36,7 @@ const Button = ({
   return (
     <button
       disabled={isDisabled || isloading}
-      className={`${baseStyles} ${variantStyles[variant]} gap-2.5`}
-      style={{ width, height }}
+      className={`${baseStyles} ${variantStyles[variant]} gap-2.5 ${className}`}
       {...props}
     >
       {isloading ? (
