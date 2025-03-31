@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import UserDefaultIcon from '@/assets/images/user-default-icon.svg';
 import Pensle from '@/assets/images/pensle.svg';
 import TrashCan from '@/assets/images/trashcan.svg';
@@ -8,12 +7,30 @@ import { useState } from 'react';
 import CommentForm from './CommentForm';
 import axiosInstance from '@/lib/api/axios';
 
+interface User {
+  id: number;
+  name: string;
+  teamId: string;
+  profile: {
+    id: number;
+    code: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface CommentItemProps extends CommentListData {
   onClick: (id: number) => void;
   onUpdate: () => void;
+  user: User | null;
 }
 
-const CommentItem = ({ comment, onClick, onUpdate }: CommentItemProps) => {
+const CommentItem = ({
+  comment,
+  onClick,
+  onUpdate,
+  user,
+}: CommentItemProps) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -23,7 +40,9 @@ const CommentItem = ({ comment, onClick, onUpdate }: CommentItemProps) => {
 
   const editComment = async (updatedComment: string) => {
     try {
-      await axiosInstance.patch(`/comments/${comment.id}`, { content: updatedComment });
+      await axiosInstance.patch(`/comments/${comment.id}`, {
+        content: updatedComment,
+      });
       setIsEditMode(false);
       onUpdate();
     } catch (e) {
@@ -43,41 +62,40 @@ const CommentItem = ({ comment, onClick, onUpdate }: CommentItemProps) => {
     <>
       {!isEditMode ? (
         <div className="flex mb-[14px] md:mb-4 xl:mb-6 px-5 py-4 shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-[10px] items-start md:px-[30px] md:py-5">
-          <Image
-            src={UserDefaultIcon}
-            width={40}
-            height={40}
-            className="mr-[15px] md:mr-5 md:w-[50px] md:h-[50px]"
-            alt="사용자 이미지"
-          />
+          <UserDefaultIcon className="mr-[15px] md:mr-5 md:w-[50px] md:h-[50px] w-10 h-10" />
           <div className="w-full">
             <div className="flex items-start justify-between md:mb-[6px]">
-              <p className="text-gray-500 text-lg-sb md:text-2lg-b">{comment.writer.name}</p>
+              <p className="text-gray-500 text-lg-sb md:text-2lg-b">
+                {comment.writer.name}
+              </p>
               <div className="flex items-center">
-                <Image
-                  src={Pensle}
-                  width={20}
-                  height={20}
-                  className="mr-[15px] md:w-6 md:h-6"
-                  alt="수정 아이콘"
-                  onClick={() => setIsEditMode(true)}
-                />
-                <Image
-                  src={TrashCan}
-                  width={20}
-                  height={20}
-                  className="md:w-6 md:h-6"
-                  onClick={() => setIsOpenModal(true)}
-                  alt="삭제 아이콘"
-                />
+                {user?.id === comment?.writer.id && (
+                  <>
+                    <Pensle
+                      className="mr-[15px] md:w-6 md:h-6 w-[20px] h-[20px] cursor-pointer"
+                      onClick={() => setIsEditMode(true)}
+                    />
+                    <TrashCan
+                      className="w-5 h-5 md:w-6 md:h-6 cursor-pointer"
+                      onClick={() => setIsOpenModal(true)}
+                    />
+                  </>
+                )}
               </div>
             </div>
             <p className="mb-1 md:mb-[10px] text-gray-500 text-md-r md:text-lg-r">
               {comment?.content}
             </p>
-            <p className="text-gray-400 text-xs-r md:text-md-r">{formattedDate}</p>
+            <p className="text-gray-400 text-xs-r md:text-md-r">
+              {formattedDate}
+            </p>
           </div>
-          {isOpenModal && <ConfirmModal onClick={() => onClick(comment.id)} onClose={onClose} />}
+          {isOpenModal && (
+            <ConfirmModal
+              onClick={() => onClick(comment.id)}
+              onClose={onClose}
+            />
+          )}
         </div>
       ) : (
         <CommentForm

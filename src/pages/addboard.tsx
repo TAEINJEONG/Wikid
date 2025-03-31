@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import TextEditor from '@/components/Boards/TextEditor';
 import ImageUploadModal from '@/components/Boards/ImageUploadModal';
 import axiosInstance from '@/lib/api/axios';
@@ -6,6 +6,19 @@ import { Editor } from '@tiptap/react';
 import { CreateArticle } from '@/types/Article';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Button from '@/components/common/Button';
+
+interface User {
+  id: number;
+  name: string;
+  teamId: string;
+  profile: {
+    id: number;
+    code: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
 
 const AddBoard = () => {
   const [articleTitle, setArticleTitle] = useState<string>('');
@@ -19,6 +32,21 @@ const AddBoard = () => {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+
+  const fetchUserInfo = useCallback(async () => {
+    try {
+      const { data } = await axiosInstance.get('/users/me');
+      setUser(data);
+    } catch (e) {
+      console.log('유저 정보 가져오기 실패', e);
+      setUser(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, [fetchUserInfo]);
 
   const onEditorChange = (content: string) => {
     setContent(content);
@@ -61,10 +89,12 @@ const AddBoard = () => {
     if (isLoading) return;
     try {
       setIsLoading(true);
+      const imageUrl =
+        article.image === '' ? 'https://none.none' : article.image;
       const newArticle: CreateArticle = {
         title: articleTitle,
         content: content,
-        image: article.image,
+        image: imageUrl,
       };
 
       const res = await axiosInstance.post('/articles', newArticle);
@@ -76,6 +106,20 @@ const AddBoard = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const hasMeaningfulContent = (html: string) => {
+    const stripped = html.replace(/<[^>]*>/g, '').trim();
+    return stripped.length > 0;
+  };
+
+  const getFormattedDate = () => {
+    const now = new Date();
+    return now.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
   };
 
   return (
@@ -91,17 +135,18 @@ const AddBoard = () => {
               <p className="text-gray-500 text-lg-sb md:text-xl-sb xl:text-2xl-sb">
                 게시물 등록하기
               </p>
-              <button
+              <Button
+                buttonText="등록하기"
                 onClick={CreateArticle}
-                className="px-3 py-2 bg-gray-300 rounded-[10px]"
-                disabled={articleTitle === ''}
-              >
-                등록하기
-              </button>
+                className="px-3 py-2 md:px-[45px] md:py-[10px] rounded-[10px] text-md-sb"
+                isDisabled={
+                  !articleTitle.trim() || !hasMeaningfulContent(content)
+                }
+              />
             </div>
             <div className="flex items-center text-gray-400 text-xs-r md:text-lg-r">
-              <p className="mr-[10px]">박동욱</p>
-              <p>2024.02.24.</p>
+              <p className="mr-[10px]">{user?.name}</p>
+              <p>{getFormattedDate()}</p>
             </div>
           </div>
           <div className="flex items-center w-full py-3 mb-4 border-gray-200 border-t-1 border-b-1">
@@ -127,9 +172,13 @@ const AddBoard = () => {
       </div>
 
       <div className="flex justify-center">
-        <button>
-          <Link href="/boards">목록으로</Link>
-        </button>
+        <Link href="/boards">
+          <Button
+            buttonText="목록으로"
+            variant="secondary"
+            className="py-[10px] px-[45px] text-md-sb"
+          />
+        </Link>
       </div>
 
       {isOpenModal && (

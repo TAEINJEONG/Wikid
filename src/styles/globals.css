@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './animation.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -82,6 +83,7 @@
 }
 
 @theme {
+  --breakpoint-ultra: 121rem;
   /* gray 계열 */
   --color-gray-50: oklch(100% 0 0);
   --color-gray-100: oklch(97.7% 0.004 286.33);

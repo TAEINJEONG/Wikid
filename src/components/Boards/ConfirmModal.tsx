@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import CloseIcon from '@/assets/images/close-icon.svg';
+import Button from '../common/Button';
 
 interface ModalProps {
   onClick: () => void;
@@ -17,31 +17,26 @@ const ConfirmModal = ({ onClose, onClick }: ModalProps) => {
         className="p-5 w-[375px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-1 rounded-[24px] bg-white"
       >
         <div className="flex justify-end w-full mb-[10px]">
-          <Image
-            src={CloseIcon}
-            width={20}
-            height={20}
-            alt="닫기 아이콘"
-            onClick={onClose}
-            className="cursor-pointer"
-          />
+          <CloseIcon onClick={onClose} className="w-5 h-5 cursor-pointer" />
         </div>
-        <p className="mb-5 text-center text-red-200 text-2xl-b">삭제하시겠습니까?</p>
-        <p className="mb-5 text-center text-gray-500 text-lg-b">삭제하시면 복구하실 수 없습니다.</p>
+        <p className="mb-5 text-center text-red-200 text-2xl-b">
+          삭제하시겠습니까?
+        </p>
+        <p className="mb-5 text-center text-gray-500 text-lg-b">
+          삭제하시면 복구하실 수 없습니다.
+        </p>
 
         <div className="flex justify-end gap-2">
-          <button
-            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2"
+          <Button
+            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2 text-md-sb"
+            buttonText="확인"
             onClick={onClick}
-          >
-            확인
-          </button>
-          <button
-            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2"
+          />
+          <Button
+            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer w-1/2 text-md-sb"
+            buttonText="취소"
             onClick={onClose}
-          >
-            취소
-          </button>
+          />
         </div>
       </div>
     </div>

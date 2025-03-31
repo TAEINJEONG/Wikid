@@ -2,7 +2,7 @@ import Image from 'next/image';
 import CloseIcon from '@/assets/images/close-icon.svg';
 import Camra from '@/assets/images/camra.svg';
 import { useRef, useState } from 'react';
-// import axiosInstance from '@/lib/api/axios';
+import Button from '../common/Button';
 
 interface ModalProps {
   onClick: (image: FormData | null) => void;
@@ -48,20 +48,18 @@ const ImageUploadModal = ({ onClose, onClick }: ModalProps) => {
         className="p-5 w-[375px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-1 rounded-[24px] bg-white"
       >
         <div className="flex justify-end w-full mb-[10px]">
-          <Image
-            src={CloseIcon}
-            width={20}
-            height={20}
-            alt="닫기 아이콘"
-            onClick={onClose}
-            className="cursor-pointer"
-          />
+          <CloseIcon onClick={onClose} className="w-5 h-5 cursor-pointer" />
         </div>
         <p className="mb-5 text-center text-gray-500 text-2lg-sb">이미지</p>
 
         {blobImage ? (
           <div className="relative w-full h-40 rounded-[10px] mb-5 overflow-hidden">
-            <Image src={blobImage} fill alt="업로드된 이미지" objectFit="cover" />
+            <Image
+              src={blobImage}
+              fill
+              alt="업로드된 이미지"
+              objectFit="cover"
+            />
           </div>
         ) : (
           <>
@@ -69,23 +67,22 @@ const ImageUploadModal = ({ onClose, onClick }: ModalProps) => {
               onClick={handleClickFileUpload}
               className="flex items-center justify-center w-full h-40 bg-gray-100 rounded-[10px] mb-5 cursor-pointer"
             >
-              <Image src={Camra} width={36} height={36} alt="사진 아이콘" />
+              <Camra className="w-9 h-9" />
             </button>
           </>
         )}
         <div className="flex justify-end">
-          <button
-            disabled={!imageData}
+          <Button
+            buttonText="삽입하기"
+            isDisabled={!imageData}
             onClick={() => {
               onClick(imageData ?? null);
               if (onClose) {
                 onClose();
               }
             }}
-            className="px-5 py-2 bg-green-200 rounded-[10px] cursor-pointer"
-          >
-            삽입하기
-          </button>
+            className="px-5 py-2 rounded-[10px]"
+          />
         </div>
       </div>
 

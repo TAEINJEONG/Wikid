@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import loudSpeaker from '@/assets/images/loudSpeaker.svg';
 import WikidMark from '@/assets/images/WikidMark.svg';
 import phone from '@/assets/images/phone.svg';
@@ -62,7 +62,9 @@ const SecondLadingSection: React.FC = () => {
            3. 현재 이미지의 인덱스를 담은 imageIndex값을 더함
            4. 최종 나온 값을 10을 곱해 y값의 최대 높이를 정함
           */
-          const y = Math.sin((verticalTime / 1000 - delay) * timeScale + imageIndex) * 10;
+          const y =
+            Math.sin((verticalTime / 1000 - delay) * timeScale + imageIndex) *
+            10;
 
           // 나온 y값을 반영
           el.style.transform = `translateY(${y}px)`;
@@ -89,16 +91,16 @@ const SecondLadingSection: React.FC = () => {
         </p>
       </div>
       <div className="flex items-center overflow-hidden w-full h-[100px] md:h-[170px] xl:h-[380px] relative">
-        <div ref={trackRef} className="flex w-max whitespace-nowrap will-change-transform">
-          {[...images, ...images, ...images, ...images].map((img, i) => (
+        <div
+          ref={trackRef}
+          className="flex w-max whitespace-nowrap will-change-transform"
+        >
+          {[...images, ...images, ...images, ...images].map((Icon, i) => (
             <div
               key={i}
               className="w-[76px] h-[76px] md:w-[147px] md:h-[147px] xl:w-[360px] xl:h-[360px] mx-[10px] xl:mx-[35px] relative flex-shrink-0 float-box"
             >
-              <Image
-                src={img}
-                alt={`이미지 ${i + 1}`}
-                fill
+              <Icon
                 className="object-contain rounded-xl"
                 style={{
                   backgroundColor: backgroundColors[i % images.length],

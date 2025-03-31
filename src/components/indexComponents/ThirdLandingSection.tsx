@@ -2,7 +2,6 @@ import { useInView } from 'react-intersection-observer';
 import Alram from '@/assets/images/alram.svg';
 import Review from '@/assets/images/review.svg';
 import Bell from '@/assets/images/bell.svg';
-import Image from 'next/image';
 
 const ThirdLandingSection = () => {
   const { ref: reviewRef, inView: review } = useInView({ threshold: 0.3 });
@@ -28,11 +27,7 @@ const ThirdLandingSection = () => {
           ${review ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-30'}`}
         >
           <div className="w-[335px] h-[102px] md:w-[648px] md:h-[196px] xl:w-[924px] xl:h-[280px] bg-green-200 rounded-[20px]">
-            <Image
-              src={Review}
-              alt="리뷰 애니메이션 이미지"
-              className="object-cover h-full bg-green-200 rounded-[20px]"
-            />
+            <Review className="object-cover h-full bg-green-200 rounded-[20px]" />
           </div>
         </div>
         <div className="flex items-center">
@@ -42,11 +37,7 @@ const ThirdLandingSection = () => {
             ${bell ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-30'}`}
           >
             <div className="w-[102px] h-[102px] md:w-[198px] md:h-[198px] xl:w-[280px] xl:h-[280px] rounded-[20px] overflow-hidden">
-              <Image
-                src={Bell}
-                alt="벨 애니메이션 이미지"
-                className="object-cover h-full overflow-hidden bg-purple-100"
-              />
+              <Bell className="object-cover h-full overflow-hidden bg-purple-100" />
             </div>
           </div>
 
@@ -56,11 +47,7 @@ const ThirdLandingSection = () => {
             ${alram ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-30'}`}
           >
             <div className="w-[223px] h-[102px] md:w-[428px] md:h-[198px] xl:w-[604px] xl:h-[280px] rounded-[20px]">
-              <Image
-                src={Alram}
-                alt="알림 애니메이션 이미지"
-                className="object-cover h-full"
-              />
+              <Alram className="object-cover h-full" />
             </div>
           </div>
         </div>
