@@ -95,11 +95,11 @@ const SignUp = () => {
         <div className="w-[100%] flex flex-col gap-[24px]">
           <Input label="이름" width="100%" error={nameInputError.text} placeholder="이름을 입력해 주세요" onChange={changeName} onBlur={handleNameFocusOut} />
           <Input label="이메일" width="100%" error={emailInputError.text} placeholder="이메일을 입력해 주세요" onChange={changeEmail} onBlur={handleEmailFocusOut} />
-          <Input label="비밀번호" width="100%" error={passwordInputError.text} placeholder="비밀번호를 입력해 주세요" onChange={changePassword} onBlur={handlePasswordFocusOut} />
-          <Input label="비밀번호 확인" width="100%" error={passwordConfirmationInputError.text} placeholder="비밀번호를 입력해 주세요" onChange={changePasswordConfirmation} onBlur={handlePasswordConfirmationFocusOut} />
+          <Input label="비밀번호" width="100%" error={passwordInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePassword} onBlur={handlePasswordFocusOut} />
+          <Input label="비밀번호 확인" width="100%" error={passwordConfirmationInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePasswordConfirmation} onBlur={handlePasswordConfirmationFocusOut} />
         </div>
         <div className="mt-[32px] w-[100%]">
-          <Button variant="primary" width="100%" height="45px" buttonText="가입하기" isDisabled={!isSignInfoInvalid} onClick={btnClick}/>
+          <Button variant="primary" className={"w-[100%] h-[45px]"} buttonText="가입하기" isDisabled={!isSignInfoInvalid} onClick={btnClick}/>
         </div>
         <div className="mt-[40px] flex gap-[10px]">
           <span className="font-pre text-md-r text-gray-400">이미 회원이신가요?</span>
