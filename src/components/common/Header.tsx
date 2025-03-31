@@ -1,5 +1,4 @@
 import Link from 'next/link';
-// import { useAuth } from '@/lib/context/authProvider';
 import { WikidmarkImage } from '@/components/common/Images';
 import {
   AlarmIcon,
@@ -7,16 +6,31 @@ import {
   MenuIcon,
   WikiedIcon,
 } from '@/components/common/Icons';
-import { useState } from 'react';
-import { useAuth } from '@/lib/context/authProvider';
+import { useState, useEffect } from 'react';
+import axiosInstance from '@/lib/api/axios';
+import { deleteToken } from '@/lib/config/settingToken';
+import { Router } from 'next/router';
 
 const Header = () => {
-  const { isLoggedIn } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleProfileMenu = () => setProfileMenuOpen((prev) => !prev);
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      try {
+        await axiosInstance.get('/users/me');
+        setIsLoggedIn(true);
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkLoggedIn();
+  }, []);
 
   return (
     <header className="w-full h-[79px] bg-white shadow-sm border-b-[1px] border-gray-100">
@@ -71,22 +85,24 @@ const Header = () => {
                   >
                     내 위키
                   </Link>
-                  {/*로그아웃은 링크가 아니라 로그아웃 처리만 하면 되는지*/}
-                  <Link
-                    href="/myPage"
-                    onClick={() => setProfileMenuOpen(false)}
-                    className="text-gray-400 hover:text-gray-300"
+
+                  <button
+                    onClick={() => {
+                      deleteToken('accessToken');
+                      deleteToken('refreshToken');
+                      setIsLoggedIn(false);
+                      setProfileMenuOpen(false);
+                    }}
+                    className="text-gray-400 hover:text-gray-300 bg-gray-50"
                   >
                     로그아웃
-                  </Link>
+                  </button>
                 </div>
               )}
             </>
           ) : (
-            <Link href="/login">
-              <Link href="/login" className=" hover:bg-gray-100">
-                로그인
-              </Link>
+            <Link href="/login" className=" hover:bg-gray-100">
+              로그인
             </Link>
           )}
         </div>
