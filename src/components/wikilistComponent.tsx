@@ -33,7 +33,7 @@ export const Card = ({
                 </div>
                 <div className="w-[70%] h-[100%] relative">
                     <div className="absolute bottom-0 right-0">
-                        <Link url={`https://www.wikied.kr/(배포사이트)/${code}`} text={`https://www.wikied.kr/(배포사이트)/${code}`} />
+                        { name ? <Link url={`https://www.wikied.kr/(배포사이트)/${code}`} text={`https://www.wikied.kr/(배포사이트)/${code}`} /> : null }
                     </div>
                 </div>
             </div>
