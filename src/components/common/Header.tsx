@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axiosInstance from '@/lib/api/axios';
 import { useAuthService } from '@/lib/hook/useAuthService';
 import { useAuth } from '@/lib/context/authProvider';
@@ -23,6 +23,9 @@ const Header = () => {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleProfileMenu = () => setProfileMenuOpen((prev) => !prev);
 
+  const profileRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const fetchProfileImage = async () => {
       try {
@@ -43,6 +46,23 @@ const Header = () => {
 
     if (isLoggedIn) fetchProfileImage();
   });
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setProfileMenuOpen(false);
+      }
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   if (isLoading)
     return (
@@ -96,7 +116,10 @@ const Header = () => {
                 />
               )}
               {isProfileMenuOpen && (
-                <div className="absolute top-6 right-[-16px] w-[110px] h-[131] rounded-md shadow-md  bg-gray-50 py-4 flex flex-col items-center gap-4  z-20">
+                <div
+                  ref={profileRef}
+                  className="absolute top-6 right-[-16px] w-[110px] h-[131] rounded-md shadow-md  bg-gray-50 py-4 flex flex-col items-center gap-4  z-20"
+                >
                   <Link
                     href="/myPage"
                     onClick={() => setProfileMenuOpen(false)}
@@ -137,7 +160,10 @@ const Header = () => {
         </button>
 
         {isMenuOpen && (
-          <div className="absolute top-20 right-0 w-[120px] h-[176] rounded-md shadow-md bg-white py-4 flex flex-col items-center gap-4 md:hidden z-20">
+          <div
+            ref={menuRef}
+            className="absolute top-20 right-0 w-[120px] h-[176] rounded-md shadow-md bg-white py-4 flex flex-col items-center gap-4 md:hidden z-20"
+          >
             <Link href="/wikilist" onClick={() => setMenuOpen(false)}>
               위키목록
             </Link>
