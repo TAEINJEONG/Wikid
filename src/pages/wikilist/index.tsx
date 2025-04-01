@@ -1,9 +1,8 @@
-import { SearchIcon } from "@/components/common/Icons";
+import { GraySearchIcon, SearchIcon } from "@/components/common/Icons";
 import Pagination from "@/components/common/Pagenation";
 import SearchBar from "@/components/common/SearchBar";
 import { Card } from "@/components/WikilistComponent";
 import axiosInstance from "@/lib/api/axios";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 interface cardProps {
@@ -25,7 +24,6 @@ const WikiList = () => {
   const [keyWord, setkeyWord] = useState<string>("");
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const router = useRouter();
 
   async function fetchGetProfiles() {
     try{
@@ -98,7 +96,7 @@ const WikiList = () => {
           <div>
             <p className="font-pre text-xl-m text-gray-400">"{keyWord}"과 일치하는 검색 결과가 없어요.</p>
           </div>
-          { SearchIcon({ size:185 }) }
+          { GraySearchIcon({ size: 185 }) }
         </div>
       );
     }
