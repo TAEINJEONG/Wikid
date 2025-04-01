@@ -15,7 +15,7 @@ import {
 
 const Header = () => {
   const { logout } = useAuthService();
-  const { isLoggedIn } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -40,30 +40,12 @@ const Header = () => {
           if (img) setProfileImage(img);
         }
       } catch {
-        setProfileImage(null);
+        setIsLoggedIn(false);
       } finally {
         setIsLoading(false);
       }
     };
-
-    fetchProfileImage();
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target as Node)
-      ) {
-        setProfileMenuOpen(false);
-      }
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    checkLoggedIn();
   }, []);
 
   if (isLoading)
@@ -153,7 +135,7 @@ const Header = () => {
               )}
             </>
           ) : (
-            <Link href="/login" className="hover:text-gray-300">
+            <Link href="/login" className="hover:text-gray-300 ">
               로그인
             </Link>
           )}

@@ -31,6 +31,7 @@ import GreenLink from '@/assets/icons/GreenLink.svg';
 import Dot from '@/assets/icons/dot.svg';
 import Wikied from '@/assets/icons/wikied.svg';
 import BlackClose from '@/assets/icons/Blackclose.svg';
+import GraySearch from '@/assets/images/search.svg';
 
 interface IconProps {
   size?: number;
@@ -189,6 +190,19 @@ export const DotIcon = ({ className, onClick }: IconProps) => (
 
 export const WikiedIcon = ({ size = 20, className, onClick }: IconProps) => (
   <Wikied width="71px" height={size} className={className} onClick={onClick} />
+);
+
+export const GraySearchIcon = ({
+  size = 24,
+  className,
+  onClick,
+}: IconProps) => (
+  <GraySearch
+    width={size}
+    height={size}
+    className={className}
+    onClick={onClick}
+  />
 );
 
 export const BlackCloseIcon = ({

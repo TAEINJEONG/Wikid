@@ -42,21 +42,17 @@ export function useAuthService() {
     passwordConfirmation: string
   ) {
     try {
-      const res = await axiosInstance.post('/auth/signUp', {
+      await axiosInstance.post('/auth/signUp', {
         email,
         name,
         password,
         passwordConfirmation,
       });
-      const data = res.data;
-      console.log(data);
     } catch (error: any) {
       if (error.response) {
-        //console.log(error.response.data);
-        console.log('에러1');
+        return error.response.data;
       } else {
-        console.log(error.message);
-        console.log('에러2');
+        return error.message;
       }
     }
   }
