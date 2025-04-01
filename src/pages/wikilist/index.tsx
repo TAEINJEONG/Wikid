@@ -87,7 +87,7 @@ const WikiList = () => {
               />
             ))}
           </div>
-          <div className="mt-[121px]">
+          <div className="mt-[121px] mb-[136px]">
             { <Pagination totalPages={totalPage} currentPage={currentPage} onPageChange={handlePageChange} /> }
           </div>
         </>
