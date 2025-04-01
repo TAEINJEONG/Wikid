@@ -58,8 +58,8 @@ const Boards = () => {
     }
   }, []);
 
-  const handleKeywordChange = (keyWord: string) => {
-    setPreKeyword(keyWord);
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPreKeyword(e.target.value);
   };
 
   const handleSearch = () => {
@@ -107,7 +107,7 @@ const Boards = () => {
           <SearchBar
             placeholder="제목을 검색해 주세요"
             className="w-full mr-5"
-            // onSearch={handleKeywordChange}
+            onChange={handleKeywordChange}
           />
           <Button
             buttonText="검색"

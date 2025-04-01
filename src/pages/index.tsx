@@ -2,12 +2,22 @@ import FirstLandingSection from '@/components/indexComponents/FirstLandingSectio
 import SecondLadingSection from '@/components/indexComponents/SecondLadingSection';
 import ThirdLandingSection from '@/components/indexComponents/ThirdLandingSection';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import axiosInstance from '@/lib/api/axios';
 
 const Index = () => {
+  const router = useRouter();
+  const Redirector = async () => {
+    try {
+      const res = await axiosInstance.get('/users/me');
+      router.push(`/wiki/${res.data.profile.code}`);
+    } catch {
+      router.push('/login');
+    }
+  };
+
   return (
     <div className="bg-[#F1F4FD] mx-auto">
-      <div className="h-20">Header Nav</div>
-
       <FirstLandingSection />
       <SecondLadingSection />
       <ThirdLandingSection />
@@ -16,7 +26,11 @@ const Index = () => {
         <h1 className="text-[30px] md:text-[60px] font-[700] text-white mb-[30px] md:mb-10">
           나만의 위키 만들어 보기
         </h1>
-        <button className="text-gray-500 bg-white rounded-[15px] py-[15px] px-[30px] text-xl-b cursor-pointer">
+
+        <button
+          className="text-gray-500 bg-white rounded-[15px] py-[15px] px-[30px] text-xl-b cursor-pointer"
+          onClick={Redirector}
+        >
           지금 시작하기
         </button>
       </div>

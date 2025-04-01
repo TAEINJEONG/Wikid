@@ -7,6 +7,7 @@ import { CreateArticle } from '@/types/Article';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from '@/components/common/Button';
+import { useSnackbar } from '@/lib/context/SnackbarContext';
 
 interface User {
   id: number;
@@ -21,6 +22,7 @@ interface User {
 }
 
 const AddBoard = () => {
+  const { showSnackbar } = useSnackbar();
   const [articleTitle, setArticleTitle] = useState<string>('');
   const [content, setContent] = useState('');
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -101,6 +103,11 @@ const AddBoard = () => {
       const id = res.data.id;
 
       router.push(`/boards/${id}`);
+      showSnackbar('게시글이 생성되었습니다!', {
+        type: 'green',
+        position: 'top',
+        size: 'large',
+      });
     } catch (e) {
       console.log(e);
     } finally {

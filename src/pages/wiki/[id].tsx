@@ -137,6 +137,11 @@ const WikiPage = () => {
 
       patchData.securityAnswer = securityAnswer;
       await axiosInstance.patch(`/profiles/${id}`, patchData);
+      showSnackbar('위키가 정상적으로 수정되었습니다!', {
+        type: 'green',
+        position: 'top',
+        size: 'large',
+      });
     } catch (e) {
       console.log(e);
     }
@@ -255,11 +260,19 @@ const WikiPage = () => {
         <div className="flex justify-between mb-6 xl:w-[860px]">
           <p className="text-gray-500 text-3xl-sb">{profileData?.name}</p>
           {editMode ? (
-            <Button
-              buttonText="저장하기"
-              className="py-[10px] px-[22px] rounded-[10px]"
-              onClick={saveWiki}
-            />
+            <div>
+              <Button
+                buttonText="취소"
+                variant="secondary"
+                className="py-[10px] px-[22px] rounded-[10px] mr-[10px]"
+                onClick={() => setEditMode(false)}
+              />
+              <Button
+                buttonText="저장"
+                className="py-[10px] px-[22px] rounded-[10px]"
+                onClick={saveWiki}
+              />
+            </div>
           ) : (
             <Button
               buttonText="위키 참여하기"
@@ -285,7 +298,7 @@ const WikiPage = () => {
                 className="w-[62px] h-[62px] xl:w-50 xl:h-50 rounded-[99px] overflow-hidden"
               >
                 {profileData &&
-                  (profileData.image === 'https://example.com/...' ? (
+                  (!profileData.image ? (
                     <div className="relative">
                       <Profile
                         className={`${editMode ? 'cursor-pointer' : 'cursor-auto'} w-[62px] h-[62px] xl:w-50 xl:h-50`}
@@ -477,13 +490,30 @@ const WikiPage = () => {
         </div>
 
         <div className="xl:w-[860px] xl:absolute xl:top-[206px]">
-          {editMode && (
-            <ToolBar
-              editor={editor}
-              openModal={() => setIsOpenImageModal(true)}
-            />
+          {profileData && !profileData.content ? (
+            <div className="w-full bg-gray-100 flex justify-center items-center flex-col py-10 rounded-[10px]">
+              <p className="mb-5 text-center text-lg-r text-gray-400">
+                아직 작성된 내용이 없네요.
+                <br />
+                위키에 참여해보세요!
+              </p>
+              <Button
+                buttonText="시작하기"
+                className="text-md-sb py-2 px-5"
+                onClick={() => setIsOpenQuizModal(true)}
+              />
+            </div>
+          ) : (
+            <>
+              {editMode && (
+                <ToolBar
+                  editor={editor}
+                  openModal={() => setIsOpenImageModal(true)}
+                />
+              )}
+              <EditorContent editor={editor} />
+            </>
           )}
-          <EditorContent editor={editor} />
         </div>
       </div>
 
