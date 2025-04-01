@@ -16,6 +16,7 @@ const Header = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleProfileMenu = () => setProfileMenuOpen((prev) => !prev);
@@ -23,8 +24,17 @@ const Header = () => {
   useEffect(() => {
     const checkLoggedIn = async () => {
       try {
-        await axiosInstance.get('/users/me');
+        const userRes = await axiosInstance.get('/users/me');
         setIsLoggedIn(true);
+
+        const code = userRes.data?.profile?.code;
+        if (code) {
+          const profileRes = await axiosInstance.get(`/profiles/${code}`);
+          const imageUrl = profileRes.data?.image;
+          if (imageUrl) {
+            setProfileImage(imageUrl);
+          }
+        }
       } catch {
         setIsLoggedIn(false);
       } finally {
@@ -69,14 +79,23 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-6">
-          {isLoggedIn ? (
+          {!isLoggedIn ? (
             <>
               <AlarmIcon size={24} className="cursor-pointer" />
-              <ProfileIcon
-                size={24}
-                className="cursor-pointer"
-                onClick={toggleProfileMenu}
-              />
+              {profileImage ? (
+                <img
+                  src={profileImage}
+                  alt="프로필"
+                  className="w-6 h-6 rounded-full cursor-pointer object-cover"
+                  onClick={toggleProfileMenu}
+                />
+              ) : (
+                <ProfileIcon
+                  size={24}
+                  className="cursor-pointer"
+                  onClick={toggleProfileMenu}
+                />
+              )}
               {isProfileMenuOpen && (
                 <div className="absolute top-20 right-0 w-[110px] h-[131] rounded-md shadow-md lg:right-[60px] bg-gray-50 py-4 flex flex-col items-center gap-4  z-20">
                   <Link
