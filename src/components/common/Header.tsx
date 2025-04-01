@@ -77,7 +77,7 @@ const Header = () => {
           </nav>
         </nav>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className=" relative hidden md:flex items-center gap-6">
           {isLoggedIn ? (
             <>
               <AlarmIcon size={24} className="cursor-pointer" />
@@ -96,7 +96,7 @@ const Header = () => {
                 />
               )}
               {isProfileMenuOpen && (
-                <div className="absolute top-20 right-0 w-[110px] h-[131] rounded-md shadow-md lg:right-[60px] bg-gray-50 py-4 flex flex-col items-center gap-4  z-20">
+                <div className="absolute top-6 right-[-16px] w-[110px] h-[131] rounded-md shadow-md  bg-gray-50 py-4 flex flex-col items-center gap-4  z-20">
                   <Link
                     href="/myPage"
                     onClick={() => setProfileMenuOpen(false)}
