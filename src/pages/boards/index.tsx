@@ -107,7 +107,7 @@ const Boards = () => {
           <SearchBar
             placeholder="제목을 검색해 주세요"
             className="w-full mr-5"
-            onSearch={handleKeywordChange}
+            // onSearch={handleKeywordChange}
           />
           <Button
             buttonText="검색"
