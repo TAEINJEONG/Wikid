@@ -1,7 +1,7 @@
 import { SearchIcon } from "@/components/common/Icons";
 import Pagination from "@/components/common/Pagenation";
 import SearchBar from "@/components/common/SearchBar";
-import { Card } from "@/components/wikilistComponent";
+import { Card } from "@/components/WikilistComponent";
 import axiosInstance from "@/lib/api/axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -40,17 +40,20 @@ const WikiList = () => {
   }
 
   function fetchSearchProfiles() {
-    setCardList(initialCardList.filter((profile) => profile.name.includes(keyWord)));
+    if(keyWord === '')
+      setCardList(initialCardList);
+    else
+      setCardList(initialCardList.filter((profile) => profile.name.includes(keyWord)));
   }
 
   function searchResultCount() {
-    if(keyWord)
+    if(keyWord && cardList.length !== 0)
       return <span className="font-pre text-lg-r text-gray-400">“{keyWord}”님을 총 {cardList.length}명 찾았습니다.</span>
   }
 
-  function handleSearchBar(keyword: string) {
-    //router.push(`wikilist/search?keyword=${keyWord}`);
-    setkeyWord(keyword);
+  function handleSearchBar(e: React.KeyboardEvent<HTMLInputElement>) {
+    if(e.key === 'Enter')
+      setkeyWord(e.currentTarget.value);
   }
 
   function handlePageChange(page: number) {
@@ -114,7 +117,7 @@ const WikiList = () => {
     <>
       <div className="mt-[80px] mx-auto w-[859px] flex flex-col items-center">
         <div className="flex flex-col w-[100%] gap-[16px]">
-          <div><SearchBar className="w-[100%] h-[45px]" placeholder="검색어를 입력해 주세요." onSearch={handleSearchBar} /></div>
+          <div><SearchBar className="w-[100%] h-[45px]" placeholder="검색어를 입력해 주세요." onKeyDown={handleSearchBar} /></div>
           { searchResultCount() }
         </div>
         { showCardList() }
