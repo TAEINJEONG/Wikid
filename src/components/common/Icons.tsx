@@ -29,6 +29,7 @@ import GrayInfo from '@/assets/icons/GrayInfo.svg';
 import GreenCheck from '@/assets/icons/GreenCheck.svg';
 import GreenLink from '@/assets/icons/GreenLink.svg';
 import Dot from '@/assets/icons/dot.svg';
+import Wikied from '@/assets/icons/wikied.svg';
 
 interface IconProps {
   size?: number;
@@ -183,4 +184,8 @@ export const GreenLinkIcon = ({ size = 20, className, onClick }: IconProps) => (
 
 export const DotIcon = ({ className, onClick }: IconProps) => (
   <Dot width={20} height={4} className={className} onClick={onClick} />
+);
+
+export const WikiedIcon = ({ size = 20, className, onClick }: IconProps) => (
+  <Wikied width="71px" height={size} className={className} onClick={onClick} />
 );

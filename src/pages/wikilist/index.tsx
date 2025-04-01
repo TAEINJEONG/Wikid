@@ -35,7 +35,7 @@ const WikiList = () => {
       setInitialCardList(data.list);
       setTotalPage(Math.ceil(data.totalCount/3));
     } catch {
-      console.log("데이터 불러오기 실패");
+      alert("데이터 불러오기 실패");
     }
   }
 
@@ -44,7 +44,6 @@ const WikiList = () => {
   }
 
   function searchResultCount() {
-    console.log(keyWord);
     if(keyWord)
       return <span className="font-pre text-lg-r text-gray-400">“{keyWord}”님을 총 {cardList.length}명 찾았습니다.</span>
   }

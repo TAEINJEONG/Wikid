@@ -1,7 +1,6 @@
 import React from 'react';
 import Alram from '@/assets/images/alram.svg';
 import Bell from '@/assets/images/bell.svg';
-import BigestLandingPageBackground from '@/assets/images/bigest-landing-page-background.svg';
 import Chat from '@/assets/images/chat.svg';
 import Keyboard from '@/assets/images/keyboard.svg';
 import LandingPageBackground from '@/assets/images/landing-page-background.svg';
@@ -28,14 +27,6 @@ export const BellImage = ({
   className?: string;
   alt?: string;
 }) => <Bell className={className} aria-label={alt} />;
-
-export const BigestLandingPageBackgroundImage = ({
-  className = '',
-  alt = '',
-}: {
-  className?: string;
-  alt?: string;
-}) => <BigestLandingPageBackground className={className} aria-label={alt} />;
 
 export const ChatImage = ({
   className = '',
