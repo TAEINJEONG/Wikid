@@ -112,10 +112,9 @@ const WikiList = () => {
 
   return (
     <>
-      <div>헤더</div>
-      <div className="mt-[80px] mx-auto w-[859px] flex flex-col items-center border border-red-500">
-        <div className="flex flex-col gap-[16px] border border-yellow-500">
-          <div><SearchBar placeholder="검색어를 입력해 주세요." onSearch={handleSearchBar} /></div>
+      <div className="mt-[80px] mx-auto w-[859px] flex flex-col items-center">
+        <div className="flex flex-col w-[100%] gap-[16px]">
+          <div><SearchBar className="w-[100%] h-[45px]" placeholder="검색어를 입력해 주세요." onSearch={handleSearchBar} /></div>
           { searchResultCount() }
         </div>
         { showCardList() }
