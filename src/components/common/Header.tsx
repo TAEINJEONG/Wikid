@@ -168,10 +168,18 @@ const Header = () => {
             ref={menuRef}
             className="absolute top-13 right-0 w-[120px] h-[176px] rounded-md shadow-md bg-white py-4 flex flex-col items-center gap-4 md:hidden z-20"
           >
-            <Link href="/wikilist" onClick={() => setMenuOpen(false)}>
+            <Link
+              href="/wikilist"
+              onClick={() => setMenuOpen(false)}
+              className="hover:text-gray-400"
+            >
               위키목록
             </Link>
-            <Link href="/boards" onClick={() => setMenuOpen(false)}>
+            <Link
+              href="/boards"
+              onClick={() => setMenuOpen(false)}
+              className="hover:text-gray-400"
+            >
               자유게시판
             </Link>
             <button
@@ -179,10 +187,15 @@ const Header = () => {
                 setMenuOpen(false);
                 setNotificationOpen(true);
               }}
+              className="hover:text-gray-400 cursor-pointer"
             >
               알림 보기
             </button>
-            <Link href="/myPage" onClick={() => setMenuOpen(false)}>
+            <Link
+              href="/myPage"
+              onClick={() => setMenuOpen(false)}
+              className="hover:text-gray-400"
+            >
               마이페이지
             </Link>
           </div>
