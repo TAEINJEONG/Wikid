@@ -13,6 +13,7 @@ import { useAuthService } from '@/lib/hook/useAuthService';
 const Header = () => {
   const { logout } = useAuthService();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
 
@@ -26,11 +27,17 @@ const Header = () => {
         setIsLoggedIn(true);
       } catch {
         setIsLoggedIn(false);
+      } finally {
+        setIsLoading(false);
       }
     };
-
     checkLoggedIn();
   }, []);
+
+  if (isLoading)
+    return (
+      <div className="w-full h-[79px] bg-white shadow-sm border-b border-gray-100"></div>
+    );
 
   return (
     <header className="w-full h-[79px] bg-white shadow-sm border-b-[1px] border-gray-100">
@@ -100,7 +107,7 @@ const Header = () => {
               )}
             </>
           ) : (
-            <Link href="/login" className=" hover:bg-gray-100">
+            <Link href="/login" className="hover:text-gray-300 ">
               로그인
             </Link>
           )}
