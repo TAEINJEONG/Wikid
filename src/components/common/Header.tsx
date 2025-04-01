@@ -15,7 +15,7 @@ import {
 
 const Header = () => {
   const { logout } = useAuthService();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -40,12 +40,30 @@ const Header = () => {
           if (img) setProfileImage(img);
         }
       } catch {
-        setIsLoggedIn(false);
+        setProfileImage(null);
       } finally {
         setIsLoading(false);
       }
     };
-    checkLoggedIn();
+
+    fetchProfileImage();
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setProfileMenuOpen(false);
+      }
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   if (isLoading)
@@ -135,7 +153,7 @@ const Header = () => {
               )}
             </>
           ) : (
-            <Link href="/login" className="hover:text-gray-300 ">
+            <Link href="/login" className="hover:text-gray-300">
               로그인
             </Link>
           )}
@@ -169,7 +187,7 @@ const Header = () => {
                 setMenuOpen(false);
                 setNotificationOpen(true);
               }}
-              className="hover:text-gray-400 cursor-pointer"
+              className="cursor-pointer hover:text-gray-400"
             >
               알림 보기
             </button>
