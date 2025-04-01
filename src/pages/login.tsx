@@ -67,7 +67,6 @@ function Login() {
 
   return (
     <>
-      <div>헤더</div>
       <div className="mt-[261px] mx-auto w-[400px] flex flex-col items-center">
         <div className='mb-[50px] text-2xl-sb text-gray-500'>로그인</div>
         <div className="w-[100%] flex flex-col gap-[24px]">

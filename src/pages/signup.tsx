@@ -94,26 +94,24 @@ const SignUp = () => {
 
   return (
     <>
-    <div>헤더</div>
-    <div className="mt-[153px] mx-auto w-[400px] flex flex-col items-center">
-      <div className="mb-[64px] font-pre text-2xl-sb text-gray-500">회원가입</div>
-      <div className="w-[100%] flex flex-col items-center">
-        <div className="w-[100%] flex flex-col gap-[24px]">
-          <Input label="이름" width="100%" error={nameInputError.text} placeholder="이름을 입력해 주세요" onChange={changeName} onBlur={handleNameFocusOut} />
-          <Input label="이메일" width="100%" error={emailInputError.text} placeholder="이메일을 입력해 주세요" onChange={changeEmail} onBlur={handleEmailFocusOut} />
-          <Input label="비밀번호" width="100%" error={passwordInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePassword} onBlur={handlePasswordFocusOut} />
-          <Input label="비밀번호 확인" width="100%" error={passwordConfirmationInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePasswordConfirmation} onBlur={handlePasswordConfirmationFocusOut} />
-        </div>
-        <div className="mt-[32px] w-[100%]">
-          <Button variant="primary" className={"w-[100%] h-[45px]"} buttonText="가입하기" isDisabled={!isSignInfoInvalid} isloading={isLoading} onClick={btnClick}/>
-        </div>
-        <div className="mt-[40px] flex gap-[10px]">
-          <span className="font-pre text-md-r text-gray-400">이미 회원이신가요?</span>
-          <Link href="/login" className="font-pre text-md-r text-green-200">로그인하기</Link>
-        </div>
+      <div className="mt-[153px] mx-auto w-[400px] flex flex-col items-center">
+        <div className="mb-[64px] font-pre text-2xl-sb text-gray-500">회원가입</div>
+        <div className="w-[100%] flex flex-col items-center">
+          <div className="w-[100%] flex flex-col gap-[24px]">
+            <Input label="이름" width="100%" error={nameInputError.text} placeholder="이름을 입력해 주세요" onChange={changeName} onBlur={handleNameFocusOut} />
+            <Input label="이메일" width="100%" error={emailInputError.text} placeholder="이메일을 입력해 주세요" onChange={changeEmail} onBlur={handleEmailFocusOut} />
+            <Input label="비밀번호" width="100%" error={passwordInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePassword} onBlur={handlePasswordFocusOut} />
+            <Input label="비밀번호 확인" width="100%" error={passwordConfirmationInputError.text} placeholder="비밀번호를 입력해 주세요" isPassword={true} onChange={changePasswordConfirmation} onBlur={handlePasswordConfirmationFocusOut} />
+          </div>
+          <div className="mt-[32px] w-[100%]">
+            <Button variant="primary" className={"w-[100%] h-[45px]"} buttonText="가입하기" isDisabled={!isSignInfoInvalid} isloading={isLoading} onClick={btnClick}/>
+          </div>
+          <div className="mt-[40px] flex gap-[10px]">
+            <span className="font-pre text-md-r text-gray-400">이미 회원이신가요?</span>
+            <Link href="/login" className="font-pre text-md-r text-green-200">로그인하기</Link>
+          </div>
+        </div>  
       </div>
-      
-    </div>
     </>
   );
 }
