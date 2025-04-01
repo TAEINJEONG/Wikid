@@ -28,9 +28,7 @@ const Header = () => {
       } catch {
         setIsLoggedIn(false);
       } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1500);
+        setIsLoading(false);
       }
     };
     checkLoggedIn();
