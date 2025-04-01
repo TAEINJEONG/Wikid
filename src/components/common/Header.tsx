@@ -1,18 +1,20 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import axiosInstance from '@/lib/api/axios';
+import { useAuthService } from '@/lib/hook/useAuthService';
+import { useAuth } from '@/lib/context/authProvider';
 import { WikidmarkImage } from '@/components/common/Images';
+import Image from 'next/image';
 import {
   AlarmIcon,
   ProfileIcon,
   MenuIcon,
   WikiedIcon,
 } from '@/components/common/Icons';
-import { useState, useEffect } from 'react';
-import axiosInstance from '@/lib/api/axios';
-import { useAuthService } from '@/lib/hook/useAuthService';
 
 const Header = () => {
   const { logout } = useAuthService();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -22,28 +24,25 @@ const Header = () => {
   const toggleProfileMenu = () => setProfileMenuOpen((prev) => !prev);
 
   useEffect(() => {
-    const checkLoggedIn = async () => {
+    const fetchProfileImage = async () => {
       try {
-        const userRes = await axiosInstance.get('/users/me');
-        setIsLoggedIn(true);
-
-        const code = userRes.data?.profile?.code;
+        const { data: userData } = await axiosInstance.get('/users/me');
+        const code = userData?.profile?.code;
         if (code) {
-          const profileRes = await axiosInstance.get(`/profiles/${code}`);
-          const imageUrl = profileRes.data?.image;
-          if (imageUrl) {
-            setProfileImage(imageUrl);
-          }
+          const res = await axiosInstance.get(`/profiles/${code}`);
+          const img = res?.data?.image;
+          if (img) setProfileImage(img);
         }
       } catch {
-        setIsLoggedIn(false);
+        setProfileImage(null);
+        setIsLoading(true);
       } finally {
         setIsLoading(false);
       }
     };
 
-    checkLoggedIn();
-  }, []);
+    if (isLoggedIn) fetchProfileImage();
+  });
 
   if (isLoading)
     return (
@@ -79,11 +78,11 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-6">
-          {!isLoggedIn ? (
+          {isLoggedIn ? (
             <>
               <AlarmIcon size={24} className="cursor-pointer" />
               {profileImage ? (
-                <img
+                <Image
                   src={profileImage}
                   alt="프로필"
                   className="w-6 h-6 rounded-full cursor-pointer object-cover"
@@ -116,7 +115,7 @@ const Header = () => {
                   <button
                     onClick={() => {
                       logout();
-                      setIsLoggedIn(false);
+
                       setProfileMenuOpen(false);
                     }}
                     className="text-gray-400 hover:text-gray-300 bg-gray-50"
