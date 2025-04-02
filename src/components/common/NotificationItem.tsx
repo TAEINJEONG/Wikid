@@ -7,6 +7,7 @@ interface Props {
   notification: Notification;
   onDelete: (id: number) => void;
   profileCode: string;
+  onItemClick: () => void;
 }
 
 const getRelativeTime = (dateStr: string) => {
@@ -27,7 +28,12 @@ const getRelativeTime = (dateStr: string) => {
   return `${diffDays}일 전`;
 };
 
-const NotificationItem = ({ notification, onDelete, profileCode }: Props) => {
+const NotificationItem = ({
+  notification,
+  onDelete,
+  profileCode,
+  onItemClick,
+}: Props) => {
   const [isRead, setIsRead] = useState(false);
 
   useEffect(() => {
@@ -53,7 +59,10 @@ const NotificationItem = ({ notification, onDelete, profileCode }: Props) => {
   return (
     <Link href={`/wiki/${profileCode}`} passHref>
       <div
-        onClick={markAsRead}
+        onClick={() => {
+          markAsRead();
+          onItemClick();
+        }}
         className="w-full h-[90px] px-4 py-4 bg-gray-50 rounded-md shadow-sm flex justify-between items-start border border-gray-100 cursor-pointer"
       >
         <div className="text-[14px] font-normal leading-[22px] text-[#1b1b1b]">
