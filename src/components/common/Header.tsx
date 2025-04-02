@@ -106,13 +106,14 @@ const Header = () => {
                 className="cursor-pointer"
                 onClick={toggleNotificationModal}
               />
-              <div className="w-6 h-6 rounded-full cursor-pointer object-cover ">
+              <div className="w-6 h-6 rounded-full cursor-pointer">
                 {profileImage ? (
                   <Image
                     src={profileImage}
                     alt="프로필"
                     layout="fill"
-                    className="rounded-full cursor-pointer object-cover"
+                    objectFit="cover"
+                    className=" cursor-pointer"
                     onClick={toggleProfileMenu}
                   />
                 ) : (
