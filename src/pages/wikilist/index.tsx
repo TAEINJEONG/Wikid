@@ -38,7 +38,7 @@ const WikiList = () => {
     }
   }
 
-  const fetchSearchProfiles = useCallback(async () => {
+  const fetchSearchProfiles = useCallback(() => {
     if (keyWord === '') setCardList(initialCardList);
     else
       setCardList(
@@ -46,7 +46,7 @@ const WikiList = () => {
       );
   }, [initialCardList, keyWord]);
 
-  const searchResultCount = useCallback(async () => {
+  const searchResultCount = useCallback(() => {
     if (keyWord && cardList.length !== 0)
       return (
         <span className="font-pre text-lg-r text-gray-400">
@@ -111,7 +111,7 @@ const WikiList = () => {
         <div className="mt-[204px] flex flex-col items-center gap-[32px]">
           <div>
             <p className="font-pre text-xl-m text-gray-400">
-            &quot;{keyWord}&quot;과 일치하는 검색 결과가 없어요.
+              &quot;{keyWord}&quot;과 일치하는 검색 결과가 없어요.
             </p>
           </div>
           {GraySearchIcon({ size: 185 })}
