@@ -1,9 +1,9 @@
-import { GraySearchIcon } from "@/components/common/Icons";
-import Pagination from "@/components/common/Pagenation";
-import SearchBar from "@/components/common/SearchBar";
-import { Card } from "@/components/WikilistComponent";
-import axiosInstance from "@/lib/api/axios";
-import { useEffect, useState } from "react";
+import { GraySearchIcon } from '@/components/common/Icons';
+import Pagination from '@/components/common/Pagenation';
+import SearchBar from '@/components/common/SearchBar';
+import { Card } from '@/components/WikilistComponent';
+import axiosInstance from '@/lib/api/axios';
+import { useCallback, useEffect, useState } from 'react';
 
 interface cardProps {
   id: number;
@@ -46,10 +46,14 @@ const WikiList = () => {
       );
   }, [initialCardList, keyWord]);
 
-  function searchResultCount() {
-    if(keyWord && cardList.length !== 0)
-      return <span className="font-pre text-lg-r text-gray-400">&quot;{keyWord}&quot;님을 총 {cardList.length}명 찾았습니다.</span>
-  }
+  const searchResultCount = useCallback(async () => {
+    if (keyWord && cardList.length !== 0)
+      return (
+        <span className="font-pre text-lg-r text-gray-400">
+          &quot;{keyWord}&quot;님을 총 {cardList.length}명 찾았습니다.
+        </span>
+      );
+  }, [cardList.length, keyWord]);
 
   function handleSearchBar(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') setkeyWord(e.currentTarget.value);
