@@ -73,7 +73,7 @@ const WikiList = () => {
 
       return (
         <>
-          <div className="mt-[57px] h-[474px] flex flex-col gap-[24px]">
+          <div className="mt-[57px] w-[100%] h-[474px] flex flex-col gap-[24px]">
             {currentCardList.map((profile) => (
               <Card
                 key={profile.id}
@@ -85,9 +85,10 @@ const WikiList = () => {
               />
             ))}
           </div>
-          <div className="mt-[121px] mb-[136px]">
+          <div className="mt-[81px] mb-[229px] md:mt-[121px] md:mb-[136px]">
             { <Pagination totalPages={totalPage} currentPage={currentPage} onPageChange={handlePageChange} /> }
           </div>
+          <div className="card_layout_change"></div>
         </>
       );
     } else {
@@ -112,15 +113,15 @@ const WikiList = () => {
   },[])
 
   return (
-    <>
-      <div className="mt-[80px] mx-auto w-[859px] flex flex-col items-center">
-        <div className="flex flex-col w-[100%] gap-[16px]">
+    <div className="mt-[60px] px-[24px] w-[100%] md:mt-[80px] md:mx-auto md:w-[859px] md:px-[0px]">
+      <div className="w-[100%] flex flex-col items-center">
+        <div className="flex flex-col w-[100%] gap-[20px] md:gap-[16px]">
           <div><SearchBar className="w-[100%] h-[45px]" placeholder="검색어를 입력해 주세요." onKeyDown={handleSearchBar} /></div>
           { searchResultCount() }
         </div>
         { showCardList() }
       </div>
-    </>
+    </div>
   );
 }
 
