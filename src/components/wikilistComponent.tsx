@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { ProfileIcon } from './common/Icons';
 import Link from './common/Link';
 
@@ -13,7 +14,7 @@ interface cardProps {
 }
 
 export const Card = ({
-  width = '859px',
+  width = '100%',
   height = '142px',
   name,
   code,
@@ -22,6 +23,13 @@ export const Card = ({
   nationality,
   job,
 }: cardProps) => {
+  const router = useRouter();
+  const URL = `https://www.wikied.kr/(배포사이트)/${code}`;
+
+  function handLinkClick(){
+    router.push(URL);
+  }
+
   return (
     <div
       className="px-[36px] py-[24px] rounded-[10px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.08)] cursor-pointer"
@@ -41,11 +49,11 @@ export const Card = ({
           </div>
         </div>
         <div className="w-[70%] h-[100%] relative">
-          <div className="absolute bottom-0 right-0">
+          <div className="absolute bottom-0 right-0" onClick={handLinkClick}>
             { name ?
               <Link
-                url={`https://www.wikied.kr/(배포사이트)/${code}`}
-                text={`https://www.wikied.kr/(배포사이트)/${code}`}
+                url={URL}
+                text={URL}
               /> :
               null
             }
