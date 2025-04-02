@@ -283,7 +283,10 @@ const WikiPage = () => {
         </div>
 
         <div className="mb-3">
-          <Link url="www.naver.com" text="www.naver.com" />
+          <Link
+            url={`https://wikid-five.vercel.app/wiki/${id}`}
+            text={`https://wikid-five.vercel.app/wiki/${id}`}
+          />
         </div>
 
         <div className="flex-col justify-start rounded-10 bg-white sm:mb-8 xl:relative xl:ml-auto xl:flex xl:h-[671px] xl:w-[320px] bottom-[130px]">
