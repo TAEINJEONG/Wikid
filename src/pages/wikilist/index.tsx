@@ -12,6 +12,7 @@ interface cardProps {
   city: string;
   nationality: string;
   job: string;
+  image?: string;
 }
 
 const WikiList = () => {
@@ -82,6 +83,7 @@ const WikiList = () => {
                 city={profile.city}
                 nationality={profile.nationality}
                 job={profile.job}
+                image={profile.image}
               />
             ))}
           </div>
