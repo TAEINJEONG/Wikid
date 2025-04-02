@@ -6,6 +6,7 @@ import {
   setRefreshTokenCookie,
 } from '../config/settingToken';
 import { useAuth } from '../context/authProvider';
+import axios from 'axios';
 
 export function useAuthService() {
   const router = useRouter();
@@ -20,11 +21,11 @@ export function useAuthService() {
       setRefreshTokenCookie(refreshToken);
       setIsLoggedIn(true);
       router.push('/');
-    } catch (error: any) {
-      if (error.response) {
-        return error.response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return error.response?.data ?? { message: "Unknown error", statusCode: 500 };
       } else {
-        return error.message;
+        return (error as Error).message;
       }
     }
   }
