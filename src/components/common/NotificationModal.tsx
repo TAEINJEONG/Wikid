@@ -90,6 +90,7 @@ const NotificationModal = ({ onClose, profileCode }: Props) => {
                 notification={n}
                 onDelete={handleDelete}
                 profileCode={profileCode}
+                onItemClick={onClose}
               />
             ))}
           </div>

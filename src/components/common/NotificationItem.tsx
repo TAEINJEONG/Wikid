@@ -1,11 +1,13 @@
 import { Notification } from '@/lib/hook/useNotification';
 import { CloseIcon } from './Icons';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface Props {
   notification: Notification;
   onDelete: (id: number) => void;
   profileCode: string;
+  onItemClick: () => void;
 }
 
 const getRelativeTime = (dateStr: string) => {
@@ -26,18 +28,63 @@ const getRelativeTime = (dateStr: string) => {
   return `${diffDays}일 전`;
 };
 
-const NotificationItem = ({ notification, onDelete, profileCode }: Props) => {
+const NotificationItem = ({
+  notification,
+  onDelete,
+  profileCode,
+  onItemClick,
+}: Props) => {
+  const [isRead, setIsRead] = useState(false);
+
+  useEffect(() => {
+    const readNotification = JSON.parse(
+      localStorage.getItem('readNotification') || '[]'
+    );
+    setIsRead(readNotification.includes(notification.id));
+  }, [notification.id]);
+
+  const markAsRead = () => {
+    if (!isRead) {
+      const readNotification = JSON.parse(
+        localStorage.getItem('readNotification') || '[]'
+      );
+      if (!readNotification.includes(notification.id)) {
+        const newRead = [...readNotification, notification.id];
+        localStorage.setItem('readNotification', JSON.stringify(newRead));
+        setIsRead(true);
+      }
+    }
+  };
+
   return (
     <Link href={`/wiki/${profileCode}`} passHref>
-      <div className="w-full h-[90px] px-4 py-4 bg-gray-50 rounded-md shadow-sm flex justify-between items-start border border-gray-100 cursor-pointer">
+      <div
+        onClick={() => {
+          markAsRead();
+          onItemClick();
+        }}
+        className="w-full h-[90px] px-4 py-4 bg-gray-50 rounded-md shadow-sm flex justify-between items-start border border-gray-100 cursor-pointer"
+      >
         <div className="text-[14px] font-normal leading-[22px] text-[#1b1b1b]">
-          <p className="py-1">{notification.content}</p>
-          <p className="text-xs text-[#a4a1aa] mt-1">
-            {getRelativeTime(notification.createdAt)}
-          </p>
+          <div className="flex flex-col">
+            <div className="flex items-center mb-1">
+              <div
+                className={`w-2 h-2 rounded-full mr-2 ${isRead ? 'bg-gray-400' : 'bg-red-500'}`}
+              />
+
+              <p className="py-1">{notification.content}</p>
+            </div>
+            <p className="text-xs text-[#a4a1aa] mt-1">
+              {getRelativeTime(notification.createdAt)}
+            </p>
+          </div>
         </div>
+
         <button
-          onClick={() => onDelete(notification.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(notification.id);
+          }}
           className="cursor-pointer "
         >
           <CloseIcon size={20} />
