@@ -1,7 +1,7 @@
 import { GraySearchIcon } from '@/components/common/Icons';
 import Pagination from '@/components/common/Pagenation';
 import SearchBar from '@/components/common/SearchBar';
-import { Card } from '@/components/WikilistComponent';
+import { Card } from '@/components/wikilistComponent';
 import axiosInstance from '@/lib/api/axios';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -111,7 +111,7 @@ const WikiList = () => {
         <div className="mt-[204px] flex flex-col items-center gap-[32px]">
           <div>
             <p className="font-pre text-xl-m text-gray-400">
-              "{keyWord}"과 일치하는 검색 결과가 없어요.
+            &quot;{keyWord}&quot;과 일치하는 검색 결과가 없어요.
             </p>
           </div>
           {GraySearchIcon({ size: 185 })}
