@@ -26,14 +26,15 @@ export const Card = ({
   const router = useRouter();
   const URL = `https://www.wikied.kr/(배포사이트)/${code}`;
 
-  function handLinkClick(){
-    router.push(URL);
+  function handleClickCard() {
+    router.push(`/wiki/${code}`);
   }
 
   return (
     <div
       className="px-[36px] py-[24px] rounded-[10px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.08)] cursor-pointer"
       style={{ width, height }}
+      onClick={handleClickCard}
     >
       <div className="w-[100%] h-[100%] flex">
         <div className="w-[30%] h-[100%] flex gap-[32px]">
@@ -49,7 +50,7 @@ export const Card = ({
           </div>
         </div>
         <div className="w-[70%] h-[100%] relative">
-          <div className="absolute bottom-0 right-0" onClick={handLinkClick}>
+          <div className="absolute bottom-0 right-0">
             { name ?
               <Link
                 url={URL}
