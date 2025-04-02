@@ -24,6 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (getToken('accessToken')) {
       if (!isLoggedIn) {
         setIsLoggedIn(true);
+        console.log('테스트');
       }
     } else {
       const refreshToken = getToken('refreshToken');
