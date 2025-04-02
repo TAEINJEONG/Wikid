@@ -111,7 +111,9 @@ const Header = () => {
                 <Image
                   src={profileImage}
                   alt="프로필"
-                  className="w-6 h-6 rounded-full cursor-pointer object-cover"
+                  width={24}
+                  height={24}
+                  className="rounded-full cursor-pointer object-cover"
                   onClick={toggleProfileMenu}
                 />
               ) : (
