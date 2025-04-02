@@ -6,6 +6,7 @@ import LandingBackground from '@/assets/images/lading-background.png';
 import BigestLandingImage from '@/assets/images/bigestLandingImage.png';
 // 만약 PNG나 다른 포맷은 Next/Image를 사용합니다.
 import Image from 'next/image';
+import Link from 'next/link';
 
 const FirstLandingSection = () => {
   const { ref: firstRef, inView: firstInView } = useInView({ threshold: 0.3 });
@@ -22,9 +23,11 @@ const FirstLandingSection = () => {
           <h1 className="text-[60px] md:text-[90px] font-[700] mb-10">
             나만의 위키
           </h1>
-          <button className="bg-gray-500 text-xl-b text-white py-[15px] px-[30px] cursor-pointer rounded-[15px]">
-            위키 만들기
-          </button>
+          <Link href="/myPage">
+            <button className="bg-gray-500 text-xl-b text-white py-[15px] px-[30px] cursor-pointer rounded-[15px]">
+              위키 만들기
+            </button>
+          </Link>
         </div>
 
         <div

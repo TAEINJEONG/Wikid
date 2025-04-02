@@ -24,6 +24,7 @@ import { CommentsListResponse } from '@/types/Comment';
 import ImageUploadModal from '@/components/Boards/ImageUploadModal';
 import Button from '@/components/common/Button';
 import Link from 'next/link';
+import { useSnackbar } from '@/lib/context/SnackbarContext';
 
 interface User {
   id: number;
@@ -40,6 +41,7 @@ interface User {
 const Board = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { showSnackbar } = useSnackbar();
   const [editArticle, setEditArticle] = useState<CreateArticle>({
     image: '',
     content: '',
@@ -154,6 +156,11 @@ const Board = () => {
       const res = await axiosInstance.patch(`/articles/${id}`, EditArticle);
       setArticleData(res.data);
       setEditMode(false);
+      showSnackbar('게시글이 수정되었습니다!', {
+        type: 'green',
+        position: 'top',
+        size: 'large',
+      });
     } catch (e) {
       console.log(e);
     }
@@ -163,6 +170,11 @@ const Board = () => {
     try {
       await axiosInstance.delete(`/articles/${id}`);
       router.push('/boards');
+      showSnackbar('게시글이 삭제되었습니다!', {
+        type: 'green',
+        position: 'top',
+        size: 'large',
+      });
     } catch (e) {
       console.log(e);
     }
