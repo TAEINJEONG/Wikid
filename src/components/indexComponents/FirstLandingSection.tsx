@@ -20,7 +20,7 @@ const FirstLandingSection = () => {
       <div className="h-[502px] md:h-[784px] xl:h-[713px] relative z-9">
         <div className="max-w-md mx-auto text-center text-gray-500 pt-25 md:pt-30">
           <p className="text-[40px] md:text-[60px] font-[300]">남들이 만드는</p>
-          <h1 className="text-[60px] md:text-[90px] font-[700] mb-10">
+          <h1 className="text-[60px] md:text-[90px] font-[700] mb-10 text-nowrap">
             나만의 위키
           </h1>
           <Link href="/myPage">
