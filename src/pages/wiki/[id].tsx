@@ -252,7 +252,7 @@ const WikiPage = () => {
     }
   }, [editor, profileData]);
 
-  const identityProof = userData?.profile.code === id;
+  const identityProof = userData?.profile?.code === id;
 
   return (
     <div className="relative p-5 py-10 xl:py-[78px]">

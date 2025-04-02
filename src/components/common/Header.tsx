@@ -21,6 +21,7 @@ const Header = () => {
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
   const [isNotificationOpen, setNotificationOpen] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileCode, setProfileCode] = useState<string | null>(null);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleProfileMenu = () => setProfileMenuOpen((prev) => !prev);
@@ -35,6 +36,7 @@ const Header = () => {
         const { data: userData } = await axiosInstance.get('/users/me');
         const code = userData?.profile?.code;
         if (code) {
+          setProfileCode(code);
           const res = await axiosInstance.get(`/profiles/${code}`);
           const img = res?.data?.image;
           if (img) setProfileImage(img);
@@ -113,7 +115,7 @@ const Header = () => {
                     alt="프로필"
                     layout="fill"
                     objectFit="cover"
-                    className=" cursor-pointer"
+                    className=" cursor-pointer rounded-full"
                     onClick={toggleProfileMenu}
                   />
                 ) : (
@@ -137,7 +139,7 @@ const Header = () => {
                     계정 설정
                   </Link>
                   <Link
-                    href="/wiki[id]"
+                    href={`/wiki/${profileCode}`}
                     onClick={() => setProfileMenuOpen(false)}
                     className="hover:text-gray-400"
                   >
