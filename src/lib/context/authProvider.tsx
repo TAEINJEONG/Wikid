@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import axiosInstance from "../api/axios";
 import { useRouter } from "next/router";
 import { getToken, setAccessTokenCookie } from "../config/settingToken";
@@ -14,7 +14,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleRouteMove = () => {
+  const handleRouteMove = useCallback(() => {
     if( getToken("accessToken") ) {
       if (!isLoggedIn) { 
         setIsLoggedIn(true);
@@ -36,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsLoggedIn(false);
       }
     }
-  }
+  }, [])
 
   useEffect(() => {
     router.events.on("routeChangeComplete",handleRouteMove);
@@ -45,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       router.events.off("routeChangeComplete", handleRouteMove);
     };
-  },[router])
+  },[router, handleRouteMove]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
