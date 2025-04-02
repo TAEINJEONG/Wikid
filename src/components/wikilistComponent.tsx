@@ -26,14 +26,11 @@ export const Card = ({
 }: cardProps) => {
   const router = useRouter();
   const URL = `https://www.wikied.kr/(배포사이트)/${code}`;
-
-  if(image && image.includes("example"))
-    image='';
+  const imageUrl = image && image.includes("example") ? '' : image;
 
   function handleClickCard() {
     router.push(`/wiki/${code}`);
   }
-  console.log(image);
 
   return (
     <div
@@ -44,8 +41,8 @@ export const Card = ({
       <div className="w-[100%] h-[100%] flex">
         <div className="w-[30%] h-[100%] flex gap-[32px]">
           <div className="w-[85px] h-[85px]">
-            { image ? 
-              <div className='relative w-[85px] h-[85px]  rounded-[99px] overflow-hidden'><Image src={image} alt="profile_image" layout="fill"/></div> : 
+            { imageUrl ? 
+              <div className='relative w-[85px] h-[85px]  rounded-[99px] overflow-hidden'><Image src={imageUrl} alt="profile_image" layout="fill"/></div> : 
               ProfileIcon({ size: 85 }) 
             }</div>
           <div className="flex flex-col gap-[14px]">
