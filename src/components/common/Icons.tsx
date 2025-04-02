@@ -30,6 +30,7 @@ import GreenCheck from '@/assets/icons/GreenCheck.svg';
 import GreenLink from '@/assets/icons/GreenLink.svg';
 import Dot from '@/assets/icons/dot.svg';
 import Wikied from '@/assets/icons/wikied.svg';
+import BlackClose from '@/assets/icons/Blackclose.svg';
 import GraySearch from '@/assets/images/search.svg';
 
 interface IconProps {
@@ -197,6 +198,19 @@ export const GraySearchIcon = ({
   onClick,
 }: IconProps) => (
   <GraySearch
+    width={size}
+    height={size}
+    className={className}
+    onClick={onClick}
+  />
+);
+
+export const BlackCloseIcon = ({
+  size = 24,
+  className,
+  onClick,
+}: IconProps) => (
+  <BlackClose
     width={size}
     height={size}
     className={className}
