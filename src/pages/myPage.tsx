@@ -151,7 +151,7 @@ export default function MyPage() {
             />
 
             <Input
-              placeholder="질문을 입력해 주세요"
+              placeholder="답을 입력해 주세요"
               className="w-full h-[45px] text-[14px] rounded-[10px] mb-4"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
