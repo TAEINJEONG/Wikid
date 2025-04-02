@@ -1,7 +1,13 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import axiosInstance from "../api/axios";
-import { useRouter } from "next/router";
-import { getToken, setAccessTokenCookie } from "../config/settingToken";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import axiosInstance from '../api/axios';
+import { useRouter } from 'next/router';
+import { getToken, setAccessTokenCookie } from '../config/settingToken';
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -15,37 +21,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const handleRouteMove = useCallback(() => {
-    if( getToken("accessToken") ) {
-      if (!isLoggedIn) { 
+    if (getToken('accessToken')) {
+      if (!isLoggedIn) {
         setIsLoggedIn(true);
       }
-    }
-    else
-    {
-      const refreshToken = getToken("refreshToken");
+    } else {
+      const refreshToken = getToken('refreshToken');
 
-      if(refreshToken) {
-        (async() => {
-          const { data } = await axiosInstance.post('/auth/refresh-token', { refreshToken });
-          const newAccessToken = data.accessToken;        
+      if (refreshToken) {
+        (async () => {
+          const { data } = await axiosInstance.post('/auth/refresh-token', {
+            refreshToken,
+          });
+          const newAccessToken = data.accessToken;
           setAccessTokenCookie(newAccessToken);
           setIsLoggedIn(true);
         })();
-      }
-      else {
+      } else {
         setIsLoggedIn(false);
       }
     }
-  }, [])
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    router.events.on("routeChangeComplete",handleRouteMove);
+    router.events.on('routeChangeComplete', handleRouteMove);
     handleRouteMove();
 
     return () => {
-      router.events.off("routeChangeComplete", handleRouteMove);
+      router.events.off('routeChangeComplete', handleRouteMove);
     };
-  },[router, handleRouteMove]);
+  }, [router, handleRouteMove]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -57,7 +62,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth는 AuthProvider 내부에서만 사용해야 합니다.");
+    throw new Error('useAuth는 AuthProvider 내부에서만 사용해야 합니다.');
   }
   return context;
 }
