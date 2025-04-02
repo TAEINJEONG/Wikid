@@ -15,12 +15,12 @@ export interface Notification {
 //   },
 //   {
 //     id: 2,
-//     content: '테스트 알림 2',
+//     content: '내 위키가 수정되었습니다',
 //     createdAt: new Date().toISOString(),
 //   },
 //   {
 //     id: 3,
-//     content: '테스트 알림 3',
+//     content: '비~~~~상!',
 //     createdAt: new Date().toISOString(),
 //   },
 // ];
