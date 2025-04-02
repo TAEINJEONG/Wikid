@@ -47,6 +47,7 @@ function Login() {
   }
 
   function handleEmailFocusOut() {
+    console.log('테스트');
     if (emailInputError.error)
       setEmailInputError((prev) => ({
         ...prev,
