@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from '@/components/common/Button';
 import { useSnackbar } from '@/lib/context/SnackbarContext';
+import Head from 'next/head';
 
 interface User {
   id: number;
@@ -130,68 +131,74 @@ const AddBoard = () => {
   };
 
   return (
-    <div className="md:py-10 md:px-[30px]">
-      <div
-        className="h-fit max-w-[1060px] mx-auto md:shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-[10px] py-8 px-5
+    <>
+      <Head>
+        <title>게시글 생성</title>
+      </Head>
+
+      <div className="md:py-10 md:px-[30px]">
+        <div
+          className="h-fit max-w-[1060px] mx-auto md:shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-[10px] py-8 px-5
         md:pt-[46px] md:pl-[30px] md:pr-[30px] md:pb-[30px]
         mb-8 md:mb-10 xl:mb-[23px]"
-      >
-        <div>
-          <div className="mb-[20px]">
-            <div className="flex items-center justify-between mb-4 md:mb-6">
-              <p className="text-gray-500 text-lg-sb md:text-xl-sb xl:text-2xl-sb">
-                게시물 등록하기
-              </p>
-              <Button
-                buttonText="등록하기"
-                onClick={CreateArticle}
-                className="px-3 py-2 md:px-[45px] md:py-[10px] rounded-[10px] text-md-sb"
-                isDisabled={
-                  !articleTitle.trim() || !hasMeaningfulContent(content)
-                }
+        >
+          <div>
+            <div className="mb-[20px]">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <p className="text-gray-500 text-lg-sb md:text-xl-sb xl:text-2xl-sb">
+                  게시물 등록하기
+                </p>
+                <Button
+                  buttonText="등록하기"
+                  onClick={CreateArticle}
+                  className="px-3 py-2 md:px-[45px] md:py-[10px] rounded-[10px] text-md-sb"
+                  isDisabled={
+                    !articleTitle.trim() || !hasMeaningfulContent(content)
+                  }
+                />
+              </div>
+              <div className="flex items-center text-gray-400 text-xs-r md:text-lg-r">
+                <p className="mr-[10px]">{user?.name}</p>
+                <p>{getFormattedDate()}</p>
+              </div>
+            </div>
+            <div className="flex items-center w-full py-3 mb-4 border-gray-200 border-t-1 border-b-1">
+              <input
+                className="w-full outline-none placeholder:text-lg-m placeholder:gray-400 caret-green-300 md:text-xl-m article-title-input"
+                placeholder="제목을 입력해주세요"
+                value={articleTitle}
+                onChange={handleArticleTitle}
               />
-            </div>
-            <div className="flex items-center text-gray-400 text-xs-r md:text-lg-r">
-              <p className="mr-[10px]">{user?.name}</p>
-              <p>{getFormattedDate()}</p>
-            </div>
-          </div>
-          <div className="flex items-center w-full py-3 mb-4 border-gray-200 border-t-1 border-b-1">
-            <input
-              className="w-full outline-none placeholder:text-lg-m placeholder:gray-400 caret-green-300 md:text-xl-m article-title-input"
-              placeholder="제목을 입력해주세요"
-              value={articleTitle}
-              onChange={handleArticleTitle}
-            />
-            <div className="text-[13px] text-gray-500 flex items-center">
-              <p>{articleTitle.length}/</p>
-              <p className="text-green-200">30</p>
+              <div className="text-[13px] text-gray-500 flex items-center">
+                <p>{articleTitle.length}/</p>
+                <p className="text-green-200">30</p>
+              </div>
             </div>
           </div>
+
+          <TextEditor
+            content={content ?? ''}
+            onChange={onEditorChange}
+            openModal={() => setIsModalOpen(true)}
+            onEditorReady={(editorInstance) => setEditor(editorInstance)}
+          />
         </div>
 
-        <TextEditor
-          content={content ?? ''}
-          onChange={onEditorChange}
-          openModal={() => setIsModalOpen(true)}
-          onEditorReady={(editorInstance) => setEditor(editorInstance)}
-        />
-      </div>
+        <div className="flex justify-center">
+          <Link href="/boards">
+            <Button
+              buttonText="목록으로"
+              variant="secondary"
+              className="py-[10px] px-[45px] text-md-sb"
+            />
+          </Link>
+        </div>
 
-      <div className="flex justify-center">
-        <Link href="/boards">
-          <Button
-            buttonText="목록으로"
-            variant="secondary"
-            className="py-[10px] px-[45px] text-md-sb"
-          />
-        </Link>
+        {isOpenModal && (
+          <ImageUploadModal onClick={updateImage} onClose={onClose} />
+        )}
       </div>
-
-      {isOpenModal && (
-        <ImageUploadModal onClick={updateImage} onClose={onClose} />
-      )}
-    </div>
+    </>
   );
 };
 
