@@ -106,7 +106,7 @@ const Header = () => {
                 className="cursor-pointer"
                 onClick={toggleNotificationModal}
               />
-              <div className="w-6 h-6 rounded-full cursor-pointer">
+              <div className="w-6 h-6 rounded-full  relative cursor-pointer">
                 {profileImage ? (
                   <Image
                     src={profileImage}
