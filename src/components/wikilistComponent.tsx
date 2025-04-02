@@ -25,7 +25,7 @@ export const Card = ({
   job,
 }: cardProps) => {
   const router = useRouter();
-  const URL = `https://www.wikied.kr/(배포사이트)/${code}`;
+  const URL = `https://wikid-five.vercel.app/wiki/${code}`;
 
   if(image && image.includes("example"))
     image='';
