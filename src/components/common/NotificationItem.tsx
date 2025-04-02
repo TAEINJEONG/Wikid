@@ -81,7 +81,10 @@ const NotificationItem = ({
         </div>
 
         <button
-          onClick={() => onDelete(notification.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(notification.id);
+          }}
           className="cursor-pointer "
         >
           <CloseIcon size={20} />
