@@ -207,7 +207,10 @@ const Header = () => {
         )}
 
         {isNotificationOpen && (
-          <NotificationModal onClose={toggleNotificationModal} />
+          <NotificationModal
+            onClose={toggleNotificationModal}
+            profileCode={profileCode!}
+          />
         )}
       </div>
     </header>

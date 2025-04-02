@@ -6,9 +6,10 @@ import { BlackCloseIcon } from '@/components/common/Icons';
 
 interface Props {
   onClose: () => void;
+  profileCode: string;
 }
 
-const NotificationModal = ({ onClose }: Props) => {
+const NotificationModal = ({ onClose, profileCode }: Props) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const { getNotifications, deleteNotification } = useNotification();
   const { showSnackbar } = useSnackbar();
@@ -88,6 +89,7 @@ const NotificationModal = ({ onClose }: Props) => {
                 key={n.id}
                 notification={n}
                 onDelete={handleDelete}
+                profileCode={profileCode}
               />
             ))}
           </div>

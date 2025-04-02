@@ -1,9 +1,11 @@
 import { Notification } from '@/lib/hook/useNotification';
 import { CloseIcon } from './Icons';
+import Link from 'next/link';
 
 interface Props {
   notification: Notification;
   onDelete: (id: number) => void;
+  profileCode: string;
 }
 
 const getRelativeTime = (dateStr: string) => {
@@ -24,22 +26,24 @@ const getRelativeTime = (dateStr: string) => {
   return `${diffDays}일 전`;
 };
 
-const NotificationItem = ({ notification, onDelete }: Props) => {
+const NotificationItem = ({ notification, onDelete, profileCode }: Props) => {
   return (
-    <div className="w-full h-[90px] px-4 py-4 bg-gray-50 rounded-md shadow-sm flex justify-between items-start border border-gray-100 cursor-pointer">
-      <div className="text-[14px] font-normal leading-[22px] text-[#1b1b1b]">
-        <p className="py-1">{notification.content}</p>
-        <p className="text-xs text-[#a4a1aa] mt-1">
-          {getRelativeTime(notification.createdAt)}
-        </p>
+    <Link href={`/wiki/${profileCode}`} passHref>
+      <div className="w-full h-[90px] px-4 py-4 bg-gray-50 rounded-md shadow-sm flex justify-between items-start border border-gray-100 cursor-pointer">
+        <div className="text-[14px] font-normal leading-[22px] text-[#1b1b1b]">
+          <p className="py-1">{notification.content}</p>
+          <p className="text-xs text-[#a4a1aa] mt-1">
+            {getRelativeTime(notification.createdAt)}
+          </p>
+        </div>
+        <button
+          onClick={() => onDelete(notification.id)}
+          className="cursor-pointer "
+        >
+          <CloseIcon size={20} />
+        </button>
       </div>
-      <button
-        onClick={() => onDelete(notification.id)}
-        className="cursor-pointer "
-      >
-        <CloseIcon size={20} />
-      </button>
-    </div>
+    </Link>
   );
 };
 
