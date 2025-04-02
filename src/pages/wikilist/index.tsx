@@ -32,6 +32,7 @@ const WikiList = () => {
       setCardList(data.list);
       setInitialCardList(data.list);
       setTotalPage(Math.ceil(data.totalCount / 3));
+      console.log();
     } catch {
       alert('데이터 불러오기 실패');
     }
