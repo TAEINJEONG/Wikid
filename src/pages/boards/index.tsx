@@ -172,7 +172,7 @@ const Boards = () => {
                   {article.likeCount}
                 </td>
                 <td className="py-3 text-gray-500 border-gray-200 text-lg-r border-b-1">
-                  {new Date(article.updatedAt ?? '').toLocaleDateString(
+                  {new Date(article.createdAt ?? '').toLocaleDateString(
                     'ko-KR',
                     {
                       year: 'numeric',
